@@ -1,0 +1,103 @@
+/* Window.css */
+.retro-window {
+  background-color: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  min-width: 300px;
+  min-height: 200px;
+  font-family: "MS Sans Serif", sans-serif;
+  font-size: 12px;
+}
+
+.window-title-bar {
+  background-color: #0000a8;
+  color: white;
+  padding: 4px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+  border-bottom: 1px solid #000080;
+}
+
+.window-title {
+  padding-left: 2px;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Chicago", sans-serif;
+}
+
+.window-close-button {
+  background-color: #c0c0c0;
+  border: 1px outset #c0c0c0;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  padding: 0;
+  line-height: 1;
+  font-family: "Chicago", sans-serif;
+}
+
+.window-close-button:hover {
+  background-color: #d4d4d4;
+}
+
+.window-close-button:active {
+  border: 1px inset #c0c0c0;
+  background-color: #b0b0b0;
+}
+
+.window-content {
+  padding: 0 16px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #808080;
+  min-height: 150px;
+  overflow: auto;
+  font-family: "MS Sans Serif", sans-serif;
+}
+
+/* Prevent text selection while dragging */
+.retro-window.dragging {
+  user-select: none;
+}
+
+/* Scrollbar styling for retro look */
+.window-content::-webkit-scrollbar {
+  width: 16px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: #808080;
+  border: 1px outset #808080;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: #909090;
+}
+
+/* Additional button styling for consistency */
+button,
+.button {
+  font-family: "Chicago", sans-serif; /* Chicago for all buttons */
+}
+
+/* Text elements should use MS Sans Serif */
+p,
+span,
+div,
+label,
+input,
+textarea {
+  font-family: "MS Sans Serif", sans-serif;
+}

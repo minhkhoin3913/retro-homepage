@@ -1,30 +1,35 @@
-
 // src/components/Desktop.jsx
 import React, { useState, useEffect } from 'react';
 import Icon from './Icon';
 import Window from './Window';
 import '../css/Desktop.css';
 
+// Import your icons properly
+import aboutIcon from '../assets/icons/PROGM009.png';
+import projectsIcon from '../assets/icons/WINFI001.png';
+import contactIcon from '../assets/icons/PROGM026.png';
+import defaultIcon from '../assets/icons/PROGM027.PNG';
+
 const desktopIcons = [
   { 
     id: 'about', 
     label: 'About Me',
-    iconSrc: 'src/assets/icons/PROGM009.png' // Custom icon path
+    iconSrc: aboutIcon // Use imported icon
   },
   { 
     id: 'projects', 
     label: 'Projects',
-    iconSrc: 'src/assets/icons/WINFI001.png' // Custom icon path
+    iconSrc: projectsIcon // Use imported icon
   },
   { 
     id: 'contact', 
     label: 'Contact',
-    iconSrc: 'src/assets/icons/PROGM026.png' // Custom icon path
+    iconSrc: contactIcon // Use imported icon
   },
   { 
     id: 'welcome', 
-    label: 'Welcome'
-    // No iconSrc specified - will use default placeholder
+    label: 'Welcome',
+    iconSrc: defaultIcon // Use imported default icon
   },
 ];
 
@@ -52,8 +57,9 @@ const Desktop = () => {
   // Play startup sound after user interaction
   useEffect(() => {
     const playStartupSound = () => {
-      // Try to play the startup sound
-      const audio = new Audio('src/assets/sounds/startup.wav');
+      // Try to play the startup sound - use imported audio or public folder
+      // For audio files, consider using the public folder and reference with base URL
+      const audio = new Audio(import.meta.env.BASE_URL + 'sounds/startup.wav');
       audio.volume = 0.5;
       
       audio.play().then(() => {

@@ -1,6 +1,7 @@
-
 import React, { useState, useRef } from 'react';
 import "../css/Icon.css";
+// Import default icon
+import defaultIcon from '../assets/icons/PROGM027.PNG';
 
 const Icon = ({ id, label, iconSrc, onDoubleClick, position, onPositionChange, isSelected, onSelect }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -83,12 +84,12 @@ const Icon = ({ id, label, iconSrc, onDoubleClick, position, onPositionChange, i
     >
       <div className="icon-image">
         <img 
-          src={iconSrc || "src/assets/icons/PROGM027.PNG"} 
+          src={iconSrc || defaultIcon} 
           alt={label}
           onError={(e) => {
             // Fallback to default icon if custom icon fails to load
-            if (e.target.src !== "src/assets/icons/PROGM027.PNG") {
-              e.target.src = "src/assets/icons/PROGM027.PNG";
+            if (e.target.src !== defaultIcon) {
+              e.target.src = defaultIcon;
             }
           }}
         />

@@ -1,65 +1,76 @@
-/* Window.css */
+/* Window.css - Streamlined */
+/* Common font family used throughout */
+:root {
+  --main-font: "MS Sans Serif", "Tahoma", sans-serif;
+  --title-font: "Chicago", sans-serif;
+  --border-dark: #84888c;
+  --border-light: #fcfcfc;
+}
+
+/* Global font settings for text elements */
+p, span, div, label, input, textarea {
+  font-family: var(--main-font);
+}
+
 .retro-window {
-  background-color: #c0c0c0;
-  border: 2px outset #c0c0c0;
+  background-color: #fcfcfc;
+  border: 2px solid #000000;
+  outline: 3px solid #c0c4c8;
+  box-shadow: 0 0 0 5px #000000;
   min-width: 300px;
   min-height: 200px;
-  font-family: "MS Sans Serif", sans-serif;
+  font-family: var(--main-font);
   font-size: 12px;
 }
 
 .window-title-bar {
   background-color: #0000a8;
+  border-bottom: 2px solid #000000;
   color: white;
-  padding: 4px 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: move;
-  user-select: none;
-  border-bottom: 1px solid #000080;
+  position: relative;
 }
 
 .window-title {
-  padding-left: 2px;
+  padding: 4px;
   font-weight: bold;
   font-size: 14px;
-  font-family: "Chicago", sans-serif;
+  font-family: var(--title-font);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .window-close-button {
   background-color: #c0c0c0;
-  border: 1px outset #c0c0c0;
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
-  font-weight: bold;
+  border-right: 2px solid var(--border-dark);
+  border-bottom: 2px solid var(--border-dark);
+  border-left: 2px solid var(--border-light);
+  border-top: 2px solid var(--border-light);
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: black;
-  padding: 0;
-  line-height: 1;
-  font-family: "Chicago", sans-serif;
-}
-
-.window-close-button:hover {
-  background-color: #d4d4d4;
+  font-family: var(--title-font);
 }
 
 .window-close-button:active {
-  border: 1px inset #c0c0c0;
-  background-color: #b0b0b0;
+  border-right: none;
+  border-bottom: none;
+  border-left: 2px solid var(--border-dark);
+  border-top: 2px solid var(--border-dark);
 }
 
 .window-content {
   padding: 0 16px;
-  background-color: #c0c0c0;
-  border-top: 2px solid #808080;
   min-height: 150px;
   overflow: auto;
-  font-family: "MS Sans Serif", sans-serif;
 }
 
 /* Prevent text selection while dragging */
@@ -84,20 +95,4 @@
 
 .window-content::-webkit-scrollbar-thumb:hover {
   background: #909090;
-}
-
-/* Additional button styling for consistency */
-button,
-.button {
-  font-family: "Chicago", sans-serif; /* Chicago for all buttons */
-}
-
-/* Text elements should use MS Sans Serif */
-p,
-span,
-div,
-label,
-input,
-textarea {
-  font-family: "MS Sans Serif", sans-serif;
 }

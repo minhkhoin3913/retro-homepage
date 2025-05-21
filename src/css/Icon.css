@@ -20,11 +20,6 @@
   background-color: transparent;
 }
 
-/* Add hover effect  for non-selected icons */
-.retro-icon:hover:not(.selected) {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 /* Visual feedback when dragging */
 .retro-icon:active {
 

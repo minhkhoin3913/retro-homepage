@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import "../css/Icon.css";
 // Import default icon
-import defaultIcon from '../assets/icons/PROGM027.PNG';
+import defaultIcon from '../assets/icons/PROGM027.png';
 
 const Icon = ({ id, label, iconSrc, onDoubleClick, position, onPositionChange, isSelected, onSelect }) => {
   const [isDragging, setIsDragging] = useState(false);

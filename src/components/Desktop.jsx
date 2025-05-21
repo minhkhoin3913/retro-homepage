@@ -5,10 +5,10 @@ import Window from './Window';
 import '../css/Desktop.css';
 
 // Import your icons properly
-import aboutIcon from '../assets/icons/PROGM009.png';
+import aboutIcon from '../assets/icons/WINHE002.png';
 import projectsIcon from '../assets/icons/WINFI001.png';
 import contactIcon from '../assets/icons/PROGM026.png';
-import defaultIcon from '../assets/icons/PROGM027.PNG';
+import welcomeIcon from '../assets/icons/WRITE001.png';
 
 const desktopIcons = [
   { 
@@ -29,7 +29,7 @@ const desktopIcons = [
   { 
     id: 'welcome', 
     label: 'Welcome',
-    iconSrc: defaultIcon // Use imported default icon
+    iconSrc: welcomeIcon // Use imported default icon
   },
 ];
 
@@ -108,7 +108,7 @@ const Desktop = () => {
       case 'projects':
         return (
           <div>
-            <h3>My Projects</h3>
+            <h2>My Projects</h2>
             <ul>
               <li><strong>Retro Desktop:</strong> This nostalgic desktop interface</li>
               <br></br>
@@ -123,20 +123,19 @@ const Desktop = () => {
       case 'contact':
         return (
           <div>
-            <h3>Contact Information</h3>
+            <h2>Contact Information</h2>
+            <p><strong>Facebook:</strong> nguyenminhkhoi3913@gmail.com</p>
             <p><strong>Email:</strong> nguyenminhkhoi3913@gmail.com</p>
             <p><strong>GitHub:</strong> github.com/minhkhoin3913</p>
             <p><strong>Portfolio:</strong> www.retrodesktop.com</p>
-            <br />
-            <p>Feel free to reach out if you'd like to collaborate on retro-style projects!</p>
           </div>
         );
       case 'welcome':
         return (
           <div>
-            <h3>Welcome to Retro Desktop!</h3>
+            <h2>Welcome to Retro Desktop!</h2>
             <p>👋 Hello and welcome to my nostalgic desktop experience!</p>
-            <p><strong>How to use:</strong></p>
+            <h3>How to use:</h3>
             <ul>
               <li>Single-click icons to select them (they'll turn blue)</li>
               <li>Double-click icons to open windows</li>

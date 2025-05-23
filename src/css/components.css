@@ -1,0 +1,53 @@
+/* Common button styling */
+.retro-button {
+  background-color: var(--retro-bg);
+  border-right: 2px solid var(--button-border-dark);
+  border-bottom: 2px solid var(--button-border-dark);
+  border-left: 2px solid var(--button-border-light);
+  border-top: 2px solid var(--button-border-light);
+  cursor: pointer;
+  font-family: var(--main-font);
+  color: var(--retro-black);
+}
+
+.retro-button:active {
+  border-right: none;
+  border-bottom: none;
+  border-left: 2px solid var(--button-border-dark);
+  border-top: 2px solid var(--button-border-dark);
+}
+
+/* Common selection styling */
+.selected {
+  background-color: var(--retro-blue);
+  color: var(--retro-white);
+}
+
+/* Common scrollbar styling */
+.retro-scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.retro-scrollbar::-webkit-scrollbar-track {
+  background: var(--retro-bg);
+  border: 1px inset var(--retro-bg);
+}
+
+.retro-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--retro-bg);
+  border: 1px outset var(--retro-bg);
+}
+
+.retro-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #e0e0e0;
+}
+
+.retro-scrollbar::-webkit-scrollbar-thumb:active {
+  border: 1px inset var(--retro-bg);
+  background: #a0a0a0;
+}
+
+.retro-scrollbar::-webkit-scrollbar-corner {
+  background: var(--retro-bg);
+}

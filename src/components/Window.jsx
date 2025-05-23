@@ -1,64 +1,31 @@
-import React, { useState, useRef } from 'react';
+// src/components/Window.jsx
+import React, { useState } from 'react';
+import { useDragDrop } from '../hooks/useDragDrop';
+import "../css/variables.css"
+import "../css/base.css"
+import "../css/components.css"
 import '../css/Window.css';
 
-const Window = ({ id, title, onClose, onFocus, children, initialPosition = { x: 100, y: 100 }, zIndex = 1000 }) => {
+const Window = ({ 
+  id, 
+  title, 
+  onClose, 
+  onFocus, 
+  children, 
+  initialPosition = { x: 100, y: 100 }, 
+  zIndex = 1000 
+}) => {
   const [position, setPosition] = useState(initialPosition);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const windowRef = useRef(null);
+  
+  // Custom drag logic for windows (title bar only)
+  const { elementRef, handleMouseDown } = useDragDrop(
+    id, position, (_, newPos) => setPosition(newPos), onFocus
+  );
 
-  const handleMouseDown = (e) => {
-    // Focus this window when clicked
-    if (onFocus) {
-      onFocus(id);
-    }
-    
-    // Only drag from title bar
+  const handleTitleBarMouseDown = (e) => {
     if (!e.target.closest('.window-title-bar')) return;
-    
-    setIsDragging(true);
-    const rect = windowRef.current.getBoundingClientRect();
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-    e.preventDefault();
+    handleMouseDown(e);
   };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    
-    const desktopRect = windowRef.current.closest('.desktop').getBoundingClientRect();
-    const newX = e.clientX - desktopRect.left - dragOffset.x;
-    const newY = e.clientY - desktopRect.top - dragOffset.y;
-    
-    // Keep window within desktop bounds
-    const windowRect = windowRef.current.getBoundingClientRect();
-    const maxX = desktopRect.width - windowRect.width;
-    const maxY = desktopRect.height - windowRect.height;
-    
-    const clampedX = Math.max(0, Math.min(newX, maxX));
-    const clampedY = Math.max(0, Math.min(newY, maxY));
-    
-    setPosition({ x: clampedX, y: clampedY });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Add global event listeners for dragging
-  React.useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-    }
-  }, [isDragging, dragOffset]);
 
   const windowStyle = {
     position: 'absolute',
@@ -69,10 +36,10 @@ const Window = ({ id, title, onClose, onFocus, children, initialPosition = { x: 
 
   return (
     <div
-      ref={windowRef}
+      ref={elementRef}
       className="retro-window"
       style={windowStyle}
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleTitleBarMouseDown}
     >
       <div className="window-title-bar">
         <span className="window-title">{title}</span>

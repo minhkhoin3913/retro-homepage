@@ -1,0 +1,9 @@
+body {
+  background-color: #3fa1bc;
+  font-family: var(--main-font);
+}
+
+/* Global font settings */
+p, span, div, label, input, textarea {
+  font-family: var(--main-font);
+}

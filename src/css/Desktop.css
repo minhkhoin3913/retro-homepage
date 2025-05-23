@@ -1,20 +1,5 @@
-@font-face {
-  font-family: "Chicago";
-  src: url("/src/assets/fonts/ChicagoFLF.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "MS Sans Serif";
-  src: url("/src/assets/fonts/MSans.ttf") format("truetype");
-}
-
-body {
-  background-color: #3fa1bc;
-  font-family: "MS Sans Serif", sans-serif; /* Default to MS Sans Serif */
-}
-
 .desktop {
-  position: relative;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   overflow: hidden;

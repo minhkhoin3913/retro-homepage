@@ -1,32 +1,18 @@
-/* Window.css - Streamlined */
-/* Common font family used throughout */
-:root {
-  --main-font: "MS Sans Serif", "Tahoma", sans-serif;
-  --title-font: "Chicago", sans-serif;
-  --border-dark: #84888c;
-  --border-light: #fcfcfc;
-}
-
-/* Global font settings for text elements */
-p, span, div, label, input, textarea {
-  font-family: var(--main-font);
-}
-
 .retro-window {
   background-color: #fcfcfc;
-  border: 2px solid #000000;
-  outline: 3px solid #c0c4c8;
-  box-shadow: 0 0 0 5px #000000;
-  min-width: 300px;
-  min-height: 200px;
+  border: 2px solid var(--retro-black);
+  outline: 3px outset #c0c4c8;
+  box-shadow: 0 0 0 5px var(--retro-black);
+  min-width: 296px;
+  min-height: 196px;
   font-family: var(--main-font);
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .window-title-bar {
-  background-color: #0000a8;
-  border-bottom: 2px solid #000000;
-  color: white;
+  background-color: var(--window-blue);
+  border-bottom: 2px solid var(--retro-black);
+  color: var(--retro-white);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,19 +22,18 @@ p, span, div, label, input, textarea {
 .window-title {
   padding: 4px;
   font-weight: bold;
-  font-size: 14px;
-  font-family: var(--title-font);
+  font-size: 20px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .window-close-button {
-  background-color: #c0c0c0;
-  border-right: 2px solid var(--border-dark);
-  border-bottom: 2px solid var(--border-dark);
-  border-left: 2px solid var(--border-light);
-  border-top: 2px solid var(--border-light);
+  background-color: var(--retro-bg);
+  border-right: 2px solid var(--button-border-dark);
+  border-bottom: 2px solid var(--button-border-dark);
+  border-left: 2px solid var(--button-border-light);
+  border-top: 2px solid var(--button-border-light);
   width: 24px;
   height: 24px;
   font-size: 18px;
@@ -56,15 +41,15 @@ p, span, div, label, input, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
-  font-family: var(--title-font);
+  color: var(--retro-black);
+  font-family: var(--main-font);
 }
 
 .window-close-button:active {
   border-right: none;
   border-bottom: none;
-  border-left: 2px solid var(--border-dark);
-  border-top: 2px solid var(--border-dark);
+  border-left: 2px solid var(--button-border-dark);
+  border-top: 2px solid var(--button-border-dark);
 }
 
 .window-content {
@@ -73,19 +58,13 @@ p, span, div, label, input, textarea {
   overflow: auto;
 }
 
-/* Prevent text selection while dragging */
-.retro-window.dragging {
-  user-select: none;
-}
-
-/* Scrollbar styling for retro look */
 .window-content::-webkit-scrollbar {
   width: 16px;
 }
 
 .window-content::-webkit-scrollbar-track {
-  background: #c0c0c0;
-  border: 1px inset #c0c0c0;
+  background: var(--retro-bg);
+  border: 1px inset var(--retro-bg);
 }
 
 .window-content::-webkit-scrollbar-thumb {
@@ -95,4 +74,8 @@ p, span, div, label, input, textarea {
 
 .window-content::-webkit-scrollbar-thumb:hover {
   background: #909090;
+}
+
+.retro-window.dragging {
+  user-select: none;
 }

@@ -16,6 +16,7 @@ const Window = ({
   zIndex = 1000 
 }) => {
   const [position, setPosition] = useState(initialPosition);
+  const [isOpening, setIsOpening] = useState(true);
   
   // Custom drag logic for windows (title bar only)
   const { elementRef, handleMouseDown } = useDragDrop(
@@ -25,6 +26,10 @@ const Window = ({
   const handleTitleBarMouseDown = (e) => {
     if (!e.target.closest('.window-title-bar')) return;
     handleMouseDown(e);
+  };
+
+  const handleAnimationEnd = () => {
+    setIsOpening(false);
   };
 
   const windowStyle = {
@@ -37,9 +42,10 @@ const Window = ({
   return (
     <div
       ref={elementRef}
-      className="retro-window"
+      className={`retro-window ${isOpening ? 'opening' : ''}`}
       style={windowStyle}
       onMouseDown={handleTitleBarMouseDown}
+      onAnimationEnd={handleAnimationEnd}
     >
       <div className="window-title-bar">
         <span className="window-title">{title}</span>

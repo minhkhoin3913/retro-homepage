@@ -1,5 +1,9 @@
 // src/config/programConfig.js
 
+import Clock from "../utilities/Clock/Clock";
+import Camera from "../utilities/Camera/Camera";
+import Internet from "../utilities/Internet/Internet"; // Add Internet import
+
 // Import your icons
 import aboutIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
 import projectsIcon from "../assets/icons/Microsoft Windows 3 File Manager.ico";
@@ -16,6 +20,8 @@ import photoIcon from "../assets/icons/Microsoft Windows 3 Mona Lisa.ico";
 import videoIcon from "../assets/icons/Microsoft Windows 3 Media Player.ico";
 import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
 import globeIcon from "../assets/icons/Microsoft Windows 3 International.ico";
+import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
+
 
 // Desktop icons configuration
 export const desktopIcons = [
@@ -104,6 +110,13 @@ export const desktopFolders = {
         type: "icon",
         position: { x: 114, y: 212 },
       },
+      {
+        id: "camera",
+        label: "Camera",
+        iconSrc: cameraIcon,
+        type: "icon",
+        position: { x: 212, y: 212 },
+      },
     ],
   },
   games: {
@@ -129,25 +142,62 @@ export const desktopFolders = {
   },
 };
 
+
 // Window content renderer function
 export const renderWindowContent = (windowId, windowTitle) => {
   switch (windowId) {
+    case "clock":
+      return <Clock />;
+    case "camera":
+      return <Camera />;
+    case "internet": // Add Internet case
+      return <Internet />;
     case "about":
       return (
         <div>
-          <h3>
-            SerenOS (TM) <br></br> Version 0.2.1
-          </h3>
-          <h3>Copyright © KhonLoi, 2025</h3>
-
-          <p>Welcome to my retro desktop portfolio!</p>
+          <h2>🌐 About Me</h2>
           <p>
-            I'm a developer who loves creating nostalgic interfaces that remind
-            us of the classic computing era.
+            I'm a detail-oriented front-end developer with a passion for
+            <br></br>
+            creative problem-solving and continuous learning. <br></br> 
+            I stay up to date with the latest trends and technologies in <br></br>
+            web design and development.<br></br>
+            Outside of coding, I enjoy sketching and diving into <br></br> 
+            design literature to further refine my aesthetic and technical skills.
+          </p>
+
+          <h2>🔧 Skills</h2>
+          <ul>
+            <li>
+              <strong>HTML5 / CSS3 / JavaScript (ES6+)</strong>
+            </li>
+            <li>
+              <strong>React.js / Next.js</strong>
+            </li>
+            <li>
+              <strong>Version Control (Git / GitHub)</strong>
+            </li>
+            <li>
+              <strong>Responsive Design</strong>
+            </li>
+            <li>
+              <strong>RESTful APIs / JSON</strong>
+            </li>
+            <li>
+              <strong>Webpack / Babel / Vite</strong>
+            </li>
+            <li>
+              <strong>Testing (Jest / React Testing Library)</strong>
+            </li>
+          </ul>
+
+          <h2>🎓 Education</h2>
+          <h3>Bachelor of Software Engineering</h3>
+          <p>
+            <strong>FPT University</strong> – 2025
           </p>
           <p>
-            This desktop interface mimics the look and feel of early graphical
-            operating systems.
+            <strong>Concentration:</strong> Topic on React & NodeJS
           </p>
         </div>
       );
@@ -245,95 +295,6 @@ export const renderWindowContent = (windowId, windowTitle) => {
           <h2>Tetris</h2>
           <p>Classic block-stacking game coming soon...</p>
           <p>This would be where the Tetris game interface would load.</p>
-        </div>
-      );
-    // Document content
-    case "resume":
-      return (
-        <div>
-          <h2>Resume.txt</h2>
-          <pre style={{ fontFamily: "monospace", fontSize: "12px" }}>
-            {`JOHN DOE
-Software Developer
-==================
-
-EXPERIENCE:
------------
-• Senior Developer at Tech Corp (2020-Present)
-• Junior Developer at StartUp Inc (2018-2020)
-• Intern at Local Business (2017-2018)
-
-SKILLS:
--------
-• JavaScript, React, Node.js
-• Python, Java, C++
-• Database Design
-• System Architecture
-
-EDUCATION:
-----------
-• B.S. Computer Science, University (2017)
-• Various online certifications`}
-          </pre>
-        </div>
-      );
-    case "notes":
-      return (
-        <div>
-          <h2>Notes.txt</h2>
-          <pre
-            style={{
-              fontFamily: "monospace",
-              fontSize: "12px",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {`Personal Notes
-==============
-
-TODO:
-- Update portfolio website
-- Learn new web framework
-- Work on side projects
-- Practice algorithms
-
-Ideas:
-- Retro game remakes
-- Desktop environment simulation
-- Virtual machine interface
-- Classic computer emulator
-
-Shopping List:
-- Coffee
-- Mechanical keyboard
-- New monitor
-- Programming books`}
-          </pre>
-        </div>
-      );
-    case "old_projects":
-      return (
-        <div>
-          <h2>Old Projects.txt</h2>
-          <pre style={{ fontFamily: "monospace", fontSize: "12px" }}>
-            {`Archived Projects
-=================
-
-1. Calculator App (2019)
-   - Basic arithmetic operations
-   - Built with vanilla JavaScript
-   - Source: /archive/calculator/
-
-2. Todo List Manager (2020)
-   - CRUD operations
-   - Local storage persistence
-   - Source: /archive/todo-app/
-
-3. Weather Dashboard (2021)
-   - API integration
-   - Responsive design
-   - Source: /archive/weather-app/`}
-          </pre>
         </div>
       );
     // Media content

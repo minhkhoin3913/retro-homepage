@@ -1,3 +1,66 @@
+.folder-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--retro-bg);
+  font-family: var(--main-font);
+}
+
+.folder-content-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-auto-rows: 100px;
+  gap: 16px;
+  padding: 20px 16px 0;
+  background: var(--retro-white);
+  /* overflow-y: auto; */
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Scrollbar styling for the grid container */
+.folder-content-grid::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.folder-content-grid::-webkit-scrollbar-track {
+  background: var(--retro-bg);
+  border: 1px inset var(--retro-bg);
+}
+
+.folder-content-grid::-webkit-scrollbar-thumb {
+  background: var(--retro-bg);
+  border: 1px outset var(--retro-bg);
+}
+
+.folder-content-grid::-webkit-scrollbar-thumb:hover {
+  background: #e0e0e0;
+}
+
+.folder-content-grid::-webkit-scrollbar-thumb:active {
+  border: 1px inset var(--retro-bg);
+  background: #a0a0a0;
+}
+
+.folder-content-grid::-webkit-scrollbar-corner {
+  background: var(--retro-bg);
+}
+
+/* Remove absolute positioning from icons within grid */
+.folder-content-grid .retro-icon {
+  position: static;
+}
+
+/* Legacy support for old class names */
 .folder-window-content {
   width: 100%;
   height: 100%;
@@ -11,9 +74,7 @@
   flex: 1;
   position: relative;
   background: var(--retro-white);
-  overflow: auto;
-  min-height: 296px;
-  margin: 0 -1rem;
+  min-height: 320px;
 }
 
 .folder-items-area::-webkit-scrollbar {

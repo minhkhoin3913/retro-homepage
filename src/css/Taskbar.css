@@ -1,0 +1,70 @@
+/* src/css/Taskbar.css */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background-color: var(--retro-bg);
+  border-top: 2px solid var(--button-border-light);
+  border-bottom: 2px solid var(--button-border-dark);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+}
+
+.taskbar-items {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  height: 100%;
+}
+
+.taskbar-item {
+  background-color: var(--retro-bg);
+  border-left: 2px solid var(--button-border-light);
+  border-top: 2px solid var(--button-border-light);
+  border-right: 2px solid var(--button-border-dark);
+  border-bottom: 2px solid var(--button-border-dark);
+  height: 36px;
+  min-width: 120px;
+  max-width: 200px;
+  padding: 4px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: var(--main-font);
+  font-size: 14px;
+  color: var(--retro-black);
+  transition: none;
+}
+
+.taskbar-item:hover {
+  background-color: #e8e8e8;
+}
+
+.taskbar-item:active {
+  border-left: 2px solid var(--button-border-dark);
+  border-top: 2px solid var(--button-border-dark);
+  border-right: 2px solid var(--button-border-light);
+  border-bottom: 2px solid var(--button-border-light);
+}
+
+.taskbar-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+}
+
+.taskbar-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}

@@ -3,8 +3,7 @@
   border: 2px solid var(--retro-black);
   outline: 3px outset #c0c4c8;
   box-shadow: 0 0 0 5px var(--retro-black);
-  min-width: 296px;
-  min-height: 196px;
+  min-width: 320px;
   font-family: var(--main-font);
   font-size: 16px;
   animation: windowOpen 0.3s linear;
@@ -30,16 +29,21 @@
   transform: translateX(-50%);
 }
 
-.window-close-button {
+.window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.window-button {
   background-color: var(--retro-bg);
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   border-left: 2px solid var(--button-border-light);
   border-top: 2px solid var(--button-border-light);
   box-shadow: 0 0 0 2px var(--retro-black);
-  width: 24px;
-  height: 24px;
-  font-size: 18px;
+  font-size: 20px;
+  padding: 1px 10px 2px;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -48,7 +52,13 @@
   font-family: var(--main-font);
 }
 
-.window-close-button:active {
+.control-button {
+  width: 24px;
+  height: 24px;
+  font-weight: normal;
+}
+
+.window-button:active {
   border-right: none;
   border-bottom: none;
   border-left: 2px solid var(--button-border-dark);
@@ -57,8 +67,6 @@
 
 .window-content {
   border-top: 3px solid var(--retro-bg);
-  padding: 0 16px;
-  min-height: 150px;
   overflow: auto;
 }
 

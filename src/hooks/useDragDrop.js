@@ -6,10 +6,17 @@ export const useDragDrop = (id, position, onPositionChange, onSelect) => {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const elementRef = useRef(null);
 
+  // Handle cases where position might be undefined (e.g., grid layout)
+  const safePosition = position || { x: 0, y: 0 };
+  const isAbsolutePositioned = position !== null && position !== undefined;
+
   const handleMouseDown = (e) => {
     onSelect?.(id);
     
     if (e.detail === 2) return; // Prevent dragging on double-click
+    
+    // Only enable dragging for absolutely positioned items
+    if (!isAbsolutePositioned) return;
     
     setIsDragging(true);
     const rect = elementRef.current.getBoundingClientRect();
@@ -21,7 +28,7 @@ export const useDragDrop = (id, position, onPositionChange, onSelect) => {
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !isAbsolutePositioned) return;
     
     const container = elementRef.current.closest('.desktop') || elementRef.current.closest('.folder-content');
     const containerRect = container.getBoundingClientRect();
@@ -54,18 +61,21 @@ export const useDragDrop = (id, position, onPositionChange, onSelect) => {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, dragOffset]);
+  });
 
   return {
     elementRef,
     isDragging,
     handleMouseDown,
-    elementStyle: {
+    elementStyle: isAbsolutePositioned ? {
       position: 'absolute',
-      left: `${position.x}px`,
-      top: `${position.y}px`,
+      left: `${safePosition.x}px`,
+      top: `${safePosition.y}px`,
       cursor: isDragging ? 'grabbing' : 'grab',
       zIndex: isDragging ? 1000 : 1,
+    } : {
+      cursor: 'pointer',
+      position: 'relative',
     }
   };
 };

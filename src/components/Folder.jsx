@@ -6,12 +6,31 @@ import "../css/components.css"
 import "../css/Icon.css";
 import folderIcon from '../assets/icons/Microsoft Windows 3 Applications.ico';
 
-const Folder = (props) => (
-  <DraggableItem
-    {...props}
-    defaultIcon={folderIcon}
-    className="retro-icon"
-  />
-);
+const Folder = ({ onDrop, ...props }) => {
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const draggedIconId = e.dataTransfer.getData('text/plain');
+    if (onDrop && draggedIconId) {
+      onDrop(draggedIconId, props.id);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <div
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
+      <DraggableItem
+        {...props}
+        defaultIcon={folderIcon}
+        className="retro-icon"
+      />
+    </div>
+  );
+};
 
 export default Folder;

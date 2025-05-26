@@ -20,8 +20,12 @@ const DraggableItem = ({
   isDraggable = false,
   onDragStart
 }) => {
+  // Provide default position if not specified (for grid items)
+  const effectivePosition = position || null;
+  const effectiveOnPositionChange = position ? onPositionChange : () => {};
+  
   const { elementRef, handleMouseDown, elementStyle } = useDragDrop(
-    id, position, onPositionChange, onSelect
+    id, effectivePosition, effectiveOnPositionChange, onSelect
   );
 
   const [isDropTarget, setIsDropTarget] = React.useState(false);

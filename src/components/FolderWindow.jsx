@@ -11,8 +11,6 @@ const FolderWindow = ({
   folderData, 
   onIconDoubleClick, 
   onFolderDoubleClick,
-  onIconPositionChange, 
-  onFolderPositionChange,
   onIconSelect, 
   onFolderSelect,
   selectedItem,
@@ -38,29 +36,27 @@ const FolderWindow = ({
 
   return (
     <div className="folder-window">
-      <div className="folder-content">
+      <div className="folder-content-grid">
         {folderData.contents.map(item => {
-          const position = item.position || { x: 16, y: 16 };
-          
           if (item.type === 'folder') {
             return (
-              <Folder
-                key={item.id}
-                id={item.id}
-                label={item.label}
-                iconSrc={item.iconSrc}
-                position={position}
-                onPositionChange={(id, newPosition) => onFolderPositionChange(id, newPosition)}
-                onDoubleClick={() => handleItemDoubleClick(item)}
-                isSelected={selectedItem === item.id}
-                onSelect={onFolderSelect}
-                onDrop={handleDrop}
-              />
+              <div key={item.id} className="grid-item">
+                <Folder
+                  id={item.id}
+                  label={item.label}
+                  iconSrc={item.iconSrc}
+                  onDoubleClick={() => handleItemDoubleClick(item)}
+                  isSelected={selectedItem === item.id}
+                  onSelect={onFolderSelect}
+                  onDrop={handleDrop}
+                />
+              </div>
             );
           } else {
             return (
               <div
                 key={item.id}
+                className="grid-item"
                 draggable
                 onDragStart={(e) => handleDragStart(e, item.id)}
               >
@@ -68,8 +64,6 @@ const FolderWindow = ({
                   id={item.id}
                   label={item.label}
                   iconSrc={item.iconSrc}
-                  position={position}
-                  onPositionChange={(id, newPosition) => onIconPositionChange(id, newPosition)}
                   onDoubleClick={() => handleItemDoubleClick(item)}
                   isSelected={selectedItem === item.id}
                   onSelect={onIconSelect}

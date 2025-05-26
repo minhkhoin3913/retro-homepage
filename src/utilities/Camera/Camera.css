@@ -1,0 +1,227 @@
+/* src/utilities/Camera/Camera.css */
+
+.camera-container {
+  padding: 16px;
+}
+
+.camera-controls {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.camera-device-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.camera-device-selector label {
+  font-weight: normal;
+  min-width: 50px;
+}
+
+.retro-select {
+  background-color: #ffffff;
+  border: 2px inset var(--border-light, #dfdfdf);
+  padding: 2px 4px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--text-color, #000000);
+  min-width: 150px;
+}
+
+.retro-select:focus {
+  outline: 1px dotted var(--text-color, #000000);
+  outline-offset: -3px;
+}
+
+.camera-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.retro-button {
+  background-color: var(--bg-color, #c0c0c0);
+  border: 2px outset var(--border-light, #dfdfdf);
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--text-color, #000000);
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.retro-button:hover {
+  background-color: #d4d0c8;
+}
+
+.retro-button:active {
+  border: 2px inset var(--border-light, #dfdfdf);
+  background-color: #a0a0a0;
+}
+
+.retro-button:disabled {
+  color: var(--border-dark, #808080);
+  cursor: not-allowed;
+  background-color: var(--bg-color, #c0c0c0);
+}
+
+.camera-btn {
+  font-size: 10px;
+}
+
+.camera-viewport {
+  border: 2px inset var(--border-light, #dfdfdf);
+  background-color: #000000;
+  margin-bottom: 12px;
+  padding: 4px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.camera-error {
+  background-color: #ffffff;
+  border: 1px solid #ff0000;
+  padding: 8px;
+  text-align: center;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.camera-video-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  border: 1px inset var(--border-dark, #808080);
+  min-height: 180px;
+}
+
+.camera-video {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid var(--border-dark, #808080);
+  background-color: #000000;
+}
+
+.camera-placeholder {
+  text-align: center;
+  color: var(--border-dark, #808080);
+  background-color: #f0f0f0;
+  border: 2px inset var(--border-light, #dfdfdf);
+  padding: 20px;
+  width: 280px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.camera-placeholder p:first-child {
+  font-size: 24px;
+  margin: 0 0 8px 0;
+}
+
+.camera-placeholder p:last-child {
+  margin: 0;
+  font-size: 10px;
+}
+
+.camera-preview {
+  background-color: var(--bg-color, #c0c0c0);
+  border: 2px inset var(--border-light, #dfdfdf);
+  padding: 6px;
+  text-align: center;
+}
+
+.camera-preview h4 {
+  margin: 0 0 6px 0;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+.camera-captured-image {
+  max-width: 160px;
+  max-height: 120px;
+  border: 1px solid var(--border-dark, #808080);
+  margin-bottom: 6px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.camera-status {
+  background-color: var(--bg-color, #c0c0c0);
+  border: 2px inset var(--border-light, #dfdfdf);
+  padding: 4px 6px;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.camera-status p {
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Responsive adjustments for smaller windows */
+@media (max-width: 450px) {
+  .camera-container {
+    min-width: 300px;
+  }
+  
+  .camera-buttons {
+    flex-direction: column;
+  }
+  
+  .retro-button {
+    width: 100%;
+  }
+  
+  .camera-video-container {
+    min-height: 150px;
+  }
+  
+  .camera-placeholder {
+    width: 240px;
+    height: 120px;
+  }
+  
+  .camera-status {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Animation for button press feedback */
+.retro-button:active {
+  transform: translateX(1px) translateY(1px);
+}
+
+/* Focus styles for accessibility */
+.retro-button:focus,
+.retro-select:focus {
+  outline: 1px dotted var(--text-color, #000000);
+  outline-offset: -3px;
+}
+
+/* Loading state styling */
+.camera-video:not([src]) {
+  background: repeating-linear-gradient(
+    45deg,
+    #333,
+    #333 10px,
+    #555 10px,
+    #555 20px
+  );
+}

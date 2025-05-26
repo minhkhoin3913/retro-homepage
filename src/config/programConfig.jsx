@@ -59,63 +59,54 @@ export const desktopFolders = {
         label: "Calculator",
         iconSrc: calculatorIcon,
         type: "icon",
-        position: { x: 16, y: 16 },
       },
       {
         id: "calendar",
         label: "Calendar",
         iconSrc: calendarIcon,
         type: "icon",
-        position: { x: 114, y: 16 },
       },
       {
         id: "clock",
         label: "Clock",
         iconSrc: clockIcon,
         type: "icon",
-        position: { x: 212, y: 16 },
       },
       {
         id: "news",
         label: "News",
         iconSrc: newsIcon,
         type: "icon",
-        position: { x: 16, y: 114 },
       },
       {
         id: "notebook",
         label: "Notebook",
         iconSrc: notebookIcon,
         type: "icon",
-        position: { x: 114, y: 114 },
       },
       {
         id: "internet",
         label: "Internet",
         iconSrc: globeIcon,
         type: "icon",
-        position: { x: 212, y: 114 },
       },
       {
         id: "photo",
         label: "Photo",
         iconSrc: photoIcon,
         type: "icon",
-        position: { x: 16, y: 212 },
       },
       {
         id: "video",
         label: "Media",
         iconSrc: videoIcon,
         type: "icon",
-        position: { x: 114, y: 212 },
       },
       {
         id: "camera",
         label: "Camera",
         iconSrc: cameraIcon,
         type: "icon",
-        position: { x: 212, y: 212 },
       },
     ],
   },
@@ -129,14 +120,12 @@ export const desktopFolders = {
         label: "Solitaire",
         iconSrc: solitaireIcon,
         type: "icon",
-        position: { x: 16, y: 16 },
       },
       {
         id: "minesweeper",
         label: "Minesweeper",
         iconSrc: minesweeperIcon,
         type: "icon",
-        position: { x: 114, y: 16 },
       },
     ],
   },
@@ -154,7 +143,7 @@ export const renderWindowContent = (windowId, windowTitle) => {
       return <Internet />;
     case "about":
       return (
-        <div>
+        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
           <h2>🌐 About Me</h2>
           <p>
             I'm a detail-oriented front-end developer with a passion for
@@ -203,7 +192,7 @@ export const renderWindowContent = (windowId, windowTitle) => {
       );
     case "projects":
       return (
-        <div>
+        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
           <h2>My Projects</h2>
           <ul>
             <li>
@@ -229,7 +218,7 @@ export const renderWindowContent = (windowId, windowTitle) => {
       );
     case "contact":
       return (
-        <div>
+        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
           <h2>Contact Information</h2>
           <p>
             <strong>Phone:</strong> (+84) 35710 6894
@@ -256,7 +245,7 @@ export const renderWindowContent = (windowId, windowTitle) => {
       );
     case "welcome":
       return (
-        <div>
+        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
           <h2>Welcome to Retro Desktop!</h2>
           <p>Hello and welcome to my nostalgic desktop experience!</p>
           <h3>How to use:</h3>

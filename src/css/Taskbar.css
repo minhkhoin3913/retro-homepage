@@ -17,7 +17,7 @@
 
 .taskbar-items {
   display: flex;
-  gap: 4px;
+  gap: 12px;
   align-items: center;
   height: 100%;
 }
@@ -28,6 +28,7 @@
   border-top: 2px solid var(--button-border-light);
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
+  box-shadow: 0 0 0 2px var(--retro-black);
   height: 36px;
   min-width: 120px;
   max-width: 200px;
@@ -41,15 +42,11 @@
   transition: none;
 }
 
-.taskbar-item:hover {
-  background-color: #e8e8e8;
-}
-
 .taskbar-item:active {
   border-left: 2px solid var(--button-border-dark);
   border-top: 2px solid var(--button-border-dark);
-  border-right: 2px solid var(--button-border-light);
-  border-bottom: 2px solid var(--button-border-light);
+  border-right: none;
+  border-bottom: none;
 }
 
 .taskbar-icon {

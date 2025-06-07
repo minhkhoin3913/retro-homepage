@@ -13,7 +13,6 @@ const LoadingScreen = ({ progress }) => {
           <div className="progress" style={{ width: `${progress}%` }}></div>
         </div>
         <p>Starting up...</p>
-        <p>Click anywhere on the screen to enable startup sound!</p>
       </div>
     </div>
   );

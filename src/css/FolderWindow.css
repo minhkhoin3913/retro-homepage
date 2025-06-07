@@ -13,7 +13,7 @@
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   grid-auto-rows: 100px;
   gap: 16px;
-  padding: 20px 16px 0;
+  padding: 16px 16px 0;
   background: var(--retro-white);
   /* overflow-y: auto; */
 }

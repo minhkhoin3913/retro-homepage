@@ -4,6 +4,121 @@ body {
 }
 
 /* Global font settings */
-p, span, div, label, input, textarea {
+p,
+span,
+div,
+label,
+input,
+textarea {
   font-family: var(--main-font);
+}
+
+/* Default cursor - arrow */
+body,
+* {
+  cursor: url('/src/assets/cursors/arrow.cur')'), auto;
+}
+
+/* Hand cursor for clickable elements */
+a, button, [role="button"], .clickable {
+  cursor: url('/src/assets/cursors/hand.cur')'), pointer;
+}
+
+/* Hand2 for secondary clickable elements */
+.secondary-clickable {
+  cursor: url('/src/assets/cursors/hand2.cur')'), pointer;
+}
+
+/* Hand3 for tertiary clickable elements */
+.tertiary-clickable {
+  cursor: url('/src/assets/cursors/hand3.cur')'), pointer;
+}
+
+/* Text selection cursor - beam */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+[contenteditable="true"],
+.text-selectable {
+  cursor: url('/src/assets/cursors/beam.cur')'), text;
+}
+
+/* Loading/busy cursor */
+.loading, .busy {
+  cursor: url('/src/assets/cursors/busy.cur')'), wait;
+}
+
+/* Precision cursor for detailed work */
+.precision,
+.drawing-area,
+canvas {
+  cursor: url('/src/assets/cursors/precision.cur')'), crosshair;
+}
+
+/* Horizontal resize cursor */
+.resize-horizontal, .horizontal-splitter {
+  cursor: url('/src/assets/cursors/horizontal.cur')'), ew-resize;
+}
+
+/* Vertical resize cursor */
+.resize-vertical,
+.vertical-splitter {
+  cursor: url('/src/assets/cursors/vertical.cur')'), ns-resize;
+}
+
+/* Watch cursor for timing operations */
+.watch, .timer {
+  cursor: url('/src/assets/cursors/watch.cur')'), wait;
+}
+
+/* Background operations cursor */
+.background-operation {
+  cursor: url('/src/assets/cursors/background0.cur')'), progress;
+}
+
+/* Hover states with cursor changes */
+a:hover, button:hover {
+  cursor: url('/src/assets/cursors/hand.cur')'), pointer;
+}
+
+/* Disabled elements */
+button:disabled,
+input:disabled,
+.disabled {
+  cursor: url('/src/assets/cursors/arrow.cur')'), not-allowed;
+}
+
+/* Form elements focus states */
+input:focus, textarea:focus {
+  cursor: url('/src/assets/cursors/beam.cur')'), text;
+}
+
+/* Drag and drop areas */
+.drop-zone {
+  cursor: url('/src/assets/cursors/hand2.cur')'), copy;
+}
+
+.draggable {
+  cursor: url('/src/assets/cursors/hand3.cur')'), grab;
+}
+
+.dragging {
+  cursor: url('/src/assets/cursors/hand3.cur')'), grabbing;
+}
+
+/* Context menu trigger */
+.context-menu-trigger {
+  cursor: url('/src/assets/cursors/hand2.cur')'), context-menu;
+}
+
+/* Help cursor */
+.help,
+[title]:hover {
+  cursor: url('/src/assets/cursors/hand.cur')'), help;
+}
+
+/* Move cursor */
+.moveable, .draggable-item {
+  cursor: url('/src/assets/cursors/hand3.cur')'), move;
 }

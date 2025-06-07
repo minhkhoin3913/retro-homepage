@@ -1,4 +1,3 @@
-// src/components/Window.jsx
 import React, { useState } from "react";
 import { useDragDrop } from "../hooks/useDragDrop";
 import "../css/variables.css";
@@ -17,37 +16,38 @@ const Window = ({
   initialPosition = { x: 100, y: 100 },
   zIndex = 1000,
   isMinimized = false,
+  isMaximizable = true,
 }) => {
   const [position, setPosition] = useState(initialPosition);
   const [isOpening, setIsOpening] = useState(true);
-  const [isRestoring, setIsRestoring] = useState(false);
   const [wasMinimized, setWasMinimized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [preMaximizePosition, setPreMaximizePosition] = useState(initialPosition);
 
-  // Custom drag logic for windows (title bar only)
   const { elementRef, handleMouseDown } = useDragDrop(
     id,
     position,
-    (_, newPos) => setPosition(newPos),
+    (_, newPos) => {
+      if (!isMaximized) setPosition(newPos);
+    },
     onFocus
   );
 
-  // Track minimize/restore state changes
   React.useEffect(() => {
-    if (wasMinimized && !isMinimized) {
-      // Window is being restored from minimized state
-      setIsRestoring(true);
-    }
     setWasMinimized(isMinimized);
   }, [isMinimized, wasMinimized]);
 
   const handleTitleBarMouseDown = (e) => {
-    if (!e.target.closest(".window-title-bar")) return;
+    if (!e.target.closest(".window-title-bar") || isMaximized) return;
     handleMouseDown(e);
   };
 
-  const handleAnimationEnd = () => {
-    setIsOpening(false);
-    setIsRestoring(false);
+  const handleAnimationEnd = (e) => {
+    if (e.target !== e.currentTarget) return;
+    
+    if (e.animationName === 'windowOpen') {
+      setIsOpening(false);
+    }
   };
 
   const handleMinimize = () => {
@@ -56,24 +56,40 @@ const Window = ({
     }
   };
 
-  // Don't render if minimized
+  const handleMaximize = () => {
+    if (isMaximized) {
+      setPosition(preMaximizePosition);
+      setIsMaximized(false);
+    } else {
+      setPreMaximizePosition(position);
+      setPosition({ x: 0, y: 0 });
+      setIsMaximized(true);
+    }
+  };
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose(id);
+    }
+  };
+
   if (isMinimized) {
     return null;
   }
 
   const windowStyle = {
     position: "absolute",
-    left: `${position.x}px`,
-    top: `${position.y}px`,
+    left: isMaximized ? 0 : `${position.x}px`,
+    top: isMaximized ? 0 : `${position.y}px`,
+    width: isMaximized ? "100vw" : "auto",
+    height: isMaximized ? "100vh" : "auto",
     zIndex: zIndex,
   };
 
   return (
     <div
       ref={elementRef}
-      className={`retro-window ${isOpening ? "opening" : ""} ${
-        isRestoring ? "opening" : ""
-      }`}
+      className={`retro-window ${isOpening ? "opening" : ""} ${isMaximized ? "maximized" : ""}`}
       style={windowStyle}
       onMouseDown={handleTitleBarMouseDown}
       onAnimationEnd={handleAnimationEnd}
@@ -83,15 +99,27 @@ const Window = ({
         <div className="window-controls">
           <button
             className="window-button control-button"
-            onClick={() => onClose(id)}
-            aria-label="Close window"
+            onClick={handleClose}
+            title="Close Window"
+            aria-label="Close Window"
           >
             ×
           </button>
+          {isMaximizable && (
+            <button
+              className="window-button control-button"
+              onClick={handleMaximize}
+              title={isMaximized ? "Restore Window" : "Maximize Window"}
+              aria-label={isMaximized ? "Restore Window" : "Maximize Window"}
+            >
+              •
+            </button>
+          )}
           <button
             className="window-button control-button"
             onClick={handleMinimize}
-            aria-label="Minimize window"
+            title="Minimize Window"
+            aria-label="Minimize Window"
           >
             -
           </button>

@@ -1,5 +1,4 @@
-// src/components/Desktop.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Icon from "./Icon";
 import Folder from "./Folder";
 import Window from "./Window";
@@ -7,54 +6,42 @@ import FolderWindow from "./FolderWindow";
 import Taskbar from "./Taskbar";
 import LoadingScreen from "./LoadingScreen";
 import { useWindow } from "../hooks/useWindow";
-import "../css/variables.css"
-import "../css/base.css"
-import "../css/components.css"
+import "../css/variables.css";
+import "../css/base.css";
+import "../css/components.css";
 import "../css/Desktop.css";
 import "../css/FolderWindow.css";
 import "../css/Taskbar.css";
-
-import {
-  desktopIcons,
-  desktopFolders,
-  renderWindowContent,
-} from "../config/programConfig";
+import { desktopIcons, desktopFolders, renderWindowContent } from "../config/programConfig";
 
 const Desktop = () => {
   const { openWindows, openWindow, closeWindow, focusWindow } = useWindow();
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDelaying, setIsDelaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [folders, setFolders] = useState(desktopFolders);
+  const [folders] = useState(desktopFolders);
   const [minimizedWindows, setMinimizedWindows] = useState([]);
+  const audioRef = useRef(null);
 
-  // Combine all desktop items
-  const [allDesktopItems] = useState(() => {
-    const items = [...desktopIcons];
-    Object.entries(desktopFolders).forEach(([folderId, folderData]) => {
-      items.push({
-        id: folderId,
-        label: folderData.label,
-        iconSrc: folderData.iconSrc,
-        type: "folder",
-      });
-    });
-    return items;
-  });
+  // Memoized desktop items
+  const allDesktopItems = useRef([...desktopIcons, ...Object.entries(desktopFolders).map(([folderId, folderData]) => ({
+    id: folderId,
+    label: folderData.label,
+    iconSrc: folderData.iconSrc,
+    type: "folder",
+  }))]).current;
 
   // Initialize positions
   const [itemPositions, setItemPositions] = useState(() => {
     const initialPositions = {};
     allDesktopItems.forEach((item, index) => {
-      initialPositions[item.id] = {
-        x: 16,
-        y: 16 + index * 96,
-      };
+      initialPositions[item.id] = { x: 16, y: 16 + index * 102 };
     });
     return initialPositions;
   });
 
-  // Loading screen effect
+  // Loading screen and startup sound effect
   useEffect(() => {
     const minDelay = 5000;
     const maxDelay = 10000;
@@ -64,49 +51,14 @@ const Desktop = () => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          // Start the delay phase after loading completes
           setTimeout(() => {
             setIsLoading(false);
-            
-            // Play startup sound with multiple format fallbacks
-            const playStartupSound = async () => {
-              // List of possible audio file paths and formats to try
-              const audioSources = [
-                '/sounds/wfw311.mp3',
-                '/sounds/wfw311.wav', 
-                '/assets/sounds/wfw311.mp3',
-                '/assets/sounds/wfw311.wav',
-                './sounds/wfw311.mp3',
-                './sounds/wfw311.wav',
-              ];
-
-              for (const source of audioSources) {
-                try {
-                  const audio = new Audio(source);
-                  audio.volume = 0.7; // Set volume to 70%
-                  
-                  // Wait for the audio to be ready to play
-                  await new Promise((resolve, reject) => {
-                    audio.addEventListener('canplaythrough', resolve, { once: true });
-                    audio.addEventListener('error', reject, { once: true });
-                    audio.load();
-                  });
-                  
-                  await audio.play();
-                  console.log(`Startup sound played successfully from: ${source}`);
-                  break; // Success, stop trying other sources
-                  
-                } catch (error) {
-                  console.warn(`Failed to play audio from ${source}:`, error);
-                  continue; // Try next source
-                }
-              }
-            };
-
-            // Call the function to play startup sound
-            playStartupSound().catch(error => {
-              console.error("All startup sound attempts failed:", error);
-            });
-            
+            setIsDelaying(true);
+            // After 2 seconds delay, show desktop
+            setTimeout(() => {
+              setIsDelaying(false);
+            }, 2000);
           }, 500);
           return 100;
         }
@@ -114,103 +66,107 @@ const Desktop = () => {
       });
     }, randomDelay / 20);
 
-    return () => clearInterval(interval);
+    // Play startup sound
+    const playStartupSound = async () => {
+      const audioSources = [
+        './sounds/wfw311.mp3',
+        './sounds/wfw311.wav',
+      ];
+
+      audioRef.current = new Audio();
+      audioRef.current.volume = 0.7;
+
+      for (const source of audioSources) {
+        try {
+          audioRef.current.src = source;
+          await audioRef.current.load();
+          await audioRef.current.play();
+          console.log(`Startup sound played from: ${source}`);
+          break;
+        } catch (error) {
+          console.warn(`Failed to play audio from ${source}:`, error);
+        }
+      }
+    };
+
+    playStartupSound().catch(error => {
+      console.error("Startup sound failed:", error);
+    });
+
+    return () => {
+      clearInterval(interval);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, []);
 
-  const handleItemDoubleClick = (id, label) => {
+  const handleItemDoubleClick = useCallback((id, label) => {
     const item = allDesktopItems.find(item => item.id === id);
-    if (item?.type === "folder") {
-      openWindow(id, label, "folder", id);
-    } else {
-      openWindow(id, label, "program");
-    }
-  };
-
-  const handleMinimizeWindow = (windowId, windowData) => {
-    // Find the window to get its icon
-    const window = openWindows.find(w => w.id === windowId);
-    const item = allDesktopItems.find(item => item.id === windowId);
+    const iconConfig = desktopIcons.find(icon => icon.id === id);
+    const folderItemConfig = Object.values(desktopFolders)
+      .flatMap(folder => folder.contents || [])
+      .find(item => item.id === id);
     
-    // Add to minimized windows with icon
+    const isMaximizable = iconConfig?.isMaximizable ?? folderItemConfig?.isMaximizable ?? true;
+    const iconSrc = iconConfig?.iconSrc ?? folderItemConfig?.iconSrc;
+
+    if (item?.type === "folder") {
+      openWindow(id, label, "folder", id, isMaximizable, iconSrc);
+    } else {
+      openWindow(id, label, "program", undefined, isMaximizable, iconSrc);
+    }
+  }, [openWindow, allDesktopItems]);
+
+  const handleMinimizeWindow = useCallback((windowId, windowData) => {
+    const iconConfig = desktopIcons.find(icon => icon.id === windowId);
+    const folderItemConfig = Object.values(desktopFolders)
+      .flatMap(folder => folder.contents || [])
+      .find(item => item.id === windowId);
+    
+    const iconSrc = iconConfig?.iconSrc ?? folderItemConfig?.iconSrc;
+
     setMinimizedWindows(prev => {
-      // Avoid duplicates
       if (prev.find(w => w.id === windowId)) return prev;
-      return [...prev, { 
-        id: windowId, 
+      return [...prev, {
+        id: windowId,
         title: windowData.title,
-        icon: item?.iconSrc || window?.iconSrc
+        icon: iconSrc, // Use iconSrc from programConfig
       }];
     });
-  };
+  }, []);
 
-  const handleRestoreWindow = (windowId) => {
-    // Remove from minimized windows first
+  const handleRestoreWindow = useCallback((windowId) => {
     setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
-    
-    // Small delay to ensure the Window component detects the state change
-    setTimeout(() => {
-      // Focus the window (this will bring it back to view)
-      focusWindow(windowId);
-    }, 10);
-  };
+    setTimeout(() => focusWindow(windowId), 10);
+  }, [focusWindow]);
 
-  const handleCloseWindow = (windowId) => {
-    // Remove from both open windows and minimized windows
+  const handleCloseWindow = useCallback((windowId) => {
     closeWindow(windowId);
     setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
-  };
+  }, [closeWindow]);
 
-  const handleItemPositionChange = (id, newPosition, contextFolderId = null) => {
+  const handleItemPositionChange = useCallback((id, newPosition, contextFolderId = null) => {
     if (contextFolderId) {
-      // For folder contents, we no longer need position tracking in grid layout
-      // This function is kept for compatibility but positions are managed by CSS Grid
       console.log(`Position change for item ${id} in folder ${contextFolderId} - handled by CSS Grid`);
     } else {
-      // Desktop items still use absolute positioning
       setItemPositions(prev => ({
         ...prev,
         [id]: newPosition,
       }));
     }
-  };
+  }, []);
 
-  const handleMoveIcon = (draggedIconId, sourceFolderId, targetFolderId) => {
-    // Move icon from one folder to another
-    setFolders(prev => {
-      const newFolders = { ...prev };
-      
-      // Remove from source folder
-      if (sourceFolderId && newFolders[sourceFolderId]) {
-        newFolders[sourceFolderId] = {
-          ...newFolders[sourceFolderId],
-          contents: newFolders[sourceFolderId].contents.filter(item => item.id !== draggedIconId)
-        };
-      }
-      
-      // Add to target folder
-      if (targetFolderId && newFolders[targetFolderId]) {
-        const draggedItem = prev[sourceFolderId]?.contents.find(item => item.id === draggedIconId);
-        if (draggedItem) {
-          newFolders[targetFolderId] = {
-            ...newFolders[targetFolderId],
-            contents: [...newFolders[targetFolderId].contents, { ...draggedItem, position: null }]
-          };
-        }
-      }
-      
-      return newFolders;
-    });
-  };
-
-  const handleDesktopClick = (e) => {
+  const handleDesktopClick = useCallback((e) => {
     if (e.target === e.currentTarget) {
       setSelectedIcon(null);
     }
-  };
+  }, []);
 
-  const renderFolderContent = (folderId) => {
+  const renderFolderContent = useCallback((folderId) => {
     const folderData = folders[folderId];
-    if (!folderData) return <div>Folder not found</div>;
+    if (!folderData) return <div role="alert">Folder not found</div>;
 
     return (
       <FolderWindow
@@ -223,13 +179,32 @@ const Desktop = () => {
         onIconSelect={setSelectedIcon}
         onFolderSelect={setSelectedIcon}
         selectedItem={selectedIcon}
-        onMoveIcon={handleMoveIcon}
       />
     );
-  };
+  }, [folders, handleItemDoubleClick, handleItemPositionChange, selectedIcon]);
 
+  // Show loading screen
   if (isLoading) {
     return <LoadingScreen progress={progress} />;
+  }
+
+  // Show empty desktop during delay phase
+  if (isDelaying) {
+    return (
+      <div
+        className="desktop"
+        onClick={handleDesktopClick}
+        onDragOver={(e) => e.preventDefault()}
+        role="main"
+        aria-label="Desktop environment"
+      >
+        <Taskbar
+          minimizedWindows={minimizedWindows}
+          onRestore={handleRestoreWindow}
+          aria-label="System taskbar"
+        />
+      </div>
+    );
   }
 
   return (
@@ -237,6 +212,8 @@ const Desktop = () => {
       className="desktop"
       onClick={handleDesktopClick}
       onDragOver={(e) => e.preventDefault()}
+      role="main"
+      aria-label="Desktop environment"
     >
       {allDesktopItems.map(item => {
         const ItemComponent = item.type === 'folder' ? Folder : Icon;
@@ -251,6 +228,18 @@ const Desktop = () => {
             onDoubleClick={() => handleItemDoubleClick(item.id, item.label)}
             isSelected={selectedIcon === item.id}
             onSelect={setSelectedIcon}
+            aria-label={`${item.label} ${item.type === 'folder' ? 'folder' : 'application'}`}
+            draggable={true}
+            onDragStart={(e) => {
+              e.dataTransfer.setData('text/plain', JSON.stringify({ id: item.id }));
+            }}
+            onDragEnd={(e) => {
+              const newPosition = {
+                x: e.clientX - 32, // Adjust for icon size
+                y: e.clientY - 32,
+              };
+              handleItemPositionChange(item.id, newPosition);
+            }}
           />
         );
       })}
@@ -258,7 +247,12 @@ const Desktop = () => {
       {openWindows.map(win => {
         const isMinimized = minimizedWindows.some(mw => mw.id === win.id);
         const item = allDesktopItems.find(item => item.id === win.id);
-        
+        const iconConfig = desktopIcons.find(icon => icon.id === win.id);
+        const folderItemConfig = Object.values(desktopFolders)
+          .flatMap(folder => folder.contents || [])
+          .find(item => item.id === win.id);
+        const isMaximizable = iconConfig?.isMaximizable ?? folderItemConfig?.isMaximizable ?? win.isMaximizable ?? true;
+
         return (
           <Window
             key={win.id}
@@ -268,9 +262,11 @@ const Desktop = () => {
             initialPosition={win.initialPosition}
             zIndex={win.zIndex}
             isMinimized={isMinimized}
+            isMaximizable={isMaximizable}
             onClose={handleCloseWindow}
             onMinimize={handleMinimizeWindow}
             onFocus={focusWindow}
+            aria-label={`${win.title} window`}
           >
             {win.type === "folder"
               ? renderFolderContent(win.folderId)
@@ -279,9 +275,10 @@ const Desktop = () => {
         );
       })}
 
-      <Taskbar 
+      <Taskbar
         minimizedWindows={minimizedWindows}
         onRestore={handleRestoreWindow}
+        aria-label="System taskbar"
       />
     </div>
   );

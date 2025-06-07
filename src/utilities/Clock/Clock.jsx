@@ -1,4 +1,3 @@
-// src/utilities/clock/Clock.jsx
 import React, { useState, useEffect } from 'react';
 import "../../css/variables.css";
 import "../../css/base.css";
@@ -41,13 +40,14 @@ const Clock = () => {
 
   const angles = getHandAngles(time);
 
-  // Generate hour markers (12, 3, 6, 9)
+  // Hour markers (larger squares at 12, 3, 6, 9)
   const hourMarkers = [0, 3, 6, 9].map((i) => {
-    const angle = (i * 30) - 90; // Start from 12 o'clock
-    const size = 10; // Square size
+    const angle = (i * 30) - 90;
+    const size = 10;
     const radius = 90;
-    const x = 110 + radius * Math.cos(angle * Math.PI / 180) - size/2;
-    const y = 110 + radius * Math.sin(angle * Math.PI / 180) - size/2;
+    const center = 110;
+    const x = center + radius * Math.cos(angle * Math.PI / 180) - size / 2;
+    const y = center + radius * Math.sin(angle * Math.PI / 180) - size / 2;
 
     return (
       <rect
@@ -56,45 +56,67 @@ const Clock = () => {
         y={y}
         width={size}
         height={size}
-        className="hour-marker"
-        fill="#000"
+        className="hour-marker main"
       />
     );
   });
 
-  // Generate minute markers (small dots)
+  // Minute markers (squares every 5 minutes, same size as hour markers)
   const minuteMarkers = Array.from({ length: 60 }, (_, i) => {
-    if (i % 15 === 0) return null; // Skip hour positions (0, 15, 30, 45)
     if (i % 5 !== 0) return null; // Only show 5-minute marks
     const angle = (i * 6) - 90;
+    const size = 10;
     const radius = 90;
-    const dotSize = 4;
-    const x = 110 + radius * Math.cos(angle * Math.PI / 180);
-    const y = 110 + radius * Math.sin(angle * Math.PI / 180);
+    const center = 110;
+    const x = center + radius * Math.cos(angle * Math.PI / 180) - size / 2;
+    const y = center + radius * Math.sin(angle * Math.PI / 180) - size / 2;
 
     return (
-      <circle
+      <rect
         key={i}
-        cx={x}
-        cy={y}
-        r={dotSize}
+        x={x}
+        y={y}
+        width={size}
+        height={size}
         className="minute-marker"
-        fill="#000"
       />
     );
   }).filter(Boolean);
+
+  // Pixelated clock hands (using a series of squares)
+  const createPixelatedHand = (angle, length, className, pixelSize) => {
+    const segments = Math.floor(length / pixelSize);
+    const hand = [];
+    const center = 110;
+    for (let i = 0; i < segments; i++) {
+      const dist = (i + 1) * pixelSize;
+      const x = center + dist * Math.cos((angle - 90) * Math.PI / 180) - pixelSize / 2;
+      const y = center + dist * Math.sin((angle - 90) * Math.PI / 180) - pixelSize / 2;
+      hand.push(
+        <rect
+          key={`${className}-${i}`}
+          x={x}
+          y={y}
+          width={pixelSize}
+          height={pixelSize}
+          className={`clock-hand ${className}`}
+        />
+      );
+    }
+    return hand;
+  };
 
   return (
     <div className="clock-container">
       <div className="clock-button-group">
         <button 
-          className={`window-button ${!showAnalog ? 'active' : ''}`}
+          className={`window-button program-button ${!showAnalog ? 'active' : ''}`}
           onClick={() => setShowAnalog(false)}
         >
           Digital
         </button>
         <button 
-          className={`window-button ${showAnalog ? 'active' : ''}`}
+          className={`window-button program-button ${showAnalog ? 'active' : ''}`}
           onClick={() => setShowAnalog(true)}
         >
           Analog
@@ -108,46 +130,23 @@ const Clock = () => {
       ) : (
         <div className="analog-clock">
           <svg width="220" height="220" viewBox="0 0 220 220">
-            {/* Clock face */}
-            
-            {/* Hour markers (squares) */}
+            {/* Hour markers */}
             {hourMarkers}
             
-            {/* Minute markers (dots) */}
+            {/* Minute markers (same size as hour markers) */}
             {minuteMarkers}
             
-            {/* Hour hand */}
-            <line
-              x1="110"
-              y1="110"
-              x2={110 + 50 * Math.cos((angles.hour - 90) * Math.PI / 180)}
-              y2={110 + 50 * Math.sin((angles.hour - 90) * Math.PI / 180)}
-              className="clock-hand hour"
-            />
+            {/* Pixelated clock hands */}
+            {createPixelatedHand(angles.hour, 50, "hour", 6)}
+            {createPixelatedHand(angles.minute, 75, "minute", 4)}
+            {createPixelatedHand(angles.second, 85, "second", 2)}
             
-            {/* Minute hand */}
-            <line
-              x1="110"
-              y1="110"
-              x2={110 + 75 * Math.cos((angles.minute - 90) * Math.PI / 180)}
-              y2={110 + 75 * Math.sin((angles.minute - 90) * Math.PI / 180)}
-              className="clock-hand minute"
-            />
-            
-            {/* Second hand */}
-            <line
-              x1="110"
-              y1="110"
-              x2={110 + 85 * Math.cos((angles.second - 90) * Math.PI / 180)}
-              y2={110 + 85 * Math.sin((angles.second - 90) * Math.PI / 180)}
-              className="clock-hand second"
-            />
-            
-            {/* Center dot */}
-            <circle
-              cx="110"
-              cy="110"
-              r="4"
+            {/* Pixelated center square */}
+            <rect
+              x={110 - 4}
+              y={110 - 4}
+              width={8}
+              height={8}
               className="clock-center"
             />
           </svg>

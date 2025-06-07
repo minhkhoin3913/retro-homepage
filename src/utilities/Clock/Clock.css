@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Digital Clock";
-  src: url("/src/assets/fonts/DS-DIGII.TTF") format("truetype");
+  src: url("/src/assets/fonts/digital-7.mono.TTF") format("truetype");
 }
 
 .clock-container {
@@ -13,7 +13,96 @@
   gap: 20px;
 }
 
+.clock-button-group {/* src/utilities/Clock/Clock.css */
+
+@font-face {
+  font-family: "Digital Clock";
+  src: url("/src/assets/fonts/digital-7.mono.TTF") format("truetype");
+}
+
+.clock-container {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vmin;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .clock-button-group {
+  display: flex;
+  gap: 1.5vmin;
+}
+
+.clock-button-group button {
+  font-size: clamp(0.8rem, 2vmin, 1rem);
+  padding: 0.5vmin 1vmin;
+}
+
+.digital-display {
+  background: #000;
+  color: var(--button-border-light);
+  padding: 0.5vmin 1vmin;
+  font-family: "Digital Clock", "MS Sans Serif", "Tahoma", sans-serif;
+  font-size: clamp(1.5rem, 4vmin, 2rem);
+  font-weight: bold;
+  text-align: center;
+  min-width: clamp(100px, 30vmin, 200px);
+  letter-spacing: 0.4vmin;
+  border-radius: 0.6vmin;
+}
+
+.analog-clock {
+  width: 100%;
+  max-width: clamp(150px, 40vmin, 300px);
+  aspect-ratio: 1 / 1;
+}
+
+.clock-face-pixel {
+  fill: #000;
+  stroke: #000;
+  stroke-width: 0.5;
+}
+
+.hour-marker {
+  fill: #000;
+}
+
+.minute-marker {
+  fill: #666;
+  stroke: #666;
+  stroke-width: 0.25;
+}
+
+.hour-number {
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: clamp(6px, 1.5vmin, 8px);
+  fill: #000;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.clock-hand {
+  fill: none;
+}
+
+.clock-hand.hour {
+  fill: #000;
+}
+
+.clock-hand.minute {
+  fill: #000;
+}
+
+.clock-hand.second {
+  fill: #f00;
+}
+
+.clock-center {
+  fill: #000;
+}
   display: flex;
   gap: 20px;
 }
@@ -22,29 +111,27 @@
   background: #000;
   color: var(--button-border-light);
   padding: 8px 16px;
-  font-family: 'Courier New', monospace;
+  font-family: "Digital Clock", "MS Sans Serif", "Tahoma", sans-serif;
   font-size: 32px;
   font-weight: bold;
   text-align: center;
   min-width: 200px;
   letter-spacing: 4px;
-  font-family: "Digital Clock", "MS Sans Serif", "Tahoma", sans-serif;
   border-radius: 6px;
 }
 
-.hour-marker {
+.clock-face-pixel {
+  fill: #000;
   stroke: #000;
-}
-
-.hour-marker.main {
-  stroke-width: 2;
-}
-
-.hour-marker.regular {
   stroke-width: 1;
 }
 
+.hour-marker {
+  fill: #000;
+}
+
 .minute-marker {
+  fill: #666;
   stroke: #666;
   stroke-width: 0.5;
 }
@@ -58,22 +145,19 @@
 }
 
 .clock-hand {
-  stroke-linecap: round;
+  fill: none;
 }
 
 .clock-hand.hour {
-  stroke: #000;
-  stroke-width: 6;
+  fill: #000;
 }
 
 .clock-hand.minute {
-  stroke: #000;
-  stroke-width: 4;
+  fill: #000;
 }
 
 .clock-hand.second {
-  stroke: #f00;
-  stroke-width: 2;
+  fill: #f00;
 }
 
 .clock-center {

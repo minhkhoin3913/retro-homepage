@@ -19,7 +19,7 @@ const Window = ({
   isMaximizable = true,
 }) => {
   const [position, setPosition] = useState(initialPosition);
-  const [isOpening, setIsOpening] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [wasMinimized, setWasMinimized] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizePosition, setPreMaximizePosition] = useState(initialPosition);
@@ -37,6 +37,15 @@ const Window = ({
     setWasMinimized(isMinimized);
   }, [isMinimized, wasMinimized]);
 
+  // Simulate loading delay
+  React.useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(loadingTimer);
+  }, []);
+
   const handleTitleBarMouseDown = (e) => {
     if (!e.target.closest(".window-title-bar") || isMaximized) return;
     handleMouseDown(e);
@@ -46,7 +55,7 @@ const Window = ({
     if (e.target !== e.currentTarget) return;
     
     if (e.animationName === 'windowOpen') {
-      setIsOpening(false);
+      // setIsOpening(false); // Removed as per edit hint
     }
   };
 
@@ -77,6 +86,11 @@ const Window = ({
     return null;
   }
 
+  // Don't show anything during loading period
+  if (isLoading) {
+    return null;
+  }
+
   const windowStyle = {
     position: "absolute",
     left: isMaximized ? 0 : `${position.x}px`,
@@ -89,7 +103,7 @@ const Window = ({
   return (
     <div
       ref={elementRef}
-      className={`retro-window ${isOpening ? "opening" : ""} ${isMaximized ? "maximized" : ""}`}
+      className={`retro-window ${isMaximized ? "maximized" : ""}`}
       style={windowStyle}
       onMouseDown={handleTitleBarMouseDown}
       onAnimationEnd={handleAnimationEnd}

@@ -22,6 +22,7 @@ const Desktop = () => {
   const [progress, setProgress] = useState(0);
   const [folders] = useState(desktopFolders);
   const [minimizedWindows, setMinimizedWindows] = useState([]);
+  const [loadingWindows, setLoadingWindows] = useState(new Set());
   const audioRef = useRef(null);
 
   // Memoized desktop items
@@ -35,8 +36,29 @@ const Desktop = () => {
   // Initialize positions
   const [itemPositions, setItemPositions] = useState(() => {
     const initialPositions = {};
-    allDesktopItems.forEach((item, index) => {
-      initialPositions[item.id] = { x: 16, y: 16 + index * 102 };
+    let leftIconIndex = 0;
+    let rightIconIndex = 0;
+    
+    // Constants for positioning
+    const EDGE_PADDING = 24; // Consistent padding from edges (updated from 16px)
+    const ICON_SPACING = 102; // Vertical spacing between icons
+    const ICON_WIDTH = 64; // Width of icon from CSS
+    
+    allDesktopItems.forEach((item) => {
+      // Place folders on the right, others on the left
+      if (item.type === "folder") {
+        initialPositions[item.id] = {
+          x: window.innerWidth - ICON_WIDTH - EDGE_PADDING, // Exact icon width + padding
+          y: EDGE_PADDING + rightIconIndex * ICON_SPACING,
+        };
+        rightIconIndex++;
+      } else {
+        initialPositions[item.id] = {
+          x: EDGE_PADDING,
+          y: EDGE_PADDING + leftIconIndex * ICON_SPACING,
+        };
+        leftIconIndex++;
+      }
     });
     return initialPositions;
   });
@@ -46,6 +68,7 @@ const Desktop = () => {
     const minDelay = 5000;
     const maxDelay = 10000;
     const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+    let soundPlayed = false;
 
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -55,6 +78,13 @@ const Desktop = () => {
           setTimeout(() => {
             setIsLoading(false);
             setIsDelaying(true);
+            
+            // Play sound when loading completes
+            if (!soundPlayed) {
+              playStartupSound();
+              soundPlayed = true;
+            }
+            
             // After 2 seconds delay, show desktop
             setTimeout(() => {
               setIsDelaying(false);
@@ -66,32 +96,51 @@ const Desktop = () => {
       });
     }, randomDelay / 20);
 
-    // Play startup sound
+    // Improved startup sound function with path handling for different environments
     const playStartupSound = async () => {
+      // Get base URL for assets - handles both localhost and GitHub Pages
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      
+      // Create array of possible sound paths with different formats and paths
       const audioSources = [
-        './sounds/wfw311.mp3',
-        './sounds/wfw311.wav',
+        `${baseUrl}sounds/LOGON.flac`,
+        `/sounds/LOGON.flac`,
+        `./sounds/LOGON.flac`,
+        `../public/sounds/LOGON.flac`,
       ];
 
+      // Create and configure audio element
       audioRef.current = new Audio();
       audioRef.current.volume = 0.7;
-
+      
+      // Try each source until one works
       for (const source of audioSources) {
         try {
+          console.log(`Attempting to play audio from: ${source}`);
           audioRef.current.src = source;
-          await audioRef.current.load();
-          await audioRef.current.play();
-          console.log(`Startup sound played from: ${source}`);
-          break;
+          
+          // Use a promise to handle the audio loading
+          await new Promise((resolve, reject) => {
+            audioRef.current.oncanplaythrough = resolve;
+            audioRef.current.onerror = reject;
+            audioRef.current.load();
+          });
+          
+          // Play the audio with user interaction handling
+          const playPromise = audioRef.current.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+            console.log(`Startup sound played successfully from: ${source}`);
+            return; // Exit if successful
+          }
         } catch (error) {
           console.warn(`Failed to play audio from ${source}:`, error);
+          // Continue to next source
         }
       }
+      
+      console.error("All audio sources failed to play");
     };
-
-    playStartupSound().catch(error => {
-      console.error("Startup sound failed:", error);
-    });
 
     return () => {
       clearInterval(interval);
@@ -102,22 +151,75 @@ const Desktop = () => {
     };
   }, []);
 
+  // Handle window resize to update icon positions
+  useEffect(() => {
+    const handleResize = () => {
+      setItemPositions(prev => {
+        const newPositions = { ...prev };
+        const EDGE_PADDING = 24; // Updated from 16px to match the initialization
+        const ICON_WIDTH = 64;
+        
+        // Only update the positions of folder icons on the right side
+        allDesktopItems.forEach(item => {
+          if (item.type === "folder") {
+            newPositions[item.id] = {
+              ...newPositions[item.id],
+              x: window.innerWidth - ICON_WIDTH - EDGE_PADDING,
+            };
+          }
+        });
+        
+        return newPositions;
+      });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [allDesktopItems]);
+
   const handleItemDoubleClick = useCallback((id, label) => {
     const item = allDesktopItems.find(item => item.id === id);
     const iconConfig = desktopIcons.find(icon => icon.id === id);
     const folderItemConfig = Object.values(desktopFolders)
       .flatMap(folder => folder.contents || [])
       .find(item => item.id === id);
-    
+
     const isMaximizable = iconConfig?.isMaximizable ?? folderItemConfig?.isMaximizable ?? true;
     const iconSrc = iconConfig?.iconSrc ?? folderItemConfig?.iconSrc;
+
+    const isWindowOpen = openWindows.some(win => win.id === id);
+    const isWindowMinimized = minimizedWindows.some(win => win.id === id);
+
+    if (isWindowOpen) {
+      if (isWindowMinimized) {
+        // Restore window
+        setMinimizedWindows(prev => prev.filter(w => w.id !== id));
+        setTimeout(() => focusWindow(id), 10);
+      } else {
+        // Just focus the window
+        focusWindow(id);
+      }
+      return;
+    }
+
+    // Add window to loading state
+    setLoadingWindows(prev => new Set(prev).add(id));
+
+    // Remove from loading state after 2 seconds
+    setTimeout(() => {
+      setLoadingWindows(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    }, 2000);
 
     if (item?.type === "folder") {
       openWindow(id, label, "folder", id, isMaximizable, iconSrc);
     } else {
       openWindow(id, label, "program", undefined, isMaximizable, iconSrc);
     }
-  }, [openWindow, allDesktopItems]);
+  }, [openWindow, allDesktopItems, openWindows, minimizedWindows, focusWindow]);
 
   const handleMinimizeWindow = useCallback((windowId, windowData) => {
     const iconConfig = desktopIcons.find(icon => icon.id === windowId);
@@ -209,7 +311,7 @@ const Desktop = () => {
 
   return (
     <div
-      className="desktop"
+      className={`desktop ${loadingWindows.size > 0 ? 'loading' : ''}`}
       onClick={handleDesktopClick}
       onDragOver={(e) => e.preventDefault()}
       role="main"

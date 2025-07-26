@@ -8,7 +8,7 @@ const LoadingScreen = ({ progress }) => {
     <div className="loading-screen">
       <div className="loading-content">
         {/* <img src="/src/assets/images/mac-logo.png" alt="Mac OS Logo" className="mac-logo" /> */}
-        <h1>SerenOS</h1>
+        <h1>ByteUI</h1>
         <div className="progress-bar">
           <div className="progress" style={{ width: `${progress}%` }}></div>
         </div>

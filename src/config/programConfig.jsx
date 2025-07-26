@@ -18,7 +18,7 @@ import clockIcon from "../assets/icons/Microsoft Windows 3 Clock.ico";
 import photoIcon from "../assets/icons/Microsoft Windows 3 Mona Lisa.ico";
 import videoIcon from "../assets/icons/Microsoft Windows 3 Media Player.ico";
 import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
-// import globeIcon from "../assets/icons/Microsoft Windows 3 International.ico";
+import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico";
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
 import settingIcon from "../assets/icons/Microsoft Windows 3 Control Panel.ico";
 
@@ -85,6 +85,20 @@ export const desktopFolders = {
         isMaximizable: false,
       },
       {
+        id: "camera",
+        label: "Camera",
+        iconSrc: cameraIcon,
+        type: "icon",
+        isMaximizable: false,
+      },
+      {
+        id: "internet",
+        label: "Internet",
+        iconSrc: internetIcon,
+        type: "icon",
+        isMaximizable: false,
+      },
+      {
         id: "news",
         label: "News",
         iconSrc: newsIcon,
@@ -111,13 +125,6 @@ export const desktopFolders = {
         iconSrc: videoIcon,
         type: "icon",
         isMaximizable: true,
-      },
-      {
-        id: "camera",
-        label: "Camera",
-        iconSrc: cameraIcon,
-        type: "icon",
-        isMaximizable: false,
       },
     ],
   },

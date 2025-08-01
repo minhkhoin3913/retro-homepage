@@ -7,10 +7,11 @@
   --main-font: "Pixel Operator", "MS Sans Serif", "Tahoma", sans-serif;
   --button-border-dark: #84888c;
   --button-border-light: #fcfcfc;
-  --retro-blue: #316ac5;
-  --retro-bg: #c0c0c0;
-  --retro-white: #ffffff;
-  --retro-black: #000000;
+  --windows-blue: #316ac5;
+  --windows-bg: #c0c0c0;
+  --windows-white: #ffffff;
+  --windows-black: #000000;
   --selection-blue: #000080;
-  --window-blue: #5555ff;
+  --window-blue:#3fa1bc;
+  --window-purple:#b26b93;
 }

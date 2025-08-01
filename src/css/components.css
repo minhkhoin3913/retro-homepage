@@ -1,16 +1,16 @@
 /* Common button styling */
-.retro-button {
-  background-color: var(--retro-bg);
+.windows-button {
+  background-color: var(--windows-bg);
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   border-left: 2px solid var(--button-border-light);
   border-top: 2px solid var(--button-border-light);
   cursor: pointer;
   font-family: var(--main-font);
-  color: var(--retro-black);
+  color: var(--windows-black);
 }
 
-.retro-button:active {
+.windows-button:active {
   border-right: none;
   border-bottom: none;
   border-left: 2px solid var(--button-border-dark);
@@ -19,8 +19,8 @@
 
 /* Common selection styling */
 .selected {
-  background-color: var(--retro-blue);
-  color: var(--retro-white);
+  background-color: var(--windows-blue);
+  color: var(--windows-white);
 }
 
 /* Common scrollbar styling */
@@ -30,13 +30,13 @@
 }
 
 .retro-scrollbar::-webkit-scrollbar-track {
-  background: var(--retro-bg);
-  border: 1px inset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px inset var(--windows-bg);
 }
 
 .retro-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--retro-bg);
-  border: 1px outset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px outset var(--windows-bg);
 }
 
 .retro-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -44,10 +44,10 @@
 }
 
 .retro-scrollbar::-webkit-scrollbar-thumb:active {
-  border: 1px inset var(--retro-bg);
+  border: 1px inset var(--windows-bg);
   background: #a0a0a0;
 }
 
 .retro-scrollbar::-webkit-scrollbar-corner {
-  background: var(--retro-bg);
+  background: var(--windows-bg);
 }

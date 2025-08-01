@@ -43,7 +43,7 @@
   flex-wrap: wrap;
 }
 
-.retro-button {
+.windows-button {
   background-color: var(--bg-color, #c0c0c0);
   border: 2px outset var(--border-light, #dfdfdf);
   padding: 4px 12px;
@@ -54,16 +54,16 @@
   min-width: 80px;
 }
 
-.retro-button:hover {
+.windows-button:hover {
   background-color: #d4d0c8;
 }
 
-.retro-button:active {
+.windows-button:active {
   border: 2px inset var(--border-light, #dfdfdf);
   background-color: #a0a0a0;
 }
 
-.retro-button:disabled {
+.windows-button:disabled {
   color: var(--border-dark, #808080);
   cursor: not-allowed;
   background-color: var(--bg-color, #c0c0c0);
@@ -184,7 +184,7 @@
     flex-direction: column;
   }
   
-  .retro-button {
+  .windows-button {
     width: 100%;
   }
   
@@ -204,12 +204,12 @@
 }
 
 /* Animation for button press feedback */
-.retro-button:active {
+.windows-button:active {
   transform: translateX(1px) translateY(1px);
 }
 
 /* Focus styles for accessibility */
-.retro-button:focus,
+.windows-button:focus,
 .retro-select:focus {
   outline: 1px dotted var(--text-color, #000000);
   outline-offset: -3px;

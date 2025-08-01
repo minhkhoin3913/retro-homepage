@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--retro-bg);
+  background: var(--windows-bg);
   font-family: var(--main-font);
 }
 
@@ -14,7 +14,7 @@
   grid-auto-rows: 102px;
   gap: 0;
   padding: 0 1px;
-  background: var(--retro-white);
+  background: var(--windows-white);
   /* overflow-y: auto; */
 }
 
@@ -33,13 +33,13 @@
 }
 
 .folder-content-grid::-webkit-scrollbar-track {
-  background: var(--retro-bg);
-  border: 1px inset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px inset var(--windows-bg);
 }
 
 .folder-content-grid::-webkit-scrollbar-thumb {
-  background: var(--retro-bg);
-  border: 1px outset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px outset var(--windows-bg);
 }
 
 .folder-content-grid::-webkit-scrollbar-thumb:hover {
@@ -47,16 +47,16 @@
 }
 
 .folder-content-grid::-webkit-scrollbar-thumb:active {
-  border: 1px inset var(--retro-bg);
+  border: 1px inset var(--windows-bg);
   background: #a0a0a0;
 }
 
 .folder-content-grid::-webkit-scrollbar-corner {
-  background: var(--retro-bg);
+  background: var(--windows-bg);
 }
 
 /* Remove absolute positioning from icons within grid */
-.folder-content-grid .retro-icon {
+.folder-content-grid .windows-icon {
   position: static;
 }
 
@@ -66,14 +66,14 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--retro-bg);
+  background: var(--windows-bg);
   font-family: var(--main-font);
 }
 
 .folder-items-area {
   flex: 1;
   position: relative;
-  background: var(--retro-white);
+  background: var(--windows-white);
   min-height: 320px;
 }
 
@@ -83,13 +83,13 @@
 }
 
 .folder-items-area::-webkit-scrollbar-track {
-  background: var(--retro-bg);
-  border: 1px inset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px inset var(--windows-bg);
 }
 
 .folder-items-area::-webkit-scrollbar-thumb {
-  background: var(--retro-bg);
-  border: 1px outset var(--retro-bg);
+  background: var(--windows-bg);
+  border: 1px outset var(--windows-bg);
 }
 
 .folder-items-area::-webkit-scrollbar-thumb:hover {
@@ -97,14 +97,14 @@
 }
 
 .folder-items-area::-webkit-scrollbar-thumb:active {
-  border: 1px inset var(--retro-bg);
+  border: 1px inset var(--windows-bg);
   background: #a0a0a0;
 }
 
 .folder-items-area::-webkit-scrollbar-corner {
-  background: var(--retro-bg);
+  background: var(--windows-bg);
 }
 
-.folder-items-area .retro-icon {
+.folder-items-area .windows-icon {
   position: absolute;
 }

@@ -10,7 +10,7 @@ const Icon = (props) => (
   <DraggableItem
     {...props}
     defaultIcon={defaultIcon}
-    className="retro-icon"
+    className="windows-icon"
     isDraggable={true}
   />
 );

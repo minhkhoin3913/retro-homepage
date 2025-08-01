@@ -1,0 +1,31 @@
+.shutdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 19999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shutdown-dialog-content {
+  padding: 20px;
+  font-family: var(--main-font);
+  font-size: 20px;
+  color: var(--windows-black);
+  text-align: center;
+  min-width: 300px;
+}
+
+.shutdown-dialog-content p {
+  margin: 0 0 20px 0;
+}
+
+.shutdown-dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+} 

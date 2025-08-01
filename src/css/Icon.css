@@ -1,4 +1,4 @@
-.retro-icon {
+.windows-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,19 +6,20 @@
   user-select: none;
   outline: none;
   transition: none;
+  cursor: pointer;
 }
 
-.retro-icon.selected {
-  background-color: var(--retro-blue);
-  color: var(--retro-white);
+.windows-icon.selected {
+  background-color: var(--windows-blue);
+  color: var(--windows-white);
 }
 
-.retro-icon.selected .item-label {
-  color: var(--retro-white);
+.windows-icon.selected .item-label {
+  color: var(--windows-white) !important;
   background-color: transparent;
 }
 
-.retro-icon:active {
+.windows-icon:active {
   opacity: 0.8;
 }
 
@@ -45,8 +46,27 @@
   font-size: 16px;
   text-align: center;
   margin-top: 6px;
-  color: var(--retro-black);
+  color: var(--windows-white);
   font-family: var(--main-font);
   pointer-events: none;
   word-wrap: break-word;
+  /* Allow dynamic color override */
+  transition: color 0.2s ease;
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  .windows-icon {
+    touch-action: none; /* Prevent browser handling of touch gestures */
+  }
+  
+  .windows-icon .item-image {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .windows-icon .item-label {
+    font-size: 14px;
+    max-width: 80px; /* Wider label area for touch */
+  }
 }

@@ -1,8 +1,9 @@
 // src/components/DraggableItem.jsx
-import React from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { useDragDrop } from '../hooks/useDragDrop';
+import { useContrastColor } from '../hooks/useContrastColor';
 
-const DraggableItem = ({ 
+const DraggableItem = memo(({ 
   id, 
   label, 
   iconSrc, 
@@ -24,47 +25,88 @@ const DraggableItem = ({
   const effectivePosition = position || null;
   const effectiveOnPositionChange = position ? onPositionChange : () => {};
   
-  const { elementRef, handleMouseDown, elementStyle } = useDragDrop(
+  // State for drop target styling
+  const [isDropTarget, setIsDropTarget] = useState(false);
+  
+  // Get drag-drop functionality from hook
+  const { elementRef, handleMouseDown, handleTouchStart, elementStyle } = useDragDrop(
     id, effectivePosition, effectiveOnPositionChange, onSelect
   );
 
-  const [isDropTarget, setIsDropTarget] = React.useState(false);
+  // Get contrast-appropriate text color
+  const textColor = useContrastColor(elementRef);
 
-  const handleDragOver = (e) => {
+  // Memoized event handlers for better performance
+  const handleDragOver = useCallback((e) => {
     if (!onDrop) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     setIsDropTarget(true);
     onDragOver?.(e, id);
-  };
+  }, [onDrop, onDragOver, id]);
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = useCallback((e) => {
     if (!elementRef.current?.contains(e.relatedTarget)) {
       setIsDropTarget(false);
     }
     onDragLeave?.(e);
-  };
+  }, [elementRef, onDragLeave]);
 
-  const handleDrop = (e) => {
+  const handleDrop = useCallback((e) => {
     e.preventDefault();
     setIsDropTarget(false);
     
-    const draggedIconId = e.dataTransfer.getData('text/plain');
-    if (draggedIconId && draggedIconId !== id && onDrop) {
-      onDrop(draggedIconId, id);
+    try {
+      const draggedData = e.dataTransfer.getData('text/plain');
+      if (draggedData && onDrop) {
+        // Try to parse as JSON first
+        try {
+          const parsedData = JSON.parse(draggedData);
+          onDrop(parsedData.id || draggedData, id);
+        } catch {
+          // If not JSON, use as plain text
+          onDrop(draggedData, id);
+        }
+      }
+    } catch (error) {
+      console.error("Error handling drop:", error);
     }
-  };
+  }, [id, onDrop]);
 
-  const handleDragStart = (e) => {
+  const handleDragStart = useCallback((e) => {
     e.dataTransfer.setData('text/plain', id);
     onDragStart?.(e, id);
-  };
+  }, [id, onDragStart]);
 
+  // Double tap detection for mobile devices
+  const [lastTap, setLastTap] = useState(0);
+  const handleTap = useCallback(() => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300; // ms
+    if (now - lastTap < DOUBLE_TAP_DELAY) {
+      // Double tap detected
+      onDoubleClick?.();
+    }
+    setLastTap(now);
+  }, [lastTap, onDoubleClick]);
+
+  // Handle image error fallback
+  const handleImageError = useCallback((e) => {
+    if (defaultIcon && e.target.src !== defaultIcon) {
+      e.target.src = defaultIcon;
+    }
+  }, [defaultIcon]);
+
+  // Consolidated props for the main div
   const itemProps = {
     ref: elementRef,
     className: `${className} ${isSelected ? 'selected' : ''} ${isDropTarget ? 'drop-target' : ''}`,
     style: elementStyle,
     onMouseDown: handleMouseDown,
+    onTouchStart: (e) => {
+      handleTouchStart(e);
+      handleTap();
+    },
     onDoubleClick,
     tabIndex: 0,
     role: "button",
@@ -86,17 +128,20 @@ const DraggableItem = ({
         <img 
           src={iconSrc || defaultIcon} 
           alt={label}
-          onError={(e) => {
-            if (e.target.src !== defaultIcon) {
-              e.target.src = defaultIcon;
-            }
-          }}
+          onError={handleImageError}
         />
       </div>
-      <div className="item-label">{label}</div>
+      <div 
+        className="item-label"
+        style={{ color: textColor }}
+      >
+        {label}
+      </div>
       {children}
     </div>
   );
-};
+});
+
+DraggableItem.displayName = 'DraggableItem';
 
 export default DraggableItem;

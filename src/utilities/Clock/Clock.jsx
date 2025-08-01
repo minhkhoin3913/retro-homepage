@@ -1,155 +1,153 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import "../../css/variables.css";
 import "../../css/base.css";
 import "../../css/components.css";
 import "./Clock.css";
+
+// Clock configuration
+const CLOCK_CONFIG = {
+  UPDATE_INTERVAL: 1000,
+  SVG_SIZE: 220,
+  CENTER: 110,
+  RADIUS: 90,
+  MARKER_SIZE: 10,
+  HOUR_POSITIONS: [0, 3, 6, 9],
+  HANDS: {
+    HOUR: { length: 50, pixelSize: 6 },
+    MINUTE: { length: 75, pixelSize: 4 },
+    SECOND: { length: 85, pixelSize: 2 }
+  },
+  CENTER_SIZE: 8
+};
+
+// Utility functions
+const getPosition = (angle, radius, center) => ({
+  x: center + radius * Math.cos(angle * Math.PI / 180),
+  y: center + radius * Math.sin(angle * Math.PI / 180)
+});
 
 const Clock = () => {
   const [time, setTime] = useState(new Date());
   const [showAnalog, setShowAnalog] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
+    const timer = setInterval(() => setTime(new Date()), CLOCK_CONFIG.UPDATE_INTERVAL);
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('en-US', {
+  const handleDoubleClick = useCallback(() => setShowAnalog(prev => !prev), []);
+
+  const formatTime = useCallback((date) => 
+    date.toLocaleTimeString('en-US', {
       hour12: true,
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit'
-    });
-  };
+    }), []);
 
-  // Calculate angles for analog clock hands
-  const getHandAngles = (date) => {
-    const hours = date.getHours() % 12;
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-
+  const angles = useMemo(() => {
+    const hours = time.getHours() % 12;
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    
     return {
-      hour: (hours * 30) + (minutes * 0.5), // 30 degrees per hour + minute adjustment
-      minute: minutes * 6, // 6 degrees per minute
-      second: seconds * 6  // 6 degrees per second
+      hour: (hours * 30) + (minutes * 0.5),
+      minute: minutes * 6,
+      second: seconds * 6
     };
-  };
+  }, [time]);
 
-  const angles = getHandAngles(time);
+  const markers = useMemo(() => {
+    const { CENTER, RADIUS, MARKER_SIZE, HOUR_POSITIONS } = CLOCK_CONFIG;
+    const offset = MARKER_SIZE / 2;
 
-  // Hour markers (larger squares at 12, 3, 6, 9)
-  const hourMarkers = [0, 3, 6, 9].map((i) => {
-    const angle = (i * 30) - 90;
-    const size = 10;
-    const radius = 90;
-    const center = 110;
-    const x = center + radius * Math.cos(angle * Math.PI / 180) - size / 2;
-    const y = center + radius * Math.sin(angle * Math.PI / 180) - size / 2;
-
-    return (
-      <rect
-        key={i}
-        x={x}
-        y={y}
-        width={size}
-        height={size}
-        className="hour-marker main"
-      />
-    );
-  });
-
-  // Minute markers (squares every 5 minutes, same size as hour markers)
-  const minuteMarkers = Array.from({ length: 60 }, (_, i) => {
-    if (i % 5 !== 0) return null; // Only show 5-minute marks
-    const angle = (i * 6) - 90;
-    const size = 10;
-    const radius = 90;
-    const center = 110;
-    const x = center + radius * Math.cos(angle * Math.PI / 180) - size / 2;
-    const y = center + radius * Math.sin(angle * Math.PI / 180) - size / 2;
-
-    return (
-      <rect
-        key={i}
-        x={x}
-        y={y}
-        width={size}
-        height={size}
-        className="minute-marker"
-      />
-    );
-  }).filter(Boolean);
-
-  // Pixelated clock hands (using a series of squares)
-  const createPixelatedHand = (angle, length, className, pixelSize) => {
-    const segments = Math.floor(length / pixelSize);
-    const hand = [];
-    const center = 110;
-    for (let i = 0; i < segments; i++) {
-      const dist = (i + 1) * pixelSize;
-      const x = center + dist * Math.cos((angle - 90) * Math.PI / 180) - pixelSize / 2;
-      const y = center + dist * Math.sin((angle - 90) * Math.PI / 180) - pixelSize / 2;
-      hand.push(
+    // Hour markers
+    const hourMarkers = HOUR_POSITIONS.map(position => {
+      const angle = (position * 30) - 90;
+      const { x, y } = getPosition(angle, RADIUS, CENTER);
+      return (
         <rect
-          key={`${className}-${i}`}
-          x={x}
-          y={y}
-          width={pixelSize}
-          height={pixelSize}
-          className={`clock-hand ${className}`}
+          key={`hour-${position}`}
+          x={x - offset}
+          y={y - offset}
+          width={MARKER_SIZE}
+          height={MARKER_SIZE}
+          className="hour-marker"
         />
       );
-    }
-    return hand;
-  };
+    });
+
+    // Minute markers
+    const minuteMarkers = Array.from({ length: 60 }, (_, i) => {
+      if (i % 5 !== 0) return null;
+      const angle = (i * 6) - 90;
+      const { x, y } = getPosition(angle, RADIUS, CENTER);
+      return (
+        <rect
+          key={`minute-${i}`}
+          x={x - offset}
+          y={y - offset}
+          width={MARKER_SIZE}
+          height={MARKER_SIZE}
+          className="minute-marker"
+        />
+      );
+    }).filter(Boolean);
+
+    return { hourMarkers, minuteMarkers };
+  }, []);
+
+  const clockHands = useMemo(() => {
+    const { CENTER, HANDS } = CLOCK_CONFIG;
+    
+    const createHand = (angle, length, className, pixelSize) => {
+      const segments = Math.floor(length / pixelSize);
+      return Array.from({ length: segments }, (_, i) => {
+        const dist = (i + 1) * pixelSize;
+        const { x, y } = getPosition(angle - 90, dist, CENTER);
+        const offset = pixelSize / 2;
+        return (
+          <rect
+            key={`${className}-${i}`}
+            x={x - offset}
+            y={y - offset}
+            width={pixelSize}
+            height={pixelSize}
+            className={`clock-hand ${className}`}
+          />
+        );
+      });
+    };
+
+    return {
+      hour: createHand(angles.hour, HANDS.HOUR.length, "hour", HANDS.HOUR.pixelSize),
+      minute: createHand(angles.minute, HANDS.MINUTE.length, "minute", HANDS.MINUTE.pixelSize),
+      second: createHand(angles.second, HANDS.SECOND.length, "second", HANDS.SECOND.pixelSize)
+    };
+  }, [angles]);
 
   return (
-    <div className="clock-container">
-      <div className="clock-button-group">
-        <button 
-          className={`window-button program-button ${!showAnalog ? 'active' : ''}`}
-          onClick={() => setShowAnalog(false)}
-        >
-          Digital
-        </button>
-        <button 
-          className={`window-button program-button ${showAnalog ? 'active' : ''}`}
-          onClick={() => setShowAnalog(true)}
-        >
-          Analog
-        </button>
-      </div>
-
-      {!showAnalog ? (
-        <div className="digital-display">
-          {formatTime(time)}
-        </div>
-      ) : (
+    <div className="clock-container" onDoubleClick={handleDoubleClick}>
+      {showAnalog ? (
         <div className="analog-clock">
-          <svg width="220" height="220" viewBox="0 0 220 220">
-            {/* Hour markers */}
-            {hourMarkers}
-            
-            {/* Minute markers (same size as hour markers) */}
-            {minuteMarkers}
-            
-            {/* Pixelated clock hands */}
-            {createPixelatedHand(angles.hour, 50, "hour", 6)}
-            {createPixelatedHand(angles.minute, 75, "minute", 4)}
-            {createPixelatedHand(angles.second, 85, "second", 2)}
-            
-            {/* Pixelated center square */}
+          <svg width={CLOCK_CONFIG.SVG_SIZE} height={CLOCK_CONFIG.SVG_SIZE} viewBox={`0 0 ${CLOCK_CONFIG.SVG_SIZE} ${CLOCK_CONFIG.SVG_SIZE}`}>
+            {markers.hourMarkers}
+            {markers.minuteMarkers}
+            {clockHands.hour}
+            {clockHands.minute}
+            {clockHands.second}
             <rect
-              x={110 - 4}
-              y={110 - 4}
-              width={8}
-              height={8}
+              x={CLOCK_CONFIG.CENTER - CLOCK_CONFIG.CENTER_SIZE / 2}
+              y={CLOCK_CONFIG.CENTER - CLOCK_CONFIG.CENTER_SIZE / 2}
+              width={CLOCK_CONFIG.CENTER_SIZE}
+              height={CLOCK_CONFIG.CENTER_SIZE}
               className="clock-center"
             />
           </svg>
+        </div>
+      ) : (
+        <div className="digital-display">
+          {formatTime(time)}
         </div>
       )}
     </div>

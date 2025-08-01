@@ -8,15 +8,70 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  background-color: var(--window-blue);
+}
+
+/* Boot mode styles */
+.loading-screen.boot-mode {
+  background-color: #000;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  position: relative;
 }
 
 .loading-content {
   background-color: #fcfcfc;
-  border: 2px solid var(--retro-black);
+  border: 2px solid var(--windows-black);
   outline: 3px outset #c0c4c8;
-  box-shadow: 0 0 0 5px var(--retro-black);
-  padding: 40px;
+  box-shadow: 0 0 0 5px var(--windows-black);
   text-align: center;
+  width: 350px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.startup-card-container {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.startup-card {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.loading-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  /* padding: 20px; */
+  /* flex-shrink: 0; */
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(252, 252, 252, 0.9);
+  backdrop-filter: blur(2px);
+  height: 40%;
+}
+
+.loading-text {
+  margin: 0;
+  font-size: 16px;
+  color: var(--windows-black);
+  font-family: var(--main-font);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .mac-logo {
@@ -25,12 +80,110 @@
 }
 
 .progress-bar {
-  width: 200px;
-  height: 12px;
-  border: 2px solid var(--retro-black);
+  width: 150px;
+  height: 10px;
+  border: 2px solid var(--windows-black);
+  flex-shrink: 0;
 }
 
 .progress {
   height: 100%;
   background: var(--window-blue);
+}
+
+/* Boot Sequence Styles */
+.boot-sequence {
+  font-family: 'Courier New', monospace;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  white-space: pre-wrap;
+  font-size: 20px;
+  line-height: 1.4;
+  text-align: left;
+  font-weight: bold;
+  position: relative;
+}
+
+.boot-line {
+  margin-bottom: 4px;
+  display: block;
+  min-height: 1.4em;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+}
+
+.cursor.visible {
+  opacity: 1;
+}
+
+.cursor.hidden {
+  opacity: 0;
+}
+
+/* Skip line styles */
+.skip-line {
+  /* animation: blink 2s infinite; */
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  margin: 0;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.5;
+  }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+  .boot-sequence {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  
+  .loading-screen.boot-mode {
+    padding: 10px;
+  }
+  
+  .boot-line {
+    margin-bottom: 2px;
+  }
+  
+  .skip-line {
+    bottom: 10px;
+  }
+  
+  .loading-content {
+    width: 280px;
+    min-height: 180px;
+  }
+  
+  .startup-card-container {
+    height: 55%;
+  }
+  
+  .loading-status {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    height: 45%;
+  }
+  
+  .progress-bar {
+    width: 120px;
+    height: 8px;
+  }
+  
+  .loading-text {
+    /* font-size: 14px; */
+    margin-bottom: 8px;
+  }
 }

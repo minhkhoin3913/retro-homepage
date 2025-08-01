@@ -1,12 +1,17 @@
 .desktop {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 30px); /* Subtract menu bar height */
   overflow: hidden;
   box-sizing: border-box;
   padding: 0;
+  top: 30px; /* Add top offset for menu bar */
 }
 
 .desktop.loading {
-  cursor: url('/src/assets/cursors/busy.cur'), wait;
+  cursor: wait;
+}
+
+.desktop.delaying {
+  cursor: wait;
 }

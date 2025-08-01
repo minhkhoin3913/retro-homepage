@@ -19,7 +19,7 @@
   overflow: hidden;
 }
 
-.retro-window.maximized .media-player-media {
+.windows-window.maximized .media-player-media {
   padding-top: 0; /* Remove padding-top in maximized state */
   height: 100vh; /* Full viewport height in maximized state */
   width: 100%; /* Ensure full width */
@@ -45,7 +45,7 @@
 .media-player-placeholder {
   margin: 0;
   font-size: 1rem;
-  color: var(--retro-white);
+  color: var(--windows-white);
   text-align: center;
 }
 
@@ -53,7 +53,7 @@
   width: 100%;
   padding: 6px 16px;
   border-top: 2px solid var(--button-border-light);
-  background-color: var(--retro-bg);
+  background-color: var(--windows-bg);
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -73,21 +73,21 @@
   flex: 1 1 auto;
 }
 
-.retro-button {
-  background-color: var(--retro-bg);
+.windows-button {
+  background-color: var(--windows-bg);
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   border-left: 2px solid var(--button-border-light);
   border-top: 2px solid var(--button-border-light);
-  box-shadow: 0 0 0 2px var(--retro-black);
+  box-shadow: 0 0 0 2px var(--windows-black);
   font-size: 1rem;
   padding: 0.25rem 0.625rem;
   cursor: pointer;
-  color: var(--retro-black);
+  color: var(--windows-black);
   font-family: var(--main-font);
 }
 
-.retro-button:active {
+.windows-button:active {
   border-right: none;
   border-bottom: none;
   border-left: 2px solid var(--button-border-dark);
@@ -96,8 +96,8 @@
 
 .retro-slider {
   -webkit-appearance: none;
-  background: var(--retro-bg);
-  border: 2px solid var(--retro-black);
+  background: var(--windows-bg);
+  border: 2px solid var(--windows-black);
   height: 0.75rem;
   cursor: pointer;
   width: 100%;
@@ -115,7 +115,7 @@
 .media-player-time {
   font-family: var(--main-font);
   font-size: 1rem;
-  color: var(--retro-black);
+  color: var(--windows-black);
   min-width: 40px;
   text-align: center;
 }
@@ -125,7 +125,7 @@
     font-size: 0.875rem;
   }
 
-  .retro-button {
+  .windows-button {
     font-size: 0.875rem;
     padding: 0.2rem 0.5rem;
   }
@@ -147,6 +147,6 @@
   }
 }
 
-.retro-window.maximized .media-player-video {
+.windows-window.maximized .media-player-video {
   max-height: 100vh; /* Ensure video respects the 100vh height in maximized state */
 }

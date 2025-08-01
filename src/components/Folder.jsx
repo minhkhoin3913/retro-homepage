@@ -27,7 +27,7 @@ const Folder = ({ onDrop, ...props }) => {
       <DraggableItem
         {...props}
         defaultIcon={folderIcon}
-        className="retro-icon"
+        className="windows-icon"
       />
     </div>
   );

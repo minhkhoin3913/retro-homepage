@@ -23,7 +23,6 @@ const Taskbar = ({ minimizedWindows, onRestore }) => {
                 className="taskbar-icon"
               />
             )}
-            <span className="taskbar-label">{window.title}</span>
           </button>
         ))}
       </div>

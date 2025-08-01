@@ -234,7 +234,7 @@ const Internet = () => {
       <div className="browser-content">
         {isLoading && (
           <div className="loading-overlay">
-            <div className="loading-text">Loading page...</div>
+            <div className="loading-internet-text">Loading page...</div>
             <div className="loading-bar">
               <div className="loading-progress"></div>
             </div>

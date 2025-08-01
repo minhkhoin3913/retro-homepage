@@ -2,6 +2,9 @@ import Clock from "../utilities/Clock/Clock";
 import Camera from "../utilities/Camera/Camera";
 import Internet from "../utilities/Internet/Internet";
 import MediaPlayer from "../utilities/Media Player/MediaPlayer";
+import Calendar from "../utilities/Calendar/Calendar";
+import Notebook from "../utilities/Notebook/Notebook";
+import Pikachu from "../utilities/Pikachu/Pikachu";
 
 // Import your icons
 import aboutIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
@@ -21,6 +24,7 @@ import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
 import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico";
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
 import settingIcon from "../assets/icons/Microsoft Windows 3 Control Panel.ico";
+import pikachuIcon from "../assets/icons/Pikachu.ico";
 
 // Desktop icons configuration
 export const desktopIcons = [
@@ -147,6 +151,13 @@ export const desktopFolders = {
         type: "icon",
         isMaximizable: true,
       },
+      {
+        id: "pikachu",
+        label: "Pikachu",
+        iconSrc: pikachuIcon,
+        type: "icon",
+        isMaximizable: true,
+      }
     ],
   },
 };
@@ -162,6 +173,12 @@ export const renderWindowContent = (windowId, windowTitle) => {
       return <Internet />;
     case "video": // Updated to use MediaPlayer
       return <MediaPlayer />;
+    case "calendar":
+      return <Calendar />;
+    case "notebook":
+      return <Notebook />;
+    case "pikachu":
+      return <Pikachu />;
     case "about":
       return (
         <div style={{ paddingLeft: "16px", paddingRight: "16px" }}>

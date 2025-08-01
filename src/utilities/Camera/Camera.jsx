@@ -202,7 +202,7 @@ const Camera = () => {
             />
             <button 
               onClick={downloadPhoto} 
-              className="retro-button camera-btn"
+              className="windows-button camera-btn"
             >
               💾 Save Photo
             </button>

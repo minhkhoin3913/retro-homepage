@@ -12,9 +12,9 @@
 }
 
 .shutdown-dialog-content {
-  padding: 20px;
+  padding: 18px;
   font-family: var(--main-font);
-  font-size: 20px;
+  font-size: 18px;
   color: var(--windows-black);
   text-align: center;
   min-width: 300px;

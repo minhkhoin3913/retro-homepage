@@ -2,11 +2,12 @@ import React from 'react';
 import DialogWindow from './DialogWindow';
 import '../css/ShutdownDialog.css';
 
-const ShutdownDialog = ({ isVisible, onClose }) => {
+const ShutdownDialog = ({ isVisible, onClose, onShutdown }) => {
   if (!isVisible) return null;
 
   const handleOK = () => {
     onClose();
+    onShutdown?.();
   };
 
   const handleCancel = () => {
@@ -17,14 +18,14 @@ const ShutdownDialog = ({ isVisible, onClose }) => {
     <div className="shutdown-overlay">
       <DialogWindow
         id="shutdown-dialog"
-        title="Shutdown Session"
+        title="Exit Session"
         onClose={onClose}
         onFocus={() => {}}
         initialPosition={{ x: window.innerWidth / 2 - 200, y: window.innerHeight / 2 - 100 }}
         zIndex={20000}
       >
         <div className="shutdown-dialog-content">
-          <p>Do you want to end your session?</p>
+          <p>Do you want to end your Portal session?</p>
           <div className="shutdown-dialog-buttons">
             <button className="window-button program-button" onClick={handleOK}>
               OK

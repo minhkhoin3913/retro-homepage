@@ -1,21 +1,32 @@
 .folder-window {
-  width: 100%;
+  width: 410px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--windows-bg);
+  /* background: var(--windows-bg); */
   font-family: var(--main-font);
+}
+
+/* Maximized folder window - use full width */
+.maximized .folder-window {
+  width: 100%;
 }
 
 .folder-content-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-auto-rows: 102px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 102px);
   gap: 0;
   padding: 0 1px;
   background: var(--windows-white);
   /* overflow-y: auto; */
+}
+
+/* Maximized folder window - use more columns to fill the screen */
+.maximized .folder-content-grid {
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-auto-rows: 102px;
 }
 
 .grid-item {

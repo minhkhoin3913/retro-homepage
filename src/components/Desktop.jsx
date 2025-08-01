@@ -6,10 +6,12 @@ import FolderWindow from "./FolderWindow";
 import Taskbar from "./Taskbar";
 import MenuBar from "./MenuBar";
 import LoadingScreen from "./LoadingScreen";
+import ShutdownScreen from "./ShutdownScreen";
 import { useWindow } from "../hooks/useWindow";
 import { useDesktop } from "../hooks/useDesktop";
 import { useLoadingScreen } from "../hooks/useLoadingScreen";
 import { useWindowManager } from "../hooks/useWindowManager";
+import { useShutdown } from "../hooks/useShutdown";
 import "../css/variables.css";
 import "../css/base.css";
 import "../css/components.css";
@@ -32,6 +34,9 @@ const Desktop = memo(() => {
     handleRestoreWindow: handleRestoreWindowBase,
     handleCloseWindow: handleCloseWindowBase
   } = useWindowManager();
+
+  // Use shutdown hook
+  const { isShuttingDown, shutdownStage, startShutdown } = useShutdown();
 
   // Local state
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -56,6 +61,10 @@ const Desktop = memo(() => {
     }
   }, []);
 
+  const handleShutdown = useCallback(() => {
+    startShutdown();
+  }, [startShutdown]);
+
   const renderFolderContent = useCallback((folderId) => {
     const folderData = folders[folderId];
     if (!folderData) return <div role="alert">Folder not found</div>;
@@ -78,6 +87,11 @@ const Desktop = memo(() => {
   // Show loading screen
   if (isLoading) {
     return <LoadingScreen progress={progress} onSkip={skipLoading} />;
+  }
+
+  // Show shutdown screen
+  if (isShuttingDown && shutdownStage === 2) {
+    return <ShutdownScreen onComplete={() => window.close()} />;
   }
 
   // Show empty desktop during delay phase
@@ -104,9 +118,9 @@ const Desktop = memo(() => {
 
   return (
     <>
-      <MenuBar visible={menuBarVisible} />
+      <MenuBar visible={menuBarVisible && shutdownStage === 0} onShutdown={handleShutdown} />
       <div
-        className={`desktop ${loadingWindows.size > 0 ? 'loading' : ''}`}
+        className={`desktop ${loadingWindows.size > 0 ? 'loading' : ''} ${shutdownStage === 1 ? 'shutting-down' : ''}`}
         onClick={handleDesktopClick}
         onDragOver={(e) => e.preventDefault()}
         role="main"

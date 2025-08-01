@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import '../css/MenuBar.css';
-import ShutdownDialog from './ShutdownDialog';
+import React, { useState, useEffect } from "react";
+import "../css/MenuBar.css";
+import ShutdownDialog from "./ShutdownDialog";
 
-const MenuBar = ({ visible = true }) => {
+const MenuBar = ({ visible = true, onShutdown }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showShutdownDialog, setShowShutdownDialog] = useState(false);
 
@@ -16,9 +16,9 @@ const MenuBar = ({ visible = true }) => {
 
   const formatTime = (date) => {
     // Use system's locale time format without seconds
-    return date.toLocaleTimeString(undefined, { 
-      hour: 'numeric',
-      minute: 'numeric'
+    return date.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "numeric",
     });
   };
 
@@ -32,7 +32,7 @@ const MenuBar = ({ visible = true }) => {
 
   return (
     <>
-      <div className={`menu-bar ${!visible ? 'hidden' : ''}`}>
+      <div className={`menu-bar ${!visible ? "hidden" : ""}`}>
         <div className="menu-bar-left">
           {/* Left side menu items could go here */}
         </div>
@@ -42,17 +42,29 @@ const MenuBar = ({ visible = true }) => {
           </div>
         </div>
         <div className="menu-bar-right">
-          <button className="menu-bar-s-button" title="Power" onClick={handleShutdownClick}>
+          <button
+            className="menu-bar-s-button"
+            title="About Portals"
+            onClick={handleShutdownClick}
+          >
+            i
+          </button>
+          <button
+            className="menu-bar-s-button"
+            title="Power"
+            onClick={handleShutdownClick}
+          >
             (|)
           </button>
         </div>
       </div>
-      <ShutdownDialog 
-        isVisible={showShutdownDialog} 
-        onClose={handleCloseShutdownDialog} 
+      <ShutdownDialog
+        isVisible={showShutdownDialog}
+        onClose={handleCloseShutdownDialog}
+        onShutdown={onShutdown}
       />
     </>
   );
 };
 
-export default MenuBar; 
+export default MenuBar;

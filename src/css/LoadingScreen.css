@@ -67,7 +67,7 @@
 
 .loading-text {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--windows-black);
   font-family: var(--main-font);
   white-space: nowrap;
@@ -81,7 +81,7 @@
 
 .progress-bar {
   width: 150px;
-  height: 10px;
+  height: 12px;
   border: 2px solid var(--windows-black);
   flex-shrink: 0;
 }
@@ -179,7 +179,7 @@
   
   .progress-bar {
     width: 120px;
-    height: 8px;
+    /* height: 8px; */
   }
   
   .loading-text {

@@ -16,7 +16,9 @@
   margin-bottom: 20px;
   padding: 8px;
   background: var(--windows-white);
-  border: 2px solid var(--windows-black);
+  border-top: 2px solid var(--windows-bg);
+  border-left: 2px solid var(--windows-bg);
+  outline: 2px solid var(--windows-black);
 
 }
 
@@ -59,7 +61,9 @@
   margin-top: 20px;
   padding: 8px;
   background: var(--windows-white);
-  border: 2px solid var(--windows-black);
+  border-top: 2px solid var(--windows-bg);
+  border-left: 2px solid var(--windows-bg);
+  outline: 2px solid var(--windows-black);
 
 }
 

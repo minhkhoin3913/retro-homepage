@@ -11,19 +11,18 @@
   color: var(--windows-black);
 }
 
-.calendar-header {
+.calendar-header, .calendar-footer {
   text-align: center;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   padding: 8px;
-  background: var(--windows-white);
-  border-top: 2px solid var(--windows-bg);
-  border-left: 2px solid var(--windows-bg);
-  outline: 2px solid var(--windows-black);
+}
 
+.calendar-footer {
+  margin-bottom: 12px;
 }
 
 .month-year {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: bold;
   color: var(--windows-black);
   /* text-shadow: 1px 1px 0px #ffffff; */
@@ -39,10 +38,14 @@
 }
 
 .nav-icon {
-  width: 32px;
-  height: 32px;
+  font-size: 48px;
+  font-weight: bold;
   cursor: pointer;
   user-select: none;
+  color: var(--windows-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); */
 }
 
@@ -56,19 +59,8 @@
   user-select: none;
 }
 
-.calendar-footer {
-  text-align: center;
-  margin-top: 20px;
-  padding: 8px;
-  background: var(--windows-white);
-  border-top: 2px solid var(--windows-bg);
-  border-left: 2px solid var(--windows-bg);
-  outline: 2px solid var(--windows-black);
-
-}
-
 .day-name {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: bold;
   color: var(--windows-black);
 

@@ -23,7 +23,7 @@ import videoIcon from "../assets/icons/Microsoft Windows 3 Media Player.ico";
 import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
 import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico";
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
-import settingIcon from "../assets/icons/Microsoft Windows 3 Control Panel.ico";
+import canvasIcon from "../assets/icons/Microsoft Windows 3 Color.ico";
 import pikachuIcon from "../assets/icons/Pikachu.ico";
 
 // Desktop icons configuration
@@ -52,12 +52,6 @@ export const desktopIcons = [
     iconSrc: welcomeIcon,
     isMaximizable: false,
   },
-  {
-    id: "settings",
-    label: "Settings",
-    iconSrc: settingIcon,
-    isMaximizable: false,
-  },
 ];
 
 // Desktop folders configuration
@@ -82,16 +76,23 @@ export const desktopFolders = {
         isMaximizable: false,
       },
       {
-        id: "clock",
-        label: "Clock",
-        iconSrc: clockIcon,
+        id: "camera",
+        label: "Camera",
+        iconSrc: cameraIcon,
         type: "icon",
         isMaximizable: false,
       },
       {
-        id: "camera",
-        label: "Camera",
-        iconSrc: cameraIcon,
+        id: "canvas",
+        label: "Canvas",
+        iconSrc: canvasIcon,
+        type: "icon",
+        isMaximizable: true,
+      },
+      {
+        id: "clock",
+        label: "Clock",
+        iconSrc: clockIcon,
         type: "icon",
         isMaximizable: false,
       },
@@ -179,53 +180,237 @@ export const renderWindowContent = (windowId, windowTitle) => {
       return <Notebook />;
     case "pikachu":
       return <Pikachu />;
-    case "about":
+    case "canvas":
       return (
         <div style={{ paddingLeft: "16px", paddingRight: "16px" }}>
-          <h2>🌐 About Me</h2>
-          <p>
-            I'm a detail-oriented front-end developer with a passion for
-            <br />
-            creative problem-solving and continuous learning. <br />
-            I stay up to date with the latest trends and technologies in <br />
-            web design and development.
-            <br />
-            Outside of coding, I enjoy sketching and diving into <br />
-            design literature to further refine my aesthetic and technical
-            skills.
-          </p>
-          <h2>🔧 Skills</h2>
+          <h2>🎨 Canvas</h2>
+          <p>Welcome to Canvas - a drawing and painting application!</p>
+          <p>This is a placeholder for the Canvas program.</p>
+          <p>Features coming soon:</p>
           <ul style={{ paddingLeft: "16px" }}>
-            <li>
-              <strong>HTML5 / CSS3 / JavaScript (ES6+)</strong>
-            </li>
-            <li>
-              <strong>React.js / Next.js</strong>
-            </li>
-            <li>
-              <strong>Version Control (Git / GitHub)</strong>
-            </li>
-            <li>
-              <strong>Responsive Design</strong>
-            </li>
-            <li>
-              <strong>RESTful APIs / JSON</strong>
-            </li>
-            <li>
-              <strong>Webpack / Babel / Vite</strong>
-            </li>
-            <li>
-              <strong>Testing (Jest / React Testing Library)</strong>
-            </li>
+            <li>Drawing tools</li>
+            <li>Color palette</li>
+            <li>Brush sizes</li>
+            <li>Save and load functionality</li>
           </ul>
-          <h2>🎓 Education</h2>
-          <h3>Bachelor of Software Engineering</h3>
-          <p>
-            <strong>FPT University</strong> – 2025
-          </p>
-          <p>
-            <strong>Concentration:</strong> React & NodeJS
-          </p>
+        </div>
+      );
+    case "about":
+      return (
+        <div style={{ 
+          display: "flex", 
+          height: "100%", 
+          fontFamily: "var(--main-font)",
+          fontSize: "16px",
+          maxWidth: "800px",
+          margin: "0 auto"
+        }}>
+          {/* Left Pane - Skills Tree */}
+          <div style={{
+            width: "180px",
+            backgroundColor: "#f0f0f0",
+            borderRight: "2px solid var(--button-border-dark)",
+            padding: "8px",
+            overflowY: "auto"
+          }}>
+            <div style={{
+              fontWeight: "bold",
+              marginBottom: "8px",
+              color: "var(--windows-black)",
+              fontSize: "16px"
+            }}>
+              Skills & Expertise
+            </div>
+            
+            {/* Frontend Development */}
+            <div style={{ marginBottom: "6px" }}>
+              <div style={{
+                fontWeight: "bold",
+                color: "var(--windows-blue)",
+                cursor: "pointer",
+                fontSize: "16px"
+              }}>
+                📱 Frontend Development
+              </div>
+              <div style={{ marginLeft: "16px", fontSize: "14px" }}>
+                <div>• HTML5 / CSS3</div>
+                <div>• JavaScript (ES6+)</div>
+                <div>• React.js / Next.js</div>
+                <div>• Responsive Design</div>
+                <div>• UI/UX Principles</div>
+              </div>
+            </div>
+
+            {/* Backend & APIs */}
+            <div style={{ marginBottom: "6px" }}>
+              <div style={{
+                fontWeight: "bold",
+                color: "var(--windows-blue)",
+                cursor: "pointer",
+                fontSize: "16px"
+              }}>
+                ⚙️ Backend & APIs
+              </div>
+              <div style={{ marginLeft: "16px", fontSize: "14px" }}>
+                <div>• Node.js / Express</div>
+                <div>• RESTful APIs</div>
+                <div>• JSON / XML</div>
+                <div>• Database Design</div>
+              </div>
+            </div>
+
+            {/* Development Tools */}
+            <div style={{ marginBottom: "6px" }}>
+              <div style={{
+                fontWeight: "bold",
+                color: "var(--windows-blue)",
+                cursor: "pointer",
+                fontSize: "16px"
+              }}>
+                🛠️ Development Tools
+              </div>
+              <div style={{ marginLeft: "16px", fontSize: "14px" }}>
+                <div>• Git / GitHub</div>
+                <div>• Webpack / Vite</div>
+                <div>• Testing (Jest)</div>
+                <div>• VS Code / IDEs</div>
+              </div>
+            </div>
+
+            {/* Design & Creative */}
+            <div style={{ marginBottom: "6px" }}>
+              <div style={{
+                fontWeight: "bold",
+                color: "var(--windows-blue)",
+                cursor: "pointer",
+                fontSize: "16px"
+              }}>
+                🎨 Design & Creative
+              </div>
+              <div style={{ marginLeft: "16px", fontSize: "14px" }}>
+                <div>• UI/UX Design</div>
+                <div>• Adobe Creative Suite</div>
+                <div>• Figma / Sketch</div>
+                <div>• Pixel Art & Graphics</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Pane - Main Content */}
+          <div style={{
+            flex: 1,
+            padding: "16px",
+            overflowY: "auto",
+            maxWidth: "500px"
+          }}>
+            <div style={{
+              borderBottom: "2px solid var(--button-border-dark)",
+              paddingBottom: "12px",
+              marginBottom: "16px"
+            }}>
+              <h1 style={{
+                fontSize: "24px",
+                fontWeight: "bold",
+                color: "var(--windows-black)",
+                margin: "0 0 8px 0"
+              }}>
+                👨‍💻 Nguyen Minh Khoi
+              </h1>
+              <p style={{
+                fontSize: "16px",
+                color: "#666",
+                margin: "0",
+                fontStyle: "italic"
+              }}>
+                Frontend Developer & UI/UX Enthusiast
+              </p>
+            </div>
+
+            <div style={{ marginBottom: "16px" }}>
+              <h2 style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                color: "var(--windows-black)",
+                margin: "0 0 8px 0"
+              }}>
+                🎯 Professional Summary
+              </h2>
+              <p style={{
+                lineHeight: "1.5",
+                margin: "0",
+                fontSize: "16px"
+              }}>
+                Detail-oriented frontend developer with a passion for creating intuitive, 
+                responsive web applications. Specialized in React.js ecosystem with strong 
+                foundation in modern JavaScript, CSS, and HTML. Committed to writing clean, 
+                maintainable code and staying current with industry best practices.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: "16px" }}>
+              <h2 style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                color: "var(--windows-black)",
+                margin: "0 0 8px 0"
+              }}>
+                🎓 Education
+              </h2>
+              <div style={{
+                border: "1px solid var(--button-border-dark)",
+                padding: "12px",
+                backgroundColor: "#f9f9f9"
+              }}>
+                <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  Bachelor of Software Engineering
+                </div>
+                <div style={{ color: "#666", marginBottom: "6px", fontSize: "16px" }}>
+                  FPT University • Expected 2025
+                </div>
+                <div style={{ fontSize: "16px" }}>
+                  <strong>Concentration:</strong> React & NodeJS Development
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: "16px" }}>
+              <h2 style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                color: "var(--windows-black)",
+                margin: "0 0 8px 0"
+              }}>
+                💼 Professional Approach
+              </h2>
+              <ul style={{
+                lineHeight: "1.5",
+                margin: "0",
+                paddingLeft: "20px",
+                fontSize: "16px"
+              }}>
+                <li>Strong focus on user experience and accessibility</li>
+                <li>Experience with agile development methodologies</li>
+                <li>Proven ability to work in collaborative team environments</li>
+                <li>Continuous learning mindset with latest web technologies</li>
+                <li>Attention to performance optimization and code quality</li>
+              </ul>
+            </div>
+
+            <div style={{
+              borderTop: "2px solid var(--button-border-dark)",
+              paddingTop: "12px",
+              marginTop: "16px"
+            }}>
+              <p style={{
+                fontSize: "14px",
+                color: "#666",
+                margin: "0",
+                textAlign: "center"
+              }}>
+                Available for freelance projects and full-time opportunities
+              </p>
+            </div>
+          </div>
         </div>
       );
     case "projects":

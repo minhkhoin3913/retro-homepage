@@ -13,6 +13,7 @@ const DialogWindow = memo(({
   children,
   initialPosition = { x: 100, y: 100 },
   zIndex = 1000,
+  centered = false,
 }) => {
   const [position, setPosition] = useState(initialPosition);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +63,12 @@ const DialogWindow = memo(({
   }
 
   // Compute window style
-  const windowStyle = {
+  const windowStyle = centered ? {
+    position: "relative",
+    width: "auto",
+    height: "auto",
+    zIndex: zIndex,
+  } : {
     position: "absolute",
     left: `${position.x}px`,
     top: `${position.y}px`,

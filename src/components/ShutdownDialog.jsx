@@ -21,17 +21,17 @@ const ShutdownDialog = ({ isVisible, onClose, onShutdown }) => {
         title="Exit Session"
         onClose={onClose}
         onFocus={() => {}}
-        initialPosition={{ x: window.innerWidth / 2 - 200, y: window.innerHeight / 2 - 100 }}
         zIndex={20000}
+        centered={true}
       >
         <div className="shutdown-dialog-content">
-          <p>Do you want to end your Portal session?</p>
+          <p>Do you want to end your Pane session?</p>
           <div className="shutdown-dialog-buttons">
             <button className="window-button program-button" onClick={handleOK}>
-              OK
+              Yes
             </button>
             <button className="window-button program-button" onClick={handleCancel}>
-              Cancel
+              No
             </button>
           </div>
         </div>

@@ -41,6 +41,19 @@
   justify-content: center;
   align-items: center;
   flex: 1;
+  gap: 8px;
+}
+
+.menu-bar-date {
+  /* padding: 0px 10px; */
+  height: 22px;
+  font-size: 20px;
+  color: var(--windows-black);
+  /* min-width: 60px; */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-bar-clock {

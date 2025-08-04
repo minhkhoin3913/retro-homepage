@@ -11,6 +11,28 @@ const ShutdownScreen = () => {
   const [displayedLines] = useState([
     "You can now close this browser tab ",
   ]);
+  const [showRestartMessage, setShowRestartMessage] = useState(false);
+
+  // Handle Enter key press to restart
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Enter") {
+        // Reload the page to restart the application
+        window.location.reload();
+      }
+    };
+
+    // Add event listener after a short delay to allow the component to mount
+    const timer = setTimeout(() => {
+      setShowRestartMessage(true);
+      document.addEventListener("keydown", handleKeyPress);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   // Start with loading screen, then transition to black screen, then shutdown sequence
   useEffect(() => {
@@ -39,7 +61,7 @@ const ShutdownScreen = () => {
             <img src={startupCard} alt="Startup Card" className="startup-card" />
           </div>
           <div className="loading-status">
-            <p className="loading-text">Shutting down...</p>
+            <p className="loading-text">Shutting down</p>
           </div>
         </div>
       </div>
@@ -65,6 +87,11 @@ const ShutdownScreen = () => {
             {line}
           </div>
         ))}
+        {showRestartMessage && (
+          <div className="boot-line skip-line">
+            Press Enter to restart
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './Calendar.css';
-import leftArrowIcon from '../../assets/icons/Microsoft Windows 3 Arrow Left.ico';
-import rightArrowIcon from '../../assets/icons/Microsoft Windows 3 Arrow Right.ico';
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -45,21 +43,21 @@ const Calendar = () => {
       </div>
       
       <div className="calendar-body">
-        <img 
-          src={leftArrowIcon} 
-          alt="Previous Day" 
+        <div 
           className="nav-icon prev-icon" 
           onClick={goToPreviousDay}
-        />
+        >
+          &lt;
+        </div>
         <div className="day-number" onDoubleClick={resetToToday}>
           {currentDay}
         </div>
-        <img 
-          src={rightArrowIcon} 
-          alt="Next Day" 
+        <div 
           className="nav-icon next-icon" 
           onClick={goToNextDay}
-        />
+        >
+          &gt;
+        </div>
       </div>
       
       <div className="calendar-footer">

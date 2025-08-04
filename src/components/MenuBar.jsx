@@ -22,6 +22,14 @@ const MenuBar = ({ visible = true, onShutdown }) => {
     });
   };
 
+  const formatDate = (date) => {
+    // Format as "Day Month" (e.g., "15 Dec")
+    return date.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+    });
+  };
+
   const handleShutdownClick = () => {
     setShowShutdownDialog(true);
   };
@@ -37,6 +45,9 @@ const MenuBar = ({ visible = true, onShutdown }) => {
           {/* Left side menu items could go here */}
         </div>
         <div className="menu-bar-center">
+          <div className="menu-bar-date" title="Current date">
+            {formatDate(currentTime)}
+          </div>
           <div className="menu-bar-clock" title="Current time">
             {formatTime(currentTime)}
           </div>
@@ -44,7 +55,7 @@ const MenuBar = ({ visible = true, onShutdown }) => {
         <div className="menu-bar-right">
           <button
             className="menu-bar-s-button"
-            title="About Portals"
+            title="About Panels"
             onClick={handleShutdownClick}
           >
             i

@@ -41,6 +41,44 @@ const Desktop = memo(() => {
   // Local state
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [folders] = useState(desktopFolders);
+  const [isTaskbarCollapsed, setIsTaskbarCollapsed] = useState(false);
+
+  // Sound effects for taskbar collapse/expand
+  const playTaskbarSound = useCallback(async (soundType) => {
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const audioSources = [
+      `${baseUrl}sounds/${soundType}.mp3`,
+      `/sounds/${soundType}.mp3`,
+      `./sounds/${soundType}.mp3`,
+    ];
+
+    const audio = new Audio();
+    audio.volume = 0.7;
+    
+    for (const source of audioSources) {
+      try {
+        console.log(`Attempting to play ${soundType} audio from: ${source}`);
+        audio.src = source;
+        
+        await new Promise((resolve, reject) => {
+          audio.oncanplaythrough = resolve;
+          audio.onerror = reject;
+          audio.load();
+        });
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+          console.log(`${soundType} sound played successfully from: ${source}`);
+          return;
+        }
+      } catch (error) {
+        console.warn(`Failed to play ${soundType} audio from ${source}:`, error);
+      }
+    }
+    
+    console.error(`All ${soundType} audio sources failed to play`);
+  }, []);
 
   // Create handlers with necessary dependencies
   const handleItemDoubleClick = useCallback((id, label) => {
@@ -64,6 +102,15 @@ const Desktop = memo(() => {
   const handleShutdown = useCallback(() => {
     startShutdown();
   }, [startShutdown]);
+
+  const handleToggleTaskbarCollapse = useCallback(async () => {
+    const newCollapsedState = !isTaskbarCollapsed;
+    setIsTaskbarCollapsed(newCollapsedState);
+    
+    // Play appropriate sound based on the new state
+    const soundType = newCollapsedState ? 'collapse' : 'expand';
+    await playTaskbarSound(soundType);
+  }, [isTaskbarCollapsed, playTaskbarSound]);
 
   const renderFolderContent = useCallback((folderId) => {
     const folderData = folders[folderId];
@@ -109,6 +156,8 @@ const Desktop = memo(() => {
           <Taskbar
             minimizedWindows={minimizedWindows}
             onRestore={handleRestoreWindow}
+            isCollapsed={isTaskbarCollapsed}
+            onToggleCollapse={handleToggleTaskbarCollapse}
             aria-label="System taskbar"
           />
         </div>
@@ -176,6 +225,8 @@ const Desktop = memo(() => {
         <Taskbar
           minimizedWindows={minimizedWindows}
           onRestore={handleRestoreWindow}
+          isCollapsed={isTaskbarCollapsed}
+          onToggleCollapse={handleToggleTaskbarCollapse}
           aria-label="System taskbar"
         />
       </div>

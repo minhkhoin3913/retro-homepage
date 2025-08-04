@@ -116,7 +116,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       "  Detecting eslint ... @9.25.0 ",
       "  Detecting gh-pages ... @6.3.0 ",
       "",
-      "Starting Portals 25 ... ", // Cursor will be next to this line
+      "Starting PANE 97 ... ", // Cursor will be next to this line
     ];
 
     // Define delays for each line to mimic 90s PC boot sequence
@@ -225,7 +225,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
           <img src={startupCard} alt="Startup Card" className="startup-card" />
         </div>
         <div className="loading-status">
-          <p className="loading-text">Starting up...</p>
+          <p className="loading-text">Starting up</p>
           <div className="progress-bar">
             <div className="progress" style={{ width: `${progress}%` }}></div>
           </div>

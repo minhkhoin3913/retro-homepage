@@ -6,6 +6,43 @@ export const useWindowManager = () => {
   const [minimizedWindows, setMinimizedWindows] = useState([]);
   const [loadingWindows, setLoadingWindows] = useState(new Set());
   
+  // Sound effects for window operations
+  const playWindowSound = useCallback(async (soundType) => {
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const audioSources = [
+      `${baseUrl}sounds/${soundType}.mp3`,
+      `/sounds/${soundType}.mp3`,
+      `./sounds/${soundType}.mp3`,
+    ];
+
+    const audio = new Audio();
+    audio.volume = 0.7;
+    
+    for (const source of audioSources) {
+      try {
+        console.log(`Attempting to play ${soundType} audio from: ${source}`);
+        audio.src = source;
+        
+        await new Promise((resolve, reject) => {
+          audio.oncanplaythrough = resolve;
+          audio.onerror = reject;
+          audio.load();
+        });
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+          console.log(`${soundType} sound played successfully from: ${source}`);
+          return;
+        }
+      } catch (error) {
+        console.warn(`Failed to play ${soundType} audio from ${source}:`, error);
+      }
+    }
+    
+    console.error(`All ${soundType} audio sources failed to play`);
+  }, []);
+  
   // Handle window operations
   const handleItemDoubleClick = useCallback((id, label, openWindows, openWindow, focusWindow) => {
     const item = [...desktopIcons, ...Object.entries(desktopFolders).map(([folderId, folderData]) => ({
@@ -31,6 +68,8 @@ export const useWindowManager = () => {
         // Restore window
         setMinimizedWindows(prev => prev.filter(w => w.id !== id));
         setTimeout(() => focusWindow(id), 10);
+        // Play maximize sound
+        playWindowSound('maximize');
       } else {
         // Just focus the window
         focusWindow(id);
@@ -55,9 +94,9 @@ export const useWindowManager = () => {
     } else {
       openWindow(id, label, "program", undefined, isMaximizable, iconSrc);
     }
-  }, [minimizedWindows]);
+  }, [minimizedWindows, playWindowSound]);
 
-  const handleMinimizeWindow = useCallback((windowId, windowData) => {
+  const handleMinimizeWindow = useCallback(async (windowId, windowData) => {
     // Check if it's a desktop icon
     const iconConfig = desktopIcons.find(icon => icon.id === windowId);
     
@@ -87,12 +126,18 @@ export const useWindowManager = () => {
         icon: iconSrc,
       }];
     });
-  }, []);
 
-  const handleRestoreWindow = useCallback((windowId, focusWindow) => {
+    // Play minimize sound
+    await playWindowSound('minimize');
+  }, [playWindowSound]);
+
+  const handleRestoreWindow = useCallback(async (windowId, focusWindow) => {
     setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
     setTimeout(() => focusWindow(windowId), 10);
-  }, []);
+    
+    // Play maximize sound
+    await playWindowSound('maximize');
+  }, [playWindowSound]);
 
   const handleCloseWindow = useCallback((windowId, closeWindow) => {
     closeWindow(windowId);

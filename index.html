@@ -3,8 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/retro-homepage/favicon.ico" />
+    <link rel="manifest" href="/retro-homepage/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ＰＡＮＥ９７</title> 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/retro-homepage/assets/PixelOperator-C4gCAeI2.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="/retro-homepage/assets/PixelOperator-Bold-CLeLR2Kg.ttf" as="font" type="font/ttf" crossorigin>
     <style>
       html,
       body,
@@ -16,10 +20,25 @@
         overflow: hidden;
       }
     </style>
-    <script type="module" crossorigin src="/retro-homepage/assets/index-DlMCzZAT.js"></script>
-    <link rel="stylesheet" crossorigin href="/retro-homepage/assets/index-BqvgTgAI.css">
+    <script type="module" crossorigin src="/retro-homepage/assets/index-3IwO7gCV.js"></script>
+    <link rel="modulepreload" crossorigin href="/retro-homepage/assets/vendor-1zw1pNgy.js">
+    <link rel="stylesheet" crossorigin href="/retro-homepage/assets/index-C1xrnYn6.css">
   </head>
   <body>
     <div id="root"></div>
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

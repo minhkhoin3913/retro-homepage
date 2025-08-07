@@ -40,7 +40,7 @@
 .nav-icon {
   font-size: 48px;
   font-weight: bold;
-  cursor: pointer;
+  /* cursor: pointer; */
   user-select: none;
   color: var(--windows-black);
   display: flex;
@@ -55,7 +55,7 @@
   color: #b20000;
   /* text-shadow: 2px 2px 0px #ffffff; */
   text-align: center;
-  cursor: pointer;
+  /* cursor: pointer; */
   user-select: none;
 }
 

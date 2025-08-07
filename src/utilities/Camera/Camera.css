@@ -50,7 +50,7 @@
   font-family: inherit;
   font-size: 11px;
   color: var(--text-color, #000000);
-  cursor: pointer;
+  /* cursor: pointer; */
   min-width: 80px;
 }
 

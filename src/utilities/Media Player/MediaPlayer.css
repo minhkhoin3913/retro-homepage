@@ -15,7 +15,7 @@
   padding-top: 75%; /* 4:3 aspect ratio for window mode */
   position: relative;
   background-color: black;
-  cursor: pointer;
+  /* cursor: pointer; */
   overflow: hidden;
 }
 
@@ -82,7 +82,7 @@
   box-shadow: 0 0 0 2px var(--windows-black);
   font-size: 1rem;
   padding: 0.25rem 0.625rem;
-  cursor: pointer;
+  /* cursor: pointer; */
   color: var(--windows-black);
   font-family: var(--main-font);
 }
@@ -99,7 +99,7 @@
   background: var(--windows-bg);
   border: 2px solid var(--windows-black);
   height: 0.75rem;
-  cursor: pointer;
+  /* cursor: pointer; */
   width: 100%;
 }
 
@@ -109,7 +109,7 @@
   height: 1rem;
   background: #808080;
   border: 1px outset #808080;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .media-player-time {

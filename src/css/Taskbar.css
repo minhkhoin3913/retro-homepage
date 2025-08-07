@@ -2,9 +2,7 @@
 .taskbar {
   position: fixed;
   bottom: 0;
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
-  height: 48px;
+  height: 52px;
   background-color: var(--windows-bg);
   border-top: 2px solid var(--button-border-light);
   border-right: 2px solid var(--button-border-dark);
@@ -13,21 +11,15 @@
   display: flex;
   align-items: center;
   padding: 2px 8px;
-  /* min-width: 60px; */
-  transition: all 0.3s ease;
 }
 
 .taskbar.collapsed {
-  width: 30px;
-  justify-content: center;
+  width: 28px;
 }
 
 .taskbar-items {
   display: flex;
-  gap: 12px;
-  align-items: center;
-  height: 100%;
-  flex: 1;
+  gap: 10px;
 }
 
 .taskbar-item {
@@ -37,18 +29,12 @@
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   box-shadow: 0 0 0 2px var(--windows-black);
-  height: 40px;
-  min-width: 44px;
-  max-width: 44px;
-  padding: 4px;
-  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  /* cursor: pointer; */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--main-font);
-  font-size: 14px;
-  color: var(--windows-black);
-  transition: none;
 }
 
 .taskbar-item:active {
@@ -61,11 +47,6 @@
 .taskbar-icon {
   width: 28px;
   height: 28px;
-  object-fit: contain;
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  flex-shrink: 0;
 }
 
 .taskbar-collapse-btn {
@@ -75,17 +56,16 @@
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   box-shadow: 0 0 0 2px var(--windows-black);
-  height: 40px;
+  height: 42px;
   width: 30px;
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--main-font);
   font-size: 28px;
   color: var(--windows-black);
-  transition: none;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .taskbar-collapse-btn:active {
@@ -97,6 +77,24 @@
 
 .taskbar.collapsed .taskbar-collapse-btn {
   margin-left: 0;
+}
+
+/* Mobile-specific styles - increase size by 2px */
+@media (max-width: 768px) {
+  .taskbar-item {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .taskbar-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .taskbar-collapse-btn {
+    width: 30px;
+    height: 42px;
+  }
 }
 
 

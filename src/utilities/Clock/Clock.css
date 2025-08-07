@@ -12,13 +12,17 @@
   /* align-items: center; */
   /* width: 100%; */
   box-sizing: border-box;
-  cursor: pointer;
+  /* cursor: pointer; */
+}
+
+.clock-container:has(.digital-display) {
+  background: #000;
 }
 
 .digital-display {
   background: #000;
   color: var(--windows-white);
-  padding: 10px;
+  padding-left: 10px;
   font-family: "Digital Clock", "MS Sans Serif", "Tahoma", sans-serif;
   font-size: 42px;
   font-weight: bold;

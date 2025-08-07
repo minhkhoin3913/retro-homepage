@@ -1,15 +1,16 @@
 .desktop {
   position: fixed;
   width: 100vw;
-  height: calc(100vh - 30px); /* Subtract menu bar height */
+  height: calc(100vh - 34px); /* Subtract menu bar height */
   overflow: hidden;
   box-sizing: border-box;
   padding: 0;
-  top: 30px; /* Add top offset for menu bar */
+  top: 34px; /* Add top offset for menu bar */
+  cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 
 .desktop.loading {
-  cursor: wait;
+  cursor: url('/src/assets/cursors/hourgla2_st.cur'), wait;
 }
 
 .desktop.delaying {

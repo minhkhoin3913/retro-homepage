@@ -6,7 +6,7 @@
   user-select: none;
   outline: none;
   transition: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .windows-icon.selected {
@@ -59,12 +59,7 @@
   .windows-icon {
     touch-action: none; /* Prevent browser handling of touch gestures */
   }
-  
-  .windows-icon .item-image {
-    width: 48px;
-    height: 48px;
-  }
-  
+
   .windows-icon .item-label {
     font-size: 14px;
     max-width: 80px; /* Wider label area for touch */

@@ -15,19 +15,31 @@ const MenuBar = ({ visible = true, onShutdown }) => {
   }, []);
 
   const formatTime = (date) => {
-    // Use system's locale time format without seconds
+    // Use 24-hour time format
     return date.toLocaleTimeString(undefined, {
-      hour: "numeric",
-      minute: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
     });
   };
 
   const formatDate = (date) => {
-    // Format as "Day Month" (e.g., "15 Dec")
-    return date.toLocaleDateString(undefined, {
-      day: "numeric",
-      month: "short",
-    });
+    // Format as "Day Month" with ordinal suffix (e.g., "6th August")
+    const day = date.getDate();
+    const month = date.toLocaleDateString(undefined, { month: "long" });
+    
+    // Add ordinal suffix
+    const getOrdinalSuffix = (day) => {
+      if (day > 3 && day < 21) return "th";
+      switch (day % 10) {
+        case 1: return "st";
+        case 2: return "nd";
+        case 3: return "rd";
+        default: return "th";
+      }
+    };
+    
+    return `${day}${getOrdinalSuffix(day)} ${month}`;
   };
 
   const handleShutdownClick = () => {
@@ -45,11 +57,8 @@ const MenuBar = ({ visible = true, onShutdown }) => {
           {/* Left side menu items could go here */}
         </div>
         <div className="menu-bar-center">
-          <div className="menu-bar-date" title="Current date">
-            {formatDate(currentTime)}
-          </div>
-          <div className="menu-bar-clock" title="Current time">
-            {formatTime(currentTime)}
+          <div className="menu-bar-datetime" title="Current date and time">
+            {formatDate(currentTime)} &nbsp; {formatTime(currentTime)}
           </div>
         </div>
         <div className="menu-bar-right">

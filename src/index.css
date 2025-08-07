@@ -4,6 +4,7 @@ html, body {
   overflow: hidden;
   height: 100%;
   width: 100%;
+  cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 
 :root {
@@ -19,6 +20,10 @@ html, body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a, a:link, a:visited {
+  cursor: url('/src/assets/cursors/harrow.cur'), pointer;
 }
 
 a {
@@ -49,7 +54,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
+  cursor: url('/src/assets/cursors/harrow.cur'), pointer;
   transition: border-color 0.25s;
 }
 button:hover {

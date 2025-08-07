@@ -1,10 +1,11 @@
 body {
   background: linear-gradient(to bottom, #7047b0, #f5a6ff);
   font-family: var(--main-font);
+  cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 
 body.loading {
-  cursor: wait !important;
+  cursor: url('/src/assets/cursors/hourgla2_st.cur'), wait !important;
 }
 
 /* Global font settings */
@@ -22,15 +23,6 @@ textarea {
   cursor: copy;
 }
 
-.draggable {
-  cursor: pointer;
-}
-
-.dragging {
-  cursor: pointer;
-}
-
-/* Move cursor */
-.moveable, .draggable-item {
-  cursor: pointer;
+a, a:link, a:visited, .draggable, .dragging, .moveable, .draggable-item, button {
+  cursor: url('/src/assets/cursors/default_link.cur'), pointer;
 }

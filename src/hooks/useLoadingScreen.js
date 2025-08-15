@@ -44,10 +44,10 @@ export const useLoadingScreen = () => {
     
     // Create array of possible sound paths with different formats and paths
     const audioSources = [
-      `${baseUrl}sounds/LOGON.flac`,
-      `/sounds/LOGON.flac`,
-      `./sounds/LOGON.flac`,
-      `../public/sounds/LOGON.flac`,
+      `${baseUrl}sounds/logon.mp3`,
+      `/sounds/logon.mp3`,
+      `./sounds/logon.mp3`,
+      `../public/sounds/logon.mp3`,
     ];
 
     // Create and configure audio element

@@ -12,10 +12,10 @@ export const useShutdown = () => {
     
     // Create array of possible sound paths with different formats and paths
     const audioSources = [
-      `${baseUrl}sounds/LOGOFF.flac`,
-      `/sounds/LOGOFF.flac`,
-      `./sounds/LOGOFF.flac`,
-      `../public/sounds/LOGOFF.flac`,
+      `${baseUrl}sounds/logoff.mp3`,
+      `/sounds/logoff.mp3`,
+      `./sounds/logoff.mp3`,
+      `../public/sounds/logoff.mp3`,
     ];
 
     // Create and configure audio element

@@ -1,11 +1,11 @@
 .desktop {
   position: fixed;
   width: 100vw;
-  height: calc(100vh - 34px); /* Subtract menu bar height */
-  overflow: hidden;
+  height: calc(100vh - 41px); /* Subtract menu bar height */
+  /* overflow: hidden; */
   box-sizing: border-box;
   padding: 0;
-  top: 34px; /* Add top offset for menu bar */
+  top: 41px; /* Add top offset for menu bar */
   cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 

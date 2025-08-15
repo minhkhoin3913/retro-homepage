@@ -1,21 +1,10 @@
 /* src/css/MenuBar.css */
 .menu-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 34px;
   background-color: var(--windows-bg);
   border-bottom: 2px solid var(--button-border-light);
-  outline: 2px solid var(--button-border-dark);
   z-index: 10000;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* padding: 0 8px; */
-  font-family: var(--main-font);
-  font-size: 16px;
-  opacity: 1;
 }
 
 .menu-bar.hidden {
@@ -38,36 +27,6 @@
 
 .menu-bar-center {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  gap: 8px;
-}
-
-.menu-bar-date {
-  /* padding: 0px 10px; */
-  /* height: 22px; */
-  font-size: 18px;
-  color: var(--windows-black);
-  /* min-width: 60px; */
-  /* text-align: center; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  min-width: 120px;
-}
-
-.menu-bar-clock {
-  /* padding: 0px 10px; */
-  /* height: 22px; */
-  font-size: 18px;
-  color: var(--windows-black);
-  min-width: 70px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .menu-bar-s-button {
@@ -101,7 +60,7 @@
 }
 
 .menu-bar-datetime {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--windows-black);
   display: flex;
   align-items: center;

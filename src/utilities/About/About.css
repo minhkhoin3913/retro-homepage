@@ -1,0 +1,274 @@
+.about-container {
+  display: flex;
+  height: 100%;
+  font-family: var(--main-font), sans-serif;
+  font-size: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.skills-pane {
+  width: 180px;
+  background-color: #f0f0f0;
+  border-right: 2px solid var(--button-border-dark);
+  padding: 8px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.skills-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--windows-black);
+  font-size: 16px;
+}
+
+.skills-section {
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.skills-section-title {
+  font-weight: bold;
+  color: var(--windows-blue);
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.folder-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+.tree-connector {
+  position: relative;
+  margin-top: -4px; /* Adjust to align with title bottom */
+}
+
+.skills-list {
+  margin-left: 16px;
+  font-size: 14px;
+  list-style: none;
+  padding-left: 8px;
+  position: relative;
+}
+
+.skills-list li {
+  margin-bottom: 6px;
+  position: relative;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 8px; /* Space between icon and text */
+}
+
+.skills-list li::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -16px;
+  width: 12px;
+  height: 1px;
+  background-color: var(--windows-black);
+}
+
+.skills-section::before {
+  content: '';
+  position: absolute;
+  top: 100%; /* Start just below the title */
+  left: 11px;
+  width: 1px;
+  background-color: var(--windows-black);
+  z-index: 0;
+}
+
+.tree-connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 7px;
+  width: 1px;
+  background-color: var(--windows-black);
+  z-index: 0;
+  height: calc(100% - 8px); /* Adjust to end at the last li's midpoint, accounting for margin-bottom and title offset */
+}
+
+.main-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  max-width: 500px;
+}
+
+.header {
+  border-bottom: 2px solid var(--button-border-dark);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.header-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--windows-black);
+  margin: 0 0 4px 0;
+}
+
+.title {
+  font-size: 16px;
+  color: var(--windows-blue);
+  margin: 0;
+  font-style: italic;
+}
+
+.section {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--windows-black);
+  margin: 0 0 8px 0;
+}
+
+.section-text {
+  line-height: 1.5;
+  margin: 0;
+  font-size: 16px;
+}
+
+.education-box {
+  border: 1px solid var(--button-border-dark);
+  padding: 12px;
+  background-color: #f9f9f9;
+}
+
+.education-degree {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.education-details {
+  color: #666;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.education-concentration {
+  font-size: 16px;
+}
+
+.approach-list {
+  line-height: 1.5;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 16px;
+  list-style-type: disc;
+}
+
+.footer {
+  border-top: 2px solid var(--button-border-dark);
+  padding-top: 12px;
+  margin-top: 16px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .about-container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .skills-pane {
+    width: 100%;
+    max-width: none;
+    border-right: none;
+    border-bottom: 2px solid var(--button-border-dark);
+    padding-bottom: 16px;
+  }
+
+  .main-content {
+    max-width: none;
+    padding: 12px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .section-text {
+    font-size: 14px;
+  }
+
+  .education-box {
+    padding: 8px;
+  }
+
+  .education-degree,
+  .education-details,
+  .education-concentration {
+    font-size: 14px;
+  }
+
+  .approach-list {
+    font-size: 14px;
+    padding-left: 16px;
+  }
+
+  .footer-text {
+    font-size: 12px;
+  }
+
+  .skills-section::before,
+  .tree-connector::before {
+    left: 11px;
+  }
+
+  .skills-list li::before {
+    left: -12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-group {
+    margin-bottom: 8px;
+  }
+
+  .placeholder {
+    margin-left: 0;
+  }
+}

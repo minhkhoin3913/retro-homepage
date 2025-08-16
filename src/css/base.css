@@ -1,6 +1,5 @@
 body {
   background: linear-gradient(to bottom, #7047b0, #f5a6ff);
-  font-family: var(--main-font);
   cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 

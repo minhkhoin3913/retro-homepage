@@ -35,7 +35,7 @@ const DialogWindow = memo(({
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(loadingTimer);
   }, []);

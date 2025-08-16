@@ -10,7 +10,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   const [stage, setStage] = useState(0);
   const [displayedLines, setDisplayedLines] = useState([
     "V8 JavaScript Engine v12.1, A Just-in-Time Execution Partner",
-    "Copyright (C) 1984-2025, Pixelware Technologies, Inc. ",
+    "Copyright (C) 1984-2025, NMK Technologies, Co. ",
     "",
     "⠀",
     "",

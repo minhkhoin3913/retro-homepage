@@ -10,20 +10,13 @@ const Contact = () => {
     return (
         <div className="contact-container">
             <div className="contact-title">
+                <img src={nmkSvg} alt="Monogram" className="monogram" />
+
                 <div className="contact-title-group">
                     <h1 className="name">Nguyen Minh Khoi</h1>
                     <p className="title">Frontend Developer</p>
                 </div>
-                <img src={nmkSvg} alt="Monogram" className="monogram" />
             </div>
-            <p className="contact-info">
-                <strong>
-                    <img src={mailboxIcon} alt="Mailbox" className="folder-icon" /> Address:
-                </strong>
-                <span className="contact-detail">
-                    1/1 Tran Thi B, Phu Nhuan District, Ho Chi Minh City, Vietnam
-                </span>
-            </p>
             <p className="contact-info phone-email">
                 <strong>
                     <img src={phoneIcon} alt="Phone" className="folder-icon" /> Phone:
@@ -52,6 +45,14 @@ const Contact = () => {
                     <a href="https://minhkhoin3913.github.io/retro-homepage" className="contact-link">
                         https://minhkhoin3913.github.io/retro-homepage
                     </a>
+                </span>
+            </p>
+            <p className="contact-info">
+                <strong>
+                    <img src={mailboxIcon} alt="Mailbox" className="folder-icon" /> Address:
+                </strong>
+                <span className="contact-detail">
+                    600 Nguyen Van Cu Extended, An Binh Ward, Can Tho, Vietnam
                 </span>
             </p>
         </div>

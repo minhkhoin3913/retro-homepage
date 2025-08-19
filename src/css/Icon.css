@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 64px;
+  width: 80px;
   user-select: none;
   outline: none;
   transition: none;
@@ -24,12 +24,7 @@
 }
 
 .item-image {
-  width: 48px;
   height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
 }
 
 .item-image img {
@@ -43,14 +38,13 @@
 }
 
 .item-label {
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
-  margin-top: 6px;
+  margin-top: 8px;
   color: var(--windows-white);
   font-family: var(--main-font);
   pointer-events: none;
   word-wrap: break-word;
-  /* Allow dynamic color override */
   transition: color 0.2s ease;
 }
 

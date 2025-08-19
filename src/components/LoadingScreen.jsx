@@ -9,8 +9,8 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   // Stage 0: Boot sequence, Stage 1: Black screen transition, Stage 2: Loading screen
   const [stage, setStage] = useState(0);
   const [displayedLines, setDisplayedLines] = useState([
-    "V8 JavaScript Engine v12.1, A Just-in-Time Execution Partner",
-    "Copyright (C) 1984-2025, NMK Technologies, Co. ",
+    "V8 JavaScript Engine v12.1",
+    "Copyright (C) 1984-2025, NMK Technologies, Inc. ",
     "",
     "⠀",
     "",

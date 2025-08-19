@@ -2,7 +2,7 @@
 .taskbar {
   position: fixed;
   bottom: 0;
-  height: 52px;
+  height: 48px;
   background-color: var(--windows-bg);
   border-top: 2px solid var(--button-border-light);
   border-right: 2px solid var(--button-border-dark);
@@ -29,9 +29,8 @@
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   box-shadow: 0 0 0 2px var(--windows-black);
-  width: 42px;
-  height: 42px;
-  /* cursor: pointer; */
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,8 +44,8 @@
 }
 
 .taskbar-icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .taskbar-collapse-btn {
@@ -56,13 +55,13 @@
   border-right: 2px solid var(--button-border-dark);
   border-bottom: 2px solid var(--button-border-dark);
   box-shadow: 0 0 0 2px var(--windows-black);
-  height: 42px;
-  width: 30px;
+  height: 38px;
+  width: 26px;
   /* cursor: pointer; */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--main-font);
+  font-family: var(--button-font);
   font-size: 28px;
   color: var(--windows-black);
   margin-left: 12px;

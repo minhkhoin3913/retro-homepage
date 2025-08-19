@@ -1,10 +1,22 @@
 @font-face {
+  font-family: "W95FA";
+  src: url("/src/assets/fonts/W95FA.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Pixel Operator";
   src: url("/src/assets/fonts/PixelOperator.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Fixedsys Excelsior 3.01";
+  src: url("/src/assets/fonts/FSEX300.ttf") format("truetype");
+}
+
 :root {
-  --main-font: "Pixel Operator", "MS Sans Serif", "Tahoma", sans-serif;
+  --main-font: "W95FA", "MS Sans Serif", "Tahoma", sans-serif;
+  --button-font: "Pixel Operator", "MS Sans Serif", "Tahoma", sans-serif;
+  --terminal-font: "Fixedsys Excelsior 3.01", "MS Sans Serif", "Tahoma", sans-serif;
   --button-border-dark: #84888c;
   --button-border-light: #fcfcfc;
   --windows-blue: #316ac5;

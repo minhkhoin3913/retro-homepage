@@ -37,7 +37,7 @@
   border-top: 2px solid var(--button-border-light);
   /* cursor: pointer; */
   font-family: var(--main-font);
-  font-size: 16px;
+  
   font-weight: bold;
   color: var(--windows-black);
   width: 26px;
@@ -60,7 +60,6 @@
 }
 
 .menu-bar-datetime {
-  font-size: 18px;
   color: var(--windows-black);
   display: flex;
   align-items: center;

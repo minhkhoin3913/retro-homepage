@@ -28,18 +28,7 @@ const MenuBar = ({ visible = true, onShutdown }) => {
     const day = date.getDate();
     const month = date.toLocaleDateString(undefined, { month: "long" });
     
-    // Add ordinal suffix
-    const getOrdinalSuffix = (day) => {
-      if (day > 3 && day < 21) return "th";
-      switch (day % 10) {
-        case 1: return "st";
-        case 2: return "nd";
-        case 3: return "rd";
-        default: return "th";
-      }
-    };
-    
-    return `${day}${getOrdinalSuffix(day)} ${month}`;
+    return `${day} ${month}`;
   };
 
   const handleShutdownClick = () => {
@@ -62,13 +51,6 @@ const MenuBar = ({ visible = true, onShutdown }) => {
           </div>
         </div>
         <div className="menu-bar-right">
-          <button
-            className="menu-bar-s-button"
-            title="About Panels"
-            onClick={handleShutdownClick}
-          >
-            i
-          </button>
           <button
             className="menu-bar-s-button"
             title="Power"

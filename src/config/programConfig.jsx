@@ -11,10 +11,9 @@ import Contact from "../utilities/Contact/Contact";
 import Welcome from "../utilities/Welcome/Welcome";
 
 // Import your icons
-import aboutIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
-import projectsIcon from "../assets/icons/Microsoft Windows 3 File Manager.ico";
-import contactIcon from "../assets/icons/Microsoft Windows 3 Phone Dial.ico";
-import welcomeIcon from "../assets/icons/Microsoft Windows 3 Read Me.ico";
+import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
+import phoneIcon from "../assets/icons/Microsoft Windows 3 Phone Dial.ico";
+import readmeIcon from "../assets/icons/Microsoft Windows 3 Read Me.ico";
 import folderIcon from "../assets/icons/Microsoft Windows 3 Applications.ico";
 import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
 import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";
@@ -22,38 +21,47 @@ import notebookIcon from "../assets/icons/Microsoft Windows 3 Binder.ico";
 import calculatorIcon from "../assets/icons/Microsoft Windows 3 Calculator.ico";
 import calendarIcon from "../assets/icons/Microsoft Windows 3 Calendar.ico";
 import clockIcon from "../assets/icons/Microsoft Windows 3 Clock.ico";
-import photoIcon from "../assets/icons/Microsoft Windows 3 Mona Lisa.ico";
+import monaLisaIcon from "../assets/icons/Microsoft Windows 3 Mona Lisa.ico";
 import videoIcon from "../assets/icons/Microsoft Windows 3 Media Player.ico";
 import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
 import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico";
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
-import canvasIcon from "../assets/icons/Microsoft Windows 3 Color.ico";
+import paintIcon from "../assets/icons/Microsoft Windows 3 Paint Tools.ico";
 import pikachuIcon from "../assets/icons/Pikachu.ico";
+import dllSetupIcon from "../assets/icons/Microsoft Windows 3 DLL Setup.ico";
+import briefcaseIcon from "../assets/icons/Microsoft Windows 3 Briefcase.ico";
+import computerIcon from "../assets/icons/Microsoft Windows 3 Computer.ico";
 
 // Desktop icons configuration
 export const desktopIcons = [
   {
     id: "about",
     label: "About Me",
-    iconSrc: aboutIcon,
+    iconSrc: computerIcon,
+    isMaximizable: false,
+  },
+    {
+    id: "certificates",
+    label: "My Certificates",
+    iconSrc: dllSetupIcon,
     isMaximizable: false,
   },
   {
     id: "projects",
-    label: "Projects",
-    iconSrc: projectsIcon,
+    label: "My Projects",
+    iconSrc: briefcaseIcon,
     isMaximizable: false,
   },
   {
     id: "contact",
-    label: "Contact",
-    iconSrc: contactIcon,
+    label: "My Contact",
+    iconSrc: phoneIcon,
     isMaximizable: false,
   },
   {
     id: "welcome",
     label: "Welcome",
-    iconSrc: welcomeIcon,
+    iconSrc: logoIcon,
     isMaximizable: false,
   },
 ];
@@ -89,7 +97,7 @@ export const desktopFolders = {
       {
         id: "canvas",
         label: "Canvas",
-        iconSrc: canvasIcon,
+        iconSrc: paintIcon,
         type: "icon",
         isMaximizable: true,
       },
@@ -124,7 +132,7 @@ export const desktopFolders = {
       {
         id: "photo",
         label: "Photo",
-        iconSrc: photoIcon,
+        iconSrc: monaLisaIcon,
         type: "icon",
         isMaximizable: true,
       },

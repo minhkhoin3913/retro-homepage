@@ -22,7 +22,7 @@ export const useDesktop = () => {
     // Constants for positioning
     const EDGE_PADDING = 24; // Consistent padding from edges
     const ICON_SPACING = 102; // Vertical spacing between icons
-    const ICON_WIDTH = 64; // Width of icon from CSS
+    const ICON_WIDTH = 80; // Width of icon from CSS
     const TOP_PADDING = 24; // Exact padding from the top of the menu bar
     
     allDesktopItems.forEach((item) => {
@@ -50,7 +50,7 @@ export const useDesktop = () => {
       setItemPositions(prev => {
         const newPositions = { ...prev };
         const EDGE_PADDING = 24;
-        const ICON_WIDTH = 64;
+        const ICON_WIDTH = 80;
         
         // Only update the positions of folder icons on the right side
         allDesktopItems.forEach(item => {

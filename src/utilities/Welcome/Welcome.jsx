@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Welcome.css';
+import welcomeAudio from './welcome.mp3';
 
 const Welcome = () => {
+  useEffect(() => {
+    const audio = new Audio(welcomeAudio);
+    audio.play().catch(error => {
+      console.error('Error playing audio:', error);
+    });
+
+    // Cleanup function to stop audio when component unmounts
+    return () => {
+      audio.pause();
+      audio.currentTime = 0; // Reset to start for next play
+    };
+  }, []); // Empty dependency array ensures this runs once on mount
+
   return (
     <div className="welcome-container">
       <h2 className="welcome-title">Welcome to Retro Desktop!</h2>

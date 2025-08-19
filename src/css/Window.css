@@ -109,6 +109,7 @@
 
 .windows-window.maximized {
   background-color: #fcfcfc;
+  box-sizing: border-box;
   border: 2px solid var(--windows-black);
   outline: 3px outset #c0c4c8;
   box-shadow: 0 0 0 5px var(--windows-black);
@@ -120,7 +121,7 @@
 
 .windows-window.maximized .window-content {
   height: calc(100vh - 35px); /* Account for title bar height (30px) + border (3px + 2px) */
-  overflow: auto;
+  overflow: clip;
 }
 
 .windows-window.minimized {

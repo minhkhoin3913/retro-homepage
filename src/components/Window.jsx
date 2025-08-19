@@ -22,12 +22,46 @@ const Window = memo(({
   const [isLoading, setIsLoading] = useState(true);
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizePosition, setPreMaximizePosition] = useState(initialPosition);
+  const [preMobileState, setPreMobileState] = useState(null); // Store state before mobile
   const MENU_BAR_HEIGHT = 30; // Height of the menu bar
+
+  // Detect mobile display
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Update mobile detection and handle state transitions
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      
+      if (mobile && !isMobile && !isMinimized) {
+        // Entering mobile: save current state and maximize
+        setPreMobileState({
+          position,
+          isMaximized,
+        });
+        setPreMaximizePosition(position);
+        setPosition({ x: 0, y: MENU_BAR_HEIGHT });
+        setIsMaximized(true);
+      } else if (!mobile && isMobile && preMobileState && !isMinimized) {
+        // Exiting mobile: restore pre-mobile state
+        setPosition(preMobileState.position);
+        setIsMaximized(preMobileState.isMaximized);
+        setPreMobileState(null); // Clear pre-mobile state
+      }
+      
+      setIsMobile(mobile);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile, isMinimized, position, isMaximized, preMobileState, MENU_BAR_HEIGHT]);
 
   // Memoize position update handler for better performance
   const handlePositionChange = useCallback((_, newPos) => {
-    if (!isMaximized) setPosition(newPos);
-  }, [isMaximized]);
+    if (!isMaximized && !isMobile) setPosition(newPos);
+  }, [isMaximized, isMobile]);
 
   const { elementRef, handleMouseDown, handleTouchStart } = useDragDrop(
     id,
@@ -47,14 +81,14 @@ const Window = memo(({
 
   // Memoize event handlers
   const handleTitleBarMouseDown = useCallback((e) => {
-    if (!e.target.closest(".window-title-bar") || isMaximized) return;
+    if (!e.target.closest(".window-title-bar") || isMaximized || isMobile) return;
     handleMouseDown(e);
-  }, [handleMouseDown, isMaximized]);
+  }, [handleMouseDown, isMaximized, isMobile]);
   
   const handleTitleBarTouchStart = useCallback((e) => {
-    if (!e.target.closest(".window-title-bar") || isMaximized) return;
+    if (!e.target.closest(".window-title-bar") || isMaximized || isMobile) return;
     handleTouchStart(e);
-  }, [handleTouchStart, isMaximized]);
+  }, [handleTouchStart, isMaximized, isMobile]);
 
   const handleMinimizeClick = useCallback(() => {
     if (onMinimize) {
@@ -63,6 +97,7 @@ const Window = memo(({
   }, [id, title, icon, position, onMinimize]);
 
   const handleMaximizeClick = useCallback(() => {
+    if (isMobile) return; // Prevent manual maximize/restore on mobile
     if (isMaximized) {
       setPosition(preMaximizePosition);
       setIsMaximized(false);
@@ -71,7 +106,7 @@ const Window = memo(({
       setPosition({ x: 0, y: MENU_BAR_HEIGHT });
       setIsMaximized(true);
     }
-  }, [isMaximized, position, preMaximizePosition, MENU_BAR_HEIGHT]);
+  }, [isMaximized, position, preMaximizePosition, MENU_BAR_HEIGHT, isMobile]);
 
   const handleCloseClick = useCallback(() => {
     if (onClose) {
@@ -112,7 +147,7 @@ const Window = memo(({
             >
               ×
             </button>
-            {isMaximizable && (
+            {!isMobile && isMaximizable && (
               <button
                 className="window-button control-button"
                 onClick={handleMaximizeClick}
@@ -140,17 +175,17 @@ const Window = memo(({
   // Compute window style
   const windowStyle = {
     position: "absolute",
-    left: isMaximized ? 0 : `${position.x}px`,
-    top: isMaximized ? MENU_BAR_HEIGHT : `${position.y}px`,
-    width: isMaximized ? "100vw" : "auto",
-    height: isMaximized ? `calc(100vh - ${MENU_BAR_HEIGHT}px)` : "auto",
+    left: (isMaximized || isMobile) ? 0 : `${position.x}px`,
+    top: (isMaximized || isMobile) ? MENU_BAR_HEIGHT : `${position.y}px`,
+    width: (isMaximized || isMobile) ? "100vw" : "auto",
+    height: (isMaximized || isMobile) ? `calc(100vh - ${MENU_BAR_HEIGHT}px)` : "auto",
     zIndex: zIndex,
   };
 
   return (
     <div
       ref={elementRef}
-      className={`windows-window ${isMaximized ? "maximized" : ""}`}
+      className={`windows-window ${(isMaximized || isMobile) ? "maximized" : ""}`}
       style={windowStyle}
       onMouseDown={handleTitleBarMouseDown}
       onTouchStart={handleTitleBarTouchStart}
@@ -166,7 +201,7 @@ const Window = memo(({
           >
             ×
           </button>
-          {isMaximizable && (
+          {!isMobile && isMaximizable && (
             <button
               className="window-button control-button"
               onClick={handleMaximizeClick}
@@ -181,16 +216,16 @@ const Window = memo(({
             onClick={handleMinimizeClick}
             title="Minimize Window"
             aria-label="Minimize Window"
-          >
-            -
-          </button>
+            >
+              -
+            </button>
+          </div>
         </div>
+        <div className="window-content">{children}</div>
       </div>
-      <div className="window-content">{children}</div>
-    </div>
-  );
-});
-
-Window.displayName = 'Window';
-
-export default Window;
+    );
+  });
+  
+  Window.displayName = 'Window';
+  
+  export default Window;

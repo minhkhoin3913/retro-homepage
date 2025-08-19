@@ -80,20 +80,22 @@
 
 /* Mobile-specific styles - increase size by 2px */
 @media (max-width: 768px) {
+  .taskbar {
+    height: 50px;
+  }
+
   .taskbar-item {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
-  
+
   .taskbar-icon {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
-  
+
   .taskbar-collapse-btn {
-    width: 30px;
-    height: 42px;
+    width: 28px;
+    height: 40px;
   }
 }
-
-

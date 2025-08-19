@@ -30,12 +30,8 @@
 }
 
 .menu-bar-s-button {
-  background: var(--windows-bg);
-  border-right: 2px solid var(--button-border-dark);
-  border-bottom: 2px solid var(--button-border-dark);
-  border-left: 2px solid var(--button-border-light);
-  border-top: 2px solid var(--button-border-light);
-  /* cursor: pointer; */
+  background: transparent;
+  border: none;
   font-family: var(--main-font);
   
   font-weight: bold;
@@ -46,13 +42,6 @@
   align-items: center;
   justify-content: center;
   margin-right: 8px;
-}
-
-.menu-bar-s-button:active {
-  border-right: none;
-  border-bottom: none;
-  border-left: 2px solid var(--button-border-dark);
-  border-top: 2px solid var(--button-border-dark);
 }
 
 .menu-bar-s-button:hover {

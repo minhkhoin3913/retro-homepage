@@ -43,7 +43,7 @@
   border-left: 2px solid var(--button-border-light);
   border-top: 2px solid var(--button-border-light);
   box-shadow: 0 0 0 2px var(--windows-black);
-  font-size: 16px;
+  font-size: 18px;
   padding: 1px 10px 2px;
   font-weight: bold;
   display: flex;
@@ -58,7 +58,7 @@
   height: 26px;
   font-weight: normal;
   font-family: var(--button-font);
-  font-size: 20px;
+  font-size: 26px;
 
 }
 
@@ -121,7 +121,7 @@
 
 .windows-window.maximized .window-content {
   height: calc(100vh - 35px); /* Account for title bar height (30px) + border (3px + 2px) */
-  overflow: clip;
+  overflow: auto;
 }
 
 .windows-window.minimized {
@@ -136,7 +136,7 @@
   .window-button.control-button {
     min-width: 28px;
     min-height: 28px;
-    font-size: 20px; /* Larger buttons for touch */
+    font-size: 28px;
     display: flex;
     align-items: center;
     justify-content: center;

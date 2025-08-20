@@ -87,8 +87,7 @@
 .boot-line {
   font-family: var(--terminal-font);
   font-weight: 500;
-  margin-bottom: 6px;
-  min-height: 1.4em;
+  min-height: 1em;
 
 }
 

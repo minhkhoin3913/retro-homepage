@@ -30,7 +30,7 @@ const Taskbar = ({ minimizedWindows, onRestore, isCollapsed, onToggleCollapse })
       <button
         className="taskbar-collapse-btn"
         onClick={onToggleCollapse}
-        title={isCollapsed ? "Expand taskbar" : "Collapse taskbar"}
+        title={isCollapsed ? "Expand Taskbar" : "Collapse Taskbar"}
       >
         {isCollapsed ? ">" : "<"}
       </button>

@@ -9,7 +9,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   // Stage 0: Boot sequence, Stage 1: Black screen transition, Stage 2: Loading screen
   const [stage, setStage] = useState(0);
   const [displayedLines, setDisplayedLines] = useState([
-    "V8 JavaScript Engine v12.1",
+    "V8 JavaScript Engine v12.1, An Energy Star Ally",
     "Copyright (C) 1984-2025, NMK Technologies, Inc. ",
     "",
     "⠀",
@@ -22,7 +22,17 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   const [showSkipMessage, setShowSkipMessage] = useState(false);
   const [lastTap, setLastTap] = useState(0);
 
-  // Handle ESC key press and double-tap to skip loading
+  // Function to hide cursor
+  const hideCursor = () => {
+    document.body.style.cursor = 'none';
+  };
+
+  // Function to restore cursor
+  const restoreCursor = () => {
+    document.body.style.cursor = 'auto';
+  };
+
+  // Handle ESC key press, double-tap to skip loading, and cursor hiding
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === "Escape") {
@@ -41,6 +51,9 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       setLastTap(currentTime);
     };
 
+    // Hide cursor when component mounts
+    hideCursor();
+
     // Add event listeners after a short delay to allow the component to mount
     const timer = setTimeout(() => {
       setShowSkipMessage(true);
@@ -52,6 +65,8 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       clearTimeout(timer);
       document.removeEventListener("keydown", handleKeyPress);
       document.removeEventListener("touchstart", handleTouchStart);
+      // Restore cursor when component unmounts
+      restoreCursor();
     };
   }, [onSkip, lastTap]);
 
@@ -85,7 +100,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       }
 
       // Format as two lines
-      const platformLine = `${platform} (TM) Platform`;
+      const platformLine = `${platform}(TM) Platform`;
       const cpuLine = `${cpuInfo} with ${cpuCores} Cores`;
       
       // Update displayedLines with the hardware information replacing the empty lines
@@ -116,12 +131,10 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       "  Detecting eslint ... @9.25.0 ",
       "  Detecting gh-pages ... @6.3.0 ",
       "",
-      "Starting PANE 97 ... ", // Cursor will be next to this line
+      "Starting PANE 97 ... ",
     ];
 
     // Define delays for each line to mimic 90s PC boot sequence
-    // Longer delays for react packages (as if checking important hardware)
-    // Varying delays to simulate different detection speeds
     const delays = [850, 650, 1200, 750, 900, 550, 1000, 800, 2000];
 
     // Set up blinking cursor
@@ -133,37 +146,29 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
     let timeoutId;
     const displayLines = async () => {
       for (let i = 0; i < bootLines.length; i++) {
-        // Wait for the specified delay
         await new Promise((resolve) => {
           timeoutId = setTimeout(resolve, delays[i]);
         });
         
-        // Add the new line to displayed lines
         setDisplayedLines((prev) => [...prev, bootLines[i]]);
       }
       
-      // Wait a bit before transitioning to black screen
       await new Promise((resolve) => {
         timeoutId = setTimeout(resolve, 2500);
       });
       
-      // Switch to black screen transition
       setStage(1);
       
-      // Wait 1.5 seconds on black screen
       await new Promise((resolve) => {
         timeoutId = setTimeout(resolve, 1500);
       });
       
-      // Switch to loading screen with reset progress
       setProgress(0);
       setStage(2);
     };
 
-    // Start the boot sequence
     displayLines();
 
-    // Clean up all timeouts and intervals when component unmounts
     return () => {
       clearInterval(cursorInterval);
       clearTimeout(timeoutId);

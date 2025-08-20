@@ -158,7 +158,7 @@ const Desktop = memo(() => {
             onRestore={handleRestoreWindow}
             isCollapsed={isTaskbarCollapsed}
             onToggleCollapse={handleToggleTaskbarCollapse}
-            aria-label="System taskbar"
+            aria-label="System Taskbar"
           />
         </div>
       </>
@@ -227,7 +227,7 @@ const Desktop = memo(() => {
           onRestore={handleRestoreWindow}
           isCollapsed={isTaskbarCollapsed}
           onToggleCollapse={handleToggleTaskbarCollapse}
-          aria-label="System taskbar"
+          aria-label="System Taskbar"
         />
       </div>
     </>

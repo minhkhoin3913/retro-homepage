@@ -13,7 +13,17 @@ const ShutdownScreen = () => {
   ]);
   const [showRestartMessage, setShowRestartMessage] = useState(false);
 
-  // Handle Enter key press to restart
+  // Function to hide cursor
+  const hideCursor = () => {
+    document.body.style.cursor = 'none';
+  };
+
+  // Function to restore cursor
+  const restoreCursor = () => {
+    document.body.style.cursor = 'auto';
+  };
+
+  // Handle Enter key press to restart and cursor hiding
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === "Enter") {
@@ -21,6 +31,9 @@ const ShutdownScreen = () => {
         window.location.reload();
       }
     };
+
+    // Hide cursor when component mounts
+    hideCursor();
 
     // Add event listener after a short delay to allow the component to mount
     const timer = setTimeout(() => {
@@ -31,6 +44,8 @@ const ShutdownScreen = () => {
     return () => {
       clearTimeout(timer);
       document.removeEventListener("keydown", handleKeyPress);
+      // Restore cursor when component unmounts
+      restoreCursor();
     };
   }, []);
 
@@ -97,4 +112,4 @@ const ShutdownScreen = () => {
   );
 };
 
-export default ShutdownScreen; 
+export default ShutdownScreen;

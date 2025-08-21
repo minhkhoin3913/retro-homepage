@@ -74,8 +74,6 @@
     max-height: 150px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
     justify-content: center; /* Center the items */
     padding: 0; /* Remove padding to control spacing with gap */
   }
@@ -83,7 +81,6 @@
   .welcome-menu-item {
     border-bottom: none; /* Remove bottom border */
     border-right: 1px solid #000; /* Add border between items */
-    padding: 6px;
     flex: 1 1;
     min-width: 0;
     text-align: center; /* Ensure centering */
@@ -95,7 +92,6 @@
 
   .welcome-content-section {
     width: 100%;
-    padding: 12px;
     max-height: calc(100vh - 200px);
   }
 
@@ -104,7 +100,7 @@
   }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .welcome-container {
     padding: 8px;
   }
@@ -122,4 +118,4 @@
     padding: 4px;
     flex: 1 1 40%;
   }
-}
+} */

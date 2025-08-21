@@ -4,8 +4,6 @@
   "description": "Retro Windows 95/98 style homepage",
   "start_url": "/retro-homepage/",
   "display": "standalone",
-  "background_color": "#000080",
-  "theme_color": "#000080",
   "icons": [
     {
       "src": "/retro-homepage/favicon.ico",

@@ -9,6 +9,7 @@
 
 .skills-pane {
   width: 180px;
+  height: 80vh;
   background-color: #f0f0f0;
   border-right: 2px solid var(--button-border-dark);
   padding: 14px;
@@ -195,7 +196,7 @@
     border-right: none;
     border-top: 2px solid var(--button-border-dark);
     padding: 16px;
-    margin-top: 16px;
+    box-sizing: border-box;
   }
 
   .skills-section::before,

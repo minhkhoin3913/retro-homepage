@@ -2,17 +2,18 @@
   display: flex;
   height: 100%;
   font-family: var(--main-font), sans-serif;
-  max-width: 800px;
+  height: 35rem;
+  width: 47rem;
   margin: 0 auto;
-  overflow-y: auto; /* Make the entire container scrollable */
+  overflow-y: auto;
+  /* Make the entire container scrollable */
 }
 
 .skills-pane {
   width: 180px;
-  height: 80vh;
   background-color: #f0f0f0;
   border-right: 2px solid var(--button-border-dark);
-  padding: 14px;
+  padding: 16px;
   overflow-y: auto;
   position: relative;
 }
@@ -44,7 +45,8 @@
 
 .tree-connector {
   position: relative;
-  margin-top: -4px; /* Adjust to align with title bottom */
+  margin-top: -4px;
+  /* Adjust to align with title bottom */
 }
 
 .skills-list {
@@ -60,11 +62,12 @@
   padding-left: 4px;
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between icon and text */
+  gap: 8px;
+  /* Space between icon and text */
 }
 
 .skills-list li::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: -16px;
@@ -74,9 +77,10 @@
 }
 
 .skills-section::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 100%; /* Start just below the title */
+  top: 100%;
+  /* Start just below the title */
   left: 11px;
   width: 1px;
   background-color: var(--windows-black);
@@ -84,12 +88,13 @@
 }
 
 .tree-connector::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 7px;
   width: 1px;
   background-color: var(--windows-black);
-  height: calc(100% - 8px); /* Adjust to end at the last li's midpoint */
+  height: calc(100% - 8px);
+  /* Adjust to end at the last li's midpoint */
 }
 
 .main-content {
@@ -179,24 +184,28 @@
   .about-container {
     flex-direction: column;
     max-width: 100%;
-    height: auto; /* Allow height to adjust naturally */
-    overflow-y: auto; /* Single scrollable area */
+    height: auto;
+    /* Allow height to adjust naturally */
+    overflow-y: auto;
+    /* Single scrollable area */
   }
 
   .main-content {
-    order: 1; /* Move main-content first */
+    order: 1;
+    /* Move main-content first */
     padding: 16px;
     max-width: none;
   }
 
   .skills-pane {
-    order: 2; /* Move skills-pane below main-content */
+    order: 2;
+    /* Move skills-pane below main-content */
     width: 100%;
     max-width: none;
     border-right: none;
     border-top: 2px solid var(--button-border-dark);
-    padding: 16px;
     box-sizing: border-box;
+    height: 80vh;
   }
 
   .skills-section::before,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/MenuBar.css";
 import ShutdownDialog from "./ShutdownDialog";
+import keyGrayIcon from "../assets/icons/Microsoft Windows 3 Keys.ico";
 
 const MenuBar = ({ visible = true, onShutdown }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -56,7 +57,7 @@ const MenuBar = ({ visible = true, onShutdown }) => {
             title="Power"
             onClick={handleShutdownClick}
           >
-            (|)
+            <img src={keyGrayIcon} alt="Power Icon" className="menu-bar-icon" />
           </button>
         </div>
       </div>

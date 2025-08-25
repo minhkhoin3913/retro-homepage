@@ -33,7 +33,6 @@
   background: transparent;
   border: none;
   font-family: var(--main-font);
-  
   font-weight: bold;
   color: var(--windows-black);
   width: 26px;
@@ -42,10 +41,12 @@
   align-items: center;
   justify-content: center;
   margin-right: 8px;
+  padding: 0;
 }
 
-.menu-bar-s-button:hover {
-  background: #d4d4d4;
+.menu-bar-icon {
+  height: 24px;
+  object-fit: contain;
 }
 
 .menu-bar-datetime {
@@ -56,4 +57,4 @@
   white-space: nowrap;
   min-width: 180px;
   gap: 8px;
-} 
+}

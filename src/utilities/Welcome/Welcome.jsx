@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import './welcome.css';
-import welcomeAudio from './welcome.mp3';
+import React, { useState, useEffect } from "react";
+import "./welcome.css";
+import welcomeAudio from "./welcome.mp3";
 
 const Welcome = () => {
-  const [activeSection, setActiveSection] = useState('welcome');
-  const [content, setContent] = useState('');
+  const [activeSection, setActiveSection] = useState("welcome");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     const audio = new Audio(welcomeAudio);
-    audio.play().catch(error => {
-      console.error('Error playing audio:', error);
+    audio.play().catch((error) => {
+      console.error("Error playing audio:", error);
     });
 
     return () => {
@@ -20,47 +20,91 @@ const Welcome = () => {
 
   useEffect(() => {
     switch (activeSection) {
-      case 'welcome':
+      case "welcome":
         setContent(
           <>
             <h2 className="welcome-title">Welcome to My Personal Website</h2>
-            <p>Hello! I’m thrilled to have you here on my personal corner of the internet. This website is a reflection of my journey, passions, and the things I love to share with the world. Whether you're a friend, colleague, or just a curious visitor, I hope you find something inspiring or useful during your stay. I’ve poured my heart into creating this space, blending my interests in technology, creativity, and personal growth into a digital home.</p>
-            <p>Feel free to explore at your own pace. This site is designed to be a living portfolio, showcasing my projects, thoughts, and experiences. You’ll find sections dedicated to my work, a blog with my latest musings, and even a gallery of my favorite moments. If you’re new here, I recommend starting with the "Discover" section to get a feel for what I offer. Take your time, click around, and let me know what you think—I’d love to hear your feedback!</p>
-            <p>As you navigate, you’ll notice a retro aesthetic inspired by the early days of computing. It’s a nod to my love for nostalgia and the evolution of technology. So, grab a coffee, get comfortable, and enjoy your visit to my digital abode!</p>
+            <p>
+              Hello! I’m thrilled to have you here. This site is a reflection of
+              my journey, passions, and creative work. A place where I share
+              projects, thoughts, and experiences. Whether you’re a friend,
+              colleague, or just curious, I hope you find something inspiring or
+              useful along the way.
+            </p>
+            <p>
+              Feel free to explore at your own pace. You’ll find a portfolio of
+              my work, a blog with my latest musings, and even a gallery of
+              favorite moments. To get started, I recommend checking out the
+              "Discover" section for a quick overview. I’d love to hear your
+              feedback as you click around!
+            </p>
+            <p>
+              The site carries a retro aesthetic inspired by the early days of
+              computing, a nod to nostalgia and my love for technology’s
+              evolution. So grab a coffee, get comfortable, and enjoy your visit
+              to my digital home.
+            </p>
           </>
         );
         break;
-      case 'discover':
+      case "discover":
         setContent(
           <>
             <h2 className="welcome-title">Discover</h2>
-            <p>Discover the features of my personal website with this interactive tour. Here’s how you can make the most of your visit:</p>
+            <p>
+              Take a quick tour and see how to navigate my site. The interface
+              is designed to feel like a retro desktop, reimagined with modern
+              functionality. Here’s how you can interact with it:
+            </p>
             <ul className="welcome-usage-list">
-              <li>Single-click icons to select them (they'll turn blue)</li>
+              <li>
+                Click an icon once to select it (it will highlight in blue)
+              </li>
               <li>Double-click icons to open windows</li>
               <li>Double-click folders to browse their contents</li>
-              <li>Drag icons around to rearrange them</li>
+              <li>Drag icons to rearrange them on the desktop</li>
               <li>Drag icons onto folders to move them inside</li>
-              <li>Drag windows by their title bar to move them</li>
-              <li>Click the × button to close windows</li>
-              <li>Click the • button to maximize windows</li>
-              <li>Click the • button again to restore maximized windows</li>
+              <li>Drag windows by their title bar to reposition them</li>
+              <li>Click the × button to close a window</li>
+              <li>Click the • button to maximize a window</li>
+              <li>Click the • button again to restore it</li>
             </ul>
-            <p>This interface is designed to feel like a desktop experience from the past, blended with modern functionality. Explore my projects, read my blog posts, or check out my photo gallery to learn more about who I am and what I do.</p>
+            <p>
+              Explore at your own pace—open projects, read blog posts, or browse
+              the photo gallery. Every section is here to give you a glimpse
+              into my work, my interests, and the things I enjoy sharing.
+            </p>
           </>
         );
         break;
-      case 'contact-now':
+      case "contact-now":
         setContent(
           <>
             <h2 className="welcome-title">Contact Now</h2>
-            <p>I’d love to connect with you! This section is your gateway to reaching out, whether you want to collaborate, ask a question, or just say hello. You can find my contact details below, and I encourage you to get in touch. I’m always open to new opportunities, feedback, or a friendly chat.</p>
+            <p>
+              I’d love to connect with you! This section is your gateway to
+              reaching out, whether you want to collaborate, ask a question, or
+              just say hello. You can find my contact details below, and I
+              encourage you to get in touch. I’m always open to new
+              opportunities, feedback, or a friendly chat.
+            </p>
             <ul className="welcome-usage-list">
-              <li>Email me at: [your-email@example.com] to start a conversation</li>
-              <li>Connect with me on social media via the links in the footer</li>
-              <li>Fill out the contact form on the "Contact" page for a detailed message</li>
+              <li>
+                Email me at: nguyenminhkhoi3913@gmail.com to start a
+                conversation
+              </li>
+              <li>
+                Connect with me on social media via the links in the footer
+              </li>
+              <li>
+                Email me using the built-in “Email” program on this retro
+                desktop
+              </li>
             </ul>
-            <p className="welcome-closing-text">Feel free to explore more, and don’t hesitate to reach out. I look forward to hearing from you!</p>
+            <p className="welcome-closing-text">
+              Feel free to explore more, and don’t hesitate to reach out. I look
+              forward to hearing from you!
+            </p>
           </>
         );
         break;
@@ -74,26 +118,24 @@ const Welcome = () => {
       <div className="welcome-menu-section">
         <div
           className="welcome-menu-item"
-          onClick={() => setActiveSection('welcome')}
+          onClick={() => setActiveSection("welcome")}
         >
           Welcome
         </div>
         <div
           className="welcome-menu-item"
-          onClick={() => setActiveSection('discover')}
+          onClick={() => setActiveSection("discover")}
         >
           Discover
         </div>
         <div
           className="welcome-menu-item"
-          onClick={() => setActiveSection('contact-now')}
+          onClick={() => setActiveSection("contact-now")}
         >
           Contact Now
         </div>
       </div>
-      <div className="welcome-content-section">
-        {content}
-      </div>
+      <div className="welcome-content-section">{content}</div>
     </div>
   );
 };

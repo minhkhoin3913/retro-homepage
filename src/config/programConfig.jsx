@@ -9,6 +9,7 @@ import About from "../utilities/About/About";
 import Projects from "../utilities/Projects/Projects";
 import Contact from "../utilities/Contact/Contact";
 import Welcome from "../utilities/Welcome/Welcome";
+import Message from "../utilities/Message/Message";
 
 // Import your icons
 import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
@@ -31,6 +32,7 @@ import pikachuIcon from "../assets/icons/Pikachu.ico";
 import dllSetupIcon from "../assets/icons/Microsoft Windows 3 DLL Setup.ico";
 import briefcaseIcon from "../assets/icons/Microsoft Windows 3 Briefcase.ico";
 import computerIcon from "../assets/icons/Microsoft Windows 3 Computer.ico";
+import faxIcon from "../assets/icons/Microsoft Windows 3 Fax Machine.ico";
 
 // Desktop icons configuration
 export const desktopIcons = [
@@ -40,7 +42,7 @@ export const desktopIcons = [
     iconSrc: computerIcon,
     isMaximizable: false,
   },
-    {
+  {
     id: "certificates",
     label: "My Certificates",
     iconSrc: dllSetupIcon,
@@ -62,6 +64,12 @@ export const desktopIcons = [
     id: "welcome",
     label: "Welcome",
     iconSrc: logoIcon,
+    isMaximizable: false,
+  },
+  {
+    id: "message",
+    label: "Message Me",
+    iconSrc: faxIcon,
     isMaximizable: false,
   },
 ];
@@ -170,7 +178,7 @@ export const desktopFolders = {
         iconSrc: pikachuIcon,
         type: "icon",
         isMaximizable: true,
-      }
+      },
     ],
   },
 };
@@ -215,6 +223,8 @@ export const renderWindowContent = (windowId, windowTitle) => {
       return <Contact />;
     case "welcome":
       return <Welcome />;
+    case "message":
+      return <Message />;
     default:
       return (
         <div className="p-4">

@@ -1,0 +1,51 @@
+.message-me-window {
+  width: 35rem;
+  height: 24rem;
+  padding: 16px;
+  font-family: var(--main-font);
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--windows-black);
+  font-weight: bold;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px inset var(--button-border-dark);
+  background-color: var(--windows-white);
+  font-family: var(--main-font);
+  margin-bottom: 1rem;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.button-status-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-message {
+  margin: 0;
+  color: var(--windows-black);
+  font-size: 14px;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 600px) {
+  .message-me-window {
+    width: 100%;
+    height: 100%;
+  }
+}

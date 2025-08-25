@@ -114,14 +114,14 @@ const About = () => {
           <img src={folderOpenIcon} alt="Placeholder" className="folder-icon placeholder" />
           <div className="header-group">
             <h1 className="name">Nguyen Minh Khoi</h1>
-            <p className="title">Frontend Developer</p>
+            <p className="title">Full Stack Developer</p>
           </div>
         </div>
 
         <div className="section">
           <h2 className="section-title">🎯 Professional Summary</h2>
           <p className="section-text">
-            Detail-oriented frontend developer with a passion for creating intuitive, 
+            Detail-oriented full stack developer with a passion for creating intuitive, 
             responsive web applications. Specialized in React.js ecosystem with strong 
             foundation in modern JavaScript, CSS, and HTML. Committed to writing clean, 
             maintainable code and staying current with industry best practices.

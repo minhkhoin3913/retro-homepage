@@ -1,6 +1,7 @@
 import React from 'react';
 import DialogWindow from './DialogWindow';
 import '../css/ShutdownDialog.css';
+import monitorMoonIcon from '../assets/icons/Microsoft Windows 3 Post-It.ico';
 
 const ShutdownDialog = ({ isVisible, onClose, onShutdown }) => {
   if (!isVisible) return null;
@@ -25,7 +26,10 @@ const ShutdownDialog = ({ isVisible, onClose, onShutdown }) => {
         centered={true}
       >
         <div className="shutdown-dialog-content">
-          <p>Do you want to end your Pane session?</p>
+          <p>
+            <img src={monitorMoonIcon} alt="Monitor Moon Icon" className="dialog-icon" />
+            Do you want to end your Pane session?
+          </p>
           <div className="shutdown-dialog-buttons">
             <button className="window-button program-button" onClick={handleOK}>
               Yes
@@ -40,4 +44,4 @@ const ShutdownDialog = ({ isVisible, onClose, onShutdown }) => {
   );
 };
 
-export default ShutdownDialog; 
+export default ShutdownDialog;

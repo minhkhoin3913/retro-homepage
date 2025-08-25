@@ -43,7 +43,7 @@
 }
 
 /* Responsive design for mobile */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .message-me-window {
     width: 100%;
     height: 100%;

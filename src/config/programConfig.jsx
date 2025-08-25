@@ -1,10 +1,3 @@
-import Clock from "../utilities/Clock/Clock";
-import Camera from "../utilities/Camera/Camera";
-import Internet from "../utilities/Internet/Internet";
-import MediaPlayer from "../utilities/Media Player/MediaPlayer";
-import Calendar from "../utilities/Calendar/Calendar";
-import Notebook from "../utilities/Notebook/Notebook";
-import Pikachu from "../utilities/Pikachu/Pikachu";
 import About from "../utilities/About/About";
 import Projects from "../utilities/Projects/Projects";
 import Contact from "../utilities/Contact/Contact";
@@ -14,7 +7,6 @@ import Message from "../utilities/Message/Message";
 // Import your icons
 import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
 import phoneIcon from "../assets/icons/Microsoft Windows 3 Phone Dial.ico";
-import readmeIcon from "../assets/icons/Microsoft Windows 3 Read Me.ico";
 import folderIcon from "../assets/icons/Microsoft Windows 3 Applications.ico";
 import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
 import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";
@@ -186,35 +178,35 @@ export const desktopFolders = {
 // Window content renderer function
 export const renderWindowContent = (windowId, windowTitle) => {
   switch (windowId) {
-    case "clock":
-      return <Clock />;
-    case "camera":
-      return <Camera />;
-    case "internet":
-      return <Internet />;
-    case "video":
-      return <MediaPlayer />;
-    case "calendar":
-      return <Calendar />;
-    case "notebook":
-      return <Notebook />;
-    case "pikachu":
-      return <Pikachu />;
-    case "canvas":
-      return (
-        <div className="p-4">
-          <h2 className="text-xl font-bold">🎨 Canvas</h2>
-          <p>Welcome to Canvas - a drawing and painting application!</p>
-          <p>This is a placeholder for the Canvas program.</p>
-          <p>Features coming soon:</p>
-          <ul className="list-disc pl-4">
-            <li>Drawing tools</li>
-            <li>Color palette</li>
-            <li>Brush sizes</li>
-            <li>Save and load functionality</li>
-          </ul>
-        </div>
-      );
+    // case "clock":
+    //   return <Clock />;
+    // case "camera":
+    //   return <Camera />;
+    // case "internet":
+    //   return <Internet />;
+    // case "video":
+    //   return <MediaPlayer />;
+    // case "calendar":
+    //   return <Calendar />;
+    // case "notebook":
+    //   return <Notebook />;
+    // case "pikachu":
+    //   return <Pikachu />;
+    // case "canvas":
+    //   return (
+    //     <div className="p-4">
+    //       <h2 className="text-xl font-bold">🎨 Canvas</h2>
+    //       <p>Welcome to Canvas - a drawing and painting application!</p>
+    //       <p>This is a placeholder for the Canvas program.</p>
+    //       <p>Features coming soon:</p>
+    //       <ul className="list-disc pl-4">
+    //         <li>Drawing tools</li>
+    //         <li>Color palette</li>
+    //         <li>Brush sizes</li>
+    //         <li>Save and load functionality</li>
+    //       </ul>
+    //     </div>
+    //   );
     case "about":
       return <About />;
     case "projects":

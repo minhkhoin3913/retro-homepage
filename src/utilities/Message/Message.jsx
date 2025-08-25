@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import './Message.css';
+import dingSound from './ding.mp3';
 
 const Message = ({ onClose }) => {
   const form = useRef();
@@ -11,14 +12,20 @@ const Message = ({ onClose }) => {
 
     // Prepare the form data to match the EmailJS template
     const formData = {
-      user_name: form.current.user_name.value,
-      user_email: form.current.user_email.value,
-      message: form.current.message.value,
-      to_email: 'YOUR_EMAIL_ADDRESS' // Replace with your actual email address
+      name: form.current.user_name.value, // Matches {{name}}
+      user_email: form.current.user_email.value, // Matches {{user_email}}
+      message: form.current.message.value, // Matches {{message}}
+      to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL, // From .env
+      time: new Date().toLocaleString() // Matches {{time}}
     };
 
     emailjs
-      .send('service_2c1qc15', 'template_cl4syyp', formData, '9wlh_6KE03XCPE4jh')
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, // From .env
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // From .env
+        formData,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY // From .env
+      )
       .then(
         () => {
           setStatus('Message sent successfully!');
@@ -30,9 +37,16 @@ const Message = ({ onClose }) => {
       );
   };
 
-  // Clear status message after 5 seconds
+  // Clear status message after 5 seconds and play sound when status appears
   useEffect(() => {
     if (status) {
+      // Play sound when status message appears
+      const audio = new Audio(dingSound);
+      audio.play().catch((error) => {
+        console.error('Error playing sound:', error);
+      });
+
+      // Clear status message after 5 seconds
       const timer = setTimeout(() => {
         setStatus('');
       }, 5000);
@@ -50,7 +64,7 @@ const Message = ({ onClose }) => {
         <label className="label">Message:</label>
         <textarea name="message" className="input textarea retro-scrollbar" required />
         <div className="button-status-container">
-          <button type="submit" className="windows-button program-button">
+          <button type="submit" className="window-button program-button">
             Send
           </button>
           {status && <p className="status-message">{status}</p>}

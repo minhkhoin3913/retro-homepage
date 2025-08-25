@@ -180,7 +180,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .about-container {
     flex-direction: column;
     max-width: 100%;

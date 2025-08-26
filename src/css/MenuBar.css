@@ -3,7 +3,6 @@
   height: 34px;
   background-color: var(--windows-bg);
   border-bottom: 2px solid var(--button-border-light);
-  z-index: 10000;
   display: flex;
 }
 

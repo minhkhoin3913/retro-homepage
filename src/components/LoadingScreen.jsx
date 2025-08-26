@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../css/variables.css";
 import "../css/base.css";
 import "../css/components.css";
@@ -6,7 +6,6 @@ import "../css/LoadingScreen.css";
 import startupCard from "../assets/images/startup-card.png";
 
 const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
-  // Stage 0: Boot sequence, Stage 1: Black screen transition, Stage 2: Loading screen
   const [stage, setStage] = useState(0);
   const [displayedLines, setDisplayedLines] = useState([
     "V8 JavaScript Engine v12.1, An Energy Star Ally",
@@ -19,20 +18,17 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   ]);
   const [showCursor, setShowCursor] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [showSkipMessage, setShowSkipMessage] = useState(false);
-  const [lastTap, setLastTap] = useState(0);
+  const [showSkipMessage, setShowSkipMessage] = useState(true);
+  const lastTapRef = useRef(0);
 
-  // Function to hide cursor
   const hideCursor = () => {
-    document.body.style.cursor = 'none';
+    document.body.style.cursor = "none";
   };
 
-  // Function to restore cursor
   const restoreCursor = () => {
-    document.body.style.cursor = 'auto';
+    document.body.style.cursor = "auto";
   };
 
-  // Handle ESC key press, double-tap to skip loading, and cursor hiding
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === "Escape") {
@@ -40,52 +36,41 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       }
     };
 
-    const handleTouchStart = () => {
+    const handleTouchStart = (event) => {
+      event.preventDefault();
       const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
+      const tapLength = currentTime - lastTapRef.current;
+      console.log("Touch detected", { currentTime, lastTap: lastTapRef.current, tapLength });
       
-      if (tapLength < 500 && tapLength > 0) {
-        // Double tap detected
+      if (tapLength < 600 && tapLength > 0) {
+        console.log("Double-tap detected, onSkip:", typeof onSkip);
         onSkip?.();
       }
-      setLastTap(currentTime);
+      lastTapRef.current = currentTime;
     };
 
-    // Hide cursor when component mounts
     hideCursor();
-
-    // Add event listeners after a short delay to allow the component to mount
-    const timer = setTimeout(() => {
-      setShowSkipMessage(true);
-      document.addEventListener("keydown", handleKeyPress);
-      document.addEventListener("touchstart", handleTouchStart);
-    }, 1000);
+    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("touchstart", handleTouchStart, { passive: false });
 
     return () => {
-      clearTimeout(timer);
       document.removeEventListener("keydown", handleKeyPress);
       document.removeEventListener("touchstart", handleTouchStart);
-      // Restore cursor when component unmounts
       restoreCursor();
     };
-  }, [onSkip, lastTap]);
+  }, [onSkip]);
 
-  // Get device hardware information
   useEffect(() => {
     try {
       const platform = navigator.platform || "Unknown Platform";
       const userAgent = navigator.userAgent;
       const cpuCores = navigator.hardwareConcurrency || "Unknown";
-      
-      // Try to detect CPU information from user agent
       let cpuInfo = "Unknown CPU";
-      
+
       if (userAgent.includes("Win")) {
-        // For Windows, try to extract CPU info
         const cpuMatch = userAgent.match(/(?:Intel|AMD).+?(?=;|\))/i);
         cpuInfo = cpuMatch ? cpuMatch[0] : "x86 Compatible CPU";
       } else if (userAgent.includes("Mac")) {
-        // For Mac
         if (userAgent.includes("Intel")) {
           cpuInfo = "Intel CPU";
         } else if (userAgent.includes("Apple")) {
@@ -99,11 +84,9 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
         cpuInfo = "Apple CPU";
       }
 
-      // Format as two lines
       const platformLine = `${platform}(TM) Platform`;
       const cpuLine = `${cpuInfo} with ${cpuCores} Cores`;
-      
-      // Update displayedLines with the hardware information replacing the empty lines
+
       setDisplayedLines((prev) => {
         const newLines = [...prev];
         newLines[3] = platformLine;
@@ -111,7 +94,6 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
         return newLines;
       });
     } catch {
-      // If there's an error, use a fallback message
       setDisplayedLines((prev) => {
         const newLines = [...prev];
         newLines[4] = "FPT Platform (TM)";
@@ -122,7 +104,6 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   }, []);
 
   useEffect(() => {
-    // Define all boot sequence lines that will be displayed sequentially
     const bootLines = [
       "  Detecting react ... @19.1.0 ",
       "  Detecting react-dom ... @19.1.0 ",
@@ -133,23 +114,18 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       "",
       "Starting PANE 97 ... ",
     ];
-
-    // Define delays for each line to mimic 90s PC boot sequence
     const delays = [850, 650, 1200, 750, 900, 550, 1000, 800, 2000];
 
-    // Set up blinking cursor
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 500);
 
-    // Display each line with delay
     let timeoutId;
     const displayLines = async () => {
       for (let i = 0; i < bootLines.length; i++) {
         await new Promise((resolve) => {
           timeoutId = setTimeout(resolve, delays[i]);
         });
-        
         setDisplayedLines((prev) => [...prev, bootLines[i]]);
       }
       
@@ -175,14 +151,12 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
     };
   }, []);
 
-  // Update progress from props when in loading screen stage
   useEffect(() => {
     if (stage === 2) {
       setProgress(initialProgress);
     }
   }, [initialProgress, stage]);
 
-  // Boot sequence screen
   if (stage === 0) {
     return (
       <div className="loading-screen boot-mode">
@@ -207,7 +181,6 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
     );
   }
   
-  // Black screen transition
   if (stage === 1) {
     return (
       <div className="loading-screen boot-mode">
@@ -222,7 +195,6 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
     );
   }
 
-  // Normal loading screen
   return (
     <div className="loading-screen">
       <div className="loading-content">

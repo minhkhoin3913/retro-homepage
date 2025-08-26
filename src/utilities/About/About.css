@@ -10,7 +10,7 @@
 }
 
 .skills-pane {
-  width: 180px;
+  width: 12rem;
   background-color: #f0f0f0;
   border-right: 2px solid var(--button-border-dark);
   padding: 16px;

@@ -1,5 +1,7 @@
 .contact-container {
-  padding: 16px 16px 0 16px;
+  width: 26rem;
+  height: 15rem;
+  padding: 16px;
 }
 
 .contact-title {
@@ -61,6 +63,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .contact-container {
+    width: auto;
+  }
+
   .contact-info.phone-email {
     flex-direction: column;
     align-items: flex-start;

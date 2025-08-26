@@ -40,9 +40,10 @@ const About = () => {
               <ul className="skills-list">
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> HTML5 / CSS3</li>
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> JavaScript (ES6+)</li>
-                <li><img src={docIcon} alt="Document" className="folder-icon" /> React.js / Next.js</li>
+                <li><img src={docIcon} alt="Document" className="folder-icon" /> React.js</li>
+                <li><img src={docIcon} alt="Document" className="folder-icon" /> SCSS</li>
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> Responsive Design</li>
-                <li><img src={docIcon} alt="Document" className="folder-icon" /> UI/UX Principles</li>
+                <li><img src={docIcon} alt="Document" className="folder-icon" /> Animation</li>
               </ul>
             )}
           </div>
@@ -61,7 +62,7 @@ const About = () => {
               <ul className="skills-list">
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> Node.js / Express</li>
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> RESTful APIs</li>
-                <li><img src={docIcon} alt="Document" className="folder-icon" /> JSON / XML</li>
+                <li><img src={docIcon} alt="Document" className="folder-icon" /> Socket.IO</li>
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> Database Design</li>
               </ul>
             )}
@@ -81,8 +82,7 @@ const About = () => {
               <ul className="skills-list">
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> Git / GitHub</li>
                 <li><img src={docIcon} alt="Document" className="folder-icon" /> Webpack / Vite</li>
-                <li><img src={docIcon} alt="Document" className="folder-icon" /> Testing (Jest)</li>
-                <li><img src={docIcon} alt="Document" className="folder-icon" /> VS Code / IDEs</li>
+                <li><img src={docIcon} alt="Document" className="folder-icon" /> VS Code</li>
               </ul>
             )}
           </div>

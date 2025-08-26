@@ -1,6 +1,6 @@
 .message-me-window {
-  width: 35rem;
-  height: 24rem;
+  width: 32rem;
+  height: 378px;
   padding: 16px;
   font-family: var(--main-font);
   box-sizing: border-box;
@@ -21,7 +21,7 @@
   background-color: var(--windows-white);
   font-family: var(--main-font);
   margin-bottom: 1rem;
-  padding: 8px;
+  padding: 6px;
   font-size: 16px;
 }
 
@@ -33,13 +33,12 @@
 .button-status-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .status-message {
   margin: 0;
   color: var(--windows-black);
-  font-size: 14px;
 }
 
 /* Responsive design for mobile */

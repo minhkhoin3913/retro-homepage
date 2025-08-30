@@ -3,7 +3,7 @@ import "../css/variables.css";
 import "../css/base.css";
 import "../css/components.css";
 import "../css/LoadingScreen.css";
-import startupCard from "../assets/images/startup-card.png";
+import startupCard from "../assets/images/startup-card-1.png";
 
 const ShutdownScreen = () => {
   // Stage 0: Loading screen, Stage 1: Black screen transition, Stage 2: Shutdown sequence

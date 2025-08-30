@@ -14,7 +14,7 @@
 }
 
 .window-title-bar {
-  background-color: var(--window-purple);
+  background-color: var(--windows-purple);
   border-bottom: 2px solid var(--windows-black);
   color: var(--windows-white);
   display: flex;

@@ -18,7 +18,7 @@
 
 /* Maximized folder window - use more columns to fill the screen */
 .maximized .folder-content-grid {
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
   grid-auto-rows: 102px;
 }
 

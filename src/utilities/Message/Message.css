@@ -12,6 +12,7 @@
   margin-bottom: 8px;
   color: var(--windows-black);
   font-weight: bold;
+  font-size: 16px;
 }
 
 .input {
@@ -39,6 +40,19 @@
 .status-message {
   margin: 0;
   color: var(--windows-black);
+  font-size: 16px;
+}
+
+.label-error-container {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+  margin: 0;
 }
 
 /* Responsive design for mobile */

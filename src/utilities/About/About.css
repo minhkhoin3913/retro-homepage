@@ -32,7 +32,7 @@
 .skills-section-title {
   font-weight: bold;
   color: var(--windows-blue);
-  cursor: pointer;
+  cursor: url("/src/assets/cursors/default_link.cur"), pointer;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -127,7 +127,6 @@
 .title {
   color: var(--windows-blue);
   margin: 0;
-  font-style: italic;
 }
 
 .section {
@@ -149,15 +148,17 @@
   border: 1px solid var(--button-border-dark);
   padding: 12px;
   background-color: #f9f9f9;
+  margin-bottom: 16px; /* Added margin between education boxes */
 }
 
 .education-degree {
   font-weight: bold;
+  margin-bottom: 6px;
 }
 
 .education-details {
   color: #666;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .approach-list {

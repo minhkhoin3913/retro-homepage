@@ -6,7 +6,7 @@ import Message from "../utilities/Message/Message";
 
 // Import your icons
 import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
-import phoneIcon from "../assets/icons/Microsoft Windows 3 Phone Dial.ico";
+import cardIcon from "../assets/icons/Microsoft Windows 3 Cardfile.ico";
 import folderIcon from "../assets/icons/Microsoft Windows 3 Applications.ico";
 import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
 import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";
@@ -21,7 +21,7 @@ import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico"
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
 import paintIcon from "../assets/icons/Microsoft Windows 3 Paint Tools.ico";
 import pikachuIcon from "../assets/icons/Pikachu.ico";
-import dllSetupIcon from "../assets/icons/Microsoft Windows 3 DLL Setup.ico";
+import dllSetupIcon from "../assets/icons/Certificate.ico";
 import briefcaseIcon from "../assets/icons/Microsoft Windows 3 Briefcase.ico";
 import computerIcon from "../assets/icons/Microsoft Windows 3 Computer.ico";
 import faxIcon from "../assets/icons/Microsoft Windows 3 Fax Machine.ico";
@@ -49,13 +49,7 @@ export const desktopIcons = [
   {
     id: "contact",
     label: "My Contact",
-    iconSrc: phoneIcon,
-    isMaximizable: false,
-  },
-  {
-    id: "welcome",
-    label: "Welcome",
-    iconSrc: logoIcon,
+    iconSrc: cardIcon,
     isMaximizable: false,
   },
   {
@@ -64,6 +58,12 @@ export const desktopIcons = [
     iconSrc: faxIcon,
     isMaximizable: false,
   },
+    {
+    id: "welcome",
+    label: "Welcome",
+    iconSrc: logoIcon,
+    isMaximizable: false,
+  }
 ];
 
 // Desktop folders configuration

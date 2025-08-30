@@ -2,11 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80px;
+  width: 5rem;
   user-select: none;
   outline: none;
   transition: none;
-  /* cursor: pointer; */
 }
 
 .windows-icon.selected {
@@ -56,6 +55,6 @@
 
   .windows-icon .item-label {
     font-size: 14px;
-    max-width: 80px; /* Wider label area for touch */
+    max-width: 5rem; /* Wider label area for touch */
   }
 }

@@ -3,13 +3,13 @@ import "../css/variables.css";
 import "../css/base.css";
 import "../css/components.css";
 import "../css/LoadingScreen.css";
-import startupCard from "../assets/images/startup-card.png";
+import startupCard from "../assets/images/startup-card-1.png";
 
 const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
   const [stage, setStage] = useState(0);
   const [displayedLines, setDisplayedLines] = useState([
     "V8 JavaScript Engine v12.1, An Energy Star Ally",
-    "Copyright (C) 1984-2025, NMK Technologies, Inc. ",
+    "Copyright (C) 1984-2025, Kaison Computer, Inc. ",
     "",
     "⠀",
     "",
@@ -112,7 +112,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
       "  Detecting eslint ... @9.25.0 ",
       "  Detecting gh-pages ... @6.3.0 ",
       "",
-      "Starting PANE 97 ... ",
+      "Starting Pane 97 ... ",
     ];
     const delays = [850, 650, 1200, 750, 900, 550, 1000, 800, 2000];
 

@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  background-color: var(--window-blue);
+  background-color: var(--windows-teal);
 }
 
 /* Boot mode styles */
@@ -68,8 +68,7 @@
 
 .progress {
   height: 100%;
-  background: var(--window-blue);
-  border-right: #2d7589 2px solid;
+  background: var(--windows-teal);
 }
 
 /* Boot Sequence Styles */

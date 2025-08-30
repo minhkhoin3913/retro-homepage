@@ -6,15 +6,14 @@
   box-sizing: border-box;
   padding: 0;
   top: 40px; /* Add top offset for menu bar */
-  cursor: url('/src/assets/cursors/3dgarro.cur'), auto;
 }
 
 .desktop.loading {
-  cursor: url('/src/assets/cursors/hourgla2_st.cur'), wait;
+  cursor: url('/src/assets/cursors/default_wait.cur'), wait;
 }
 
 .desktop.delaying {
-  cursor: wait;
+  cursor: url('/src/assets/cursors/default_busy.cur'), wait;
 }
 
 .desktop.shutting-down {

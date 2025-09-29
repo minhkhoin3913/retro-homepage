@@ -58,16 +58,15 @@ const Welcome = () => {
             </p>
             <ul className="welcome-usage-list">
               <li>
-                Click an icon once to select it (it will highlight in blue)
+                Click an icon to select it (it will highlight in blue)
               </li>
               <li>Double-click icons to open windows</li>
-              <li>Double-click folders to browse their contents</li>
               <li>Drag icons to rearrange them on the desktop</li>
-              <li>Drag icons onto folders to move them inside</li>
               <li>Drag windows by their title bar to reposition them</li>
               <li>Click the × button to close a window</li>
               <li>Click the • button to maximize a window</li>
               <li>Click the • button again to restore it</li>
+              <li>Click the - button to minimize it</li>
             </ul>
             <p>
               Explore at your own pace—open projects, read blog posts, or browse
@@ -94,10 +93,7 @@ const Welcome = () => {
                 conversation
               </li>
               <li>
-                Connect with me on social media via the links in the footer
-              </li>
-              <li>
-                Email me using the built-in “Email” program on this retro
+                Connect with me using the built-in "Message Me" program on this retro
                 desktop
               </li>
             </ul>

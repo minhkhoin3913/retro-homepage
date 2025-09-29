@@ -1,15 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
-import './Message.css';
-import dingSound from './ding.mp3';
-import chordSound from './chord.mp3';
+import React, { useRef, useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
+import "./Message.css";
+import dingSound from "./ding.mp3";
+import chordSound from "./chord.mp3";
 
 const Message = ({ onClose }) => {
   const form = useRef();
-  const [status, setStatus] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [messageError, setMessageError] = useState('');
+  const [status, setStatus] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [messageError, setMessageError] = useState("");
   const [isSending, setIsSending] = useState(false);
 
   const sendEmail = (e) => {
@@ -20,33 +20,33 @@ const Message = ({ onClose }) => {
     const message = form.current.message.value;
 
     // Reset error states
-    setNameError('');
-    setEmailError('');
-    setMessageError('');
+    setNameError("");
+    setEmailError("");
+    setMessageError("");
 
     // Validation
     let isValid = true;
-    if (!/^[A-Za-z\s]{2,}$/.test(name) || name.length > 50) {
+    if (name.length < 2 || name.length > 50) {
       setNameError(
         name.length > 50
-          ? 'Name must not exceed 50 characters.'
-          : 'Name must be at least 2 characters long and contain only letters and spaces.'
+          ? "Name must not exceed 50 characters."
+          : "Name must be at least 2 characters long."
       );
       isValid = false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 100) {
       setEmailError(
         email.length > 100
-          ? 'Email must not exceed 100 characters.'
-          : 'Please enter a valid email address.'
+          ? "Email must not exceed 100 characters."
+          : "Please enter a valid email address."
       );
       isValid = false;
     }
     if (message.length < 10 || message.length > 500) {
       setMessageError(
         message.length > 500
-          ? 'Message must not exceed 500 characters.'
-          : 'Message must be at least 10 characters long.'
+          ? "Message must not exceed 500 characters."
+          : "Message must be at least 10 characters long."
       );
       isValid = false;
     }
@@ -61,7 +61,9 @@ const Message = ({ onClose }) => {
       user_email: email,
       message,
       to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL, // From .env
-      time: new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) // Matches {{time}}
+      time: new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Ho_Chi_Minh",
+      }), // Matches {{time}}
     };
 
     emailjs
@@ -73,7 +75,7 @@ const Message = ({ onClose }) => {
       )
       .then(
         () => {
-          setStatus('Message sent successfully!');
+          setStatus("Message sent successfully!");
           form.current.reset(); // Clear the form after successful submission
           setIsSending(false); // Enable button after success
         },
@@ -88,17 +90,20 @@ const Message = ({ onClose }) => {
   useEffect(() => {
     if (status || nameError || emailError || messageError) {
       // Play chord.mp3 for validation errors, ding.mp3 for status messages
-      const sound = (nameError || emailError || messageError) ? new Audio(chordSound) : new Audio(dingSound);
+      const sound =
+        nameError || emailError || messageError
+          ? new Audio(chordSound)
+          : new Audio(dingSound);
       sound.play().catch((error) => {
-        console.error('Error playing sound:', error);
+        console.error("Error playing sound:", error);
       });
 
       // Clear all messages after 5 seconds
       const timer = setTimeout(() => {
-        setStatus('');
-        setNameError('');
-        setEmailError('');
-        setMessageError('');
+        setStatus("");
+        setNameError("");
+        setEmailError("");
+        setMessageError("");
       }, 5000);
       return () => clearTimeout(timer); // Cleanup on unmount or message change
     }
@@ -119,11 +124,21 @@ const Message = ({ onClose }) => {
         <input type="email" name="user_email" className="input" required />
         <div className="label-error-container">
           <label className="label">Message:</label>
-          {messageError && <span className="error-message">{messageError}</span>}
+          {messageError && (
+            <span className="error-message">{messageError}</span>
+          )}
         </div>
-        <textarea name="message" className="input textarea retro-scrollbar" required />
+        <textarea
+          name="message"
+          className="input textarea retro-scrollbar"
+          required
+        />
         <div className="button-status-container">
-          <button type="submit" className="window-button program-button" disabled={isSending}>
+          <button
+            type="submit"
+            className="window-button program-button"
+            disabled={isSending}
+          >
             Send
           </button>
           {status && <p className="status-message">{status}</p>}

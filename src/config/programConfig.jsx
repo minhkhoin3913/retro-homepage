@@ -6,7 +6,7 @@ import Message from "../utilities/Message/Message";
 
 // Import your icons
 import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
-import cardIcon from "../assets/icons/Microsoft Windows 3 Cardfile.ico";
+import cardIcon from "../assets/icons/Business Card.ico";
 import folderIcon from "../assets/icons/Microsoft Windows 3 Applications.ico";
 import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
 import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";

@@ -39,12 +39,12 @@
 }
 
 .retro-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #e0e0e0;
+  background: var(--scrollbar-thumb-hover);
 }
 
 .retro-scrollbar::-webkit-scrollbar-thumb:active {
   border: 1px inset var(--windows-bg);
-  background: #a0a0a0;
+  background: var(--scrollbar-thumb-active);
 }
 
 .retro-scrollbar::-webkit-scrollbar-corner {

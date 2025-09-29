@@ -23,6 +23,23 @@
   --windows-bg: #c0c0c0;
   --windows-white: #ffffff;
   --windows-black: #000000;
-  --windows-teal:#3a9cc6;
-  --windows-purple:#b26b93;
+  --windows-teal: #3a9cc6;
+  --windows-purple: #b26b93;
+  --scrollbar-thumb-hover: #e0e0e0;
+  --scrollbar-thumb-active: #a0a0a0;
+  --body-bg: linear-gradient(to bottom, #6d45b0, #f5a7ff);
+}
+
+:root.dark {
+  --button-border-dark: #4a4a4a;
+  --button-border-light: #b0b0b0;
+  --windows-blue: #1e3b6b;
+  --windows-bg: #333333;
+  --windows-white: #e0e0e0;
+  --windows-black: #1a1a1a;
+  --windows-teal: #2a6b8a;
+  --windows-purple: #7a4a65;
+  --scrollbar-thumb-hover: #666666;
+  --scrollbar-thumb-active: #4a4a4a;
+  --body-bg: linear-gradient(to bottom, #2a1b4a, #5a2e6b);
 }

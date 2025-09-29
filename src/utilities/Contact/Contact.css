@@ -9,7 +9,7 @@
   padding-bottom: 16px;
   margin-bottom: 16px;
   display: flex;
-  gap: 20px;
+  gap: 22px;
 }
 
 .contact-title-group {
@@ -33,10 +33,10 @@
 }
 
 .contact-info strong {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .contact-info.phone-email strong {

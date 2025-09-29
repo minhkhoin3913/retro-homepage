@@ -6,7 +6,7 @@
   width: 40rem;
   overflow: hidden;
   box-sizing: border-box;
-  background-color: #f0f0f0;
+  background-color: #efefef;
 }
 
 .welcome-content-section {
@@ -16,6 +16,7 @@
   padding: 16px;
   box-sizing: border-box;
   max-height: 100%;
+  line-height: 1.5;
 }
 
 .welcome-closing-text {
@@ -24,7 +25,19 @@
 
 .welcome-menu-item {
   border-bottom: 1px solid #000;
-  padding: 10px 8px;
+  padding: 10px;
+}
+
+.welcome-menu-item:nth-child(1) {
+  border-left: 4px solid #a2bffe;
+}
+
+.welcome-menu-item:nth-child(2) {
+  border-left: 4px solid #c5debb;
+}
+
+.welcome-menu-item:nth-child(3) {
+  border-left: 4px solid #f2c5c9;
 }
 
 .welcome-menu-item:last-child {
@@ -58,7 +71,7 @@
 @media (max-width: 768px) {
   .welcome-container {
     flex-direction: column;
-    height: auto;
+    height: 100%;
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
@@ -82,6 +95,18 @@
     flex: 1 1;
     min-width: 0;
     text-align: center; /* Ensure centering */
+  }
+
+  .welcome-menu-item:nth-child(1) {
+    border-left: none;
+  }
+
+  .welcome-menu-item:nth-child(2) {
+    border-left: none;
+  }
+
+  .welcome-menu-item:nth-child(3) {
+    border-left: none;
   }
 
   .welcome-menu-item:last-child {

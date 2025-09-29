@@ -1,32 +1,19 @@
 .about-container {
   display: flex;
-  height: 100%;
-  font-family: var(--main-font), sans-serif;
   height: 35rem;
   width: 47rem;
-  margin: 0 auto;
-  overflow-y: auto;
-  /* Make the entire container scrollable */
 }
 
 .skills-pane {
-  width: 12rem;
-  background-color: #f0f0f0;
+  background-color: #efefef;
   border-right: 2px solid var(--button-border-dark);
-  padding: 16px;
+  padding: 14px;
   overflow-y: auto;
-  position: relative;
-}
-
-.skills-title {
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: var(--windows-black);
+  width: 12rem;
 }
 
 .skills-section {
   margin-bottom: 12px;
-  position: relative;
 }
 
 .skills-section-title {
@@ -34,42 +21,36 @@
   color: var(--windows-blue);
   cursor: url("/src/assets/cursors/default_link.cur"), pointer;
   display: flex;
-  align-items: center;
   gap: 8px;
 }
 
 .folder-icon {
-  width: 18px;
   height: 18px;
 }
 
 .tree-connector {
   position: relative;
   margin-top: -4px;
-  /* Adjust to align with title bottom */
 }
 
 .skills-list {
   margin-left: 16px;
   font-size: 14px;
   padding-left: 8px;
-  position: relative;
 }
 
 .skills-list li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   position: relative;
   padding-left: 4px;
   display: flex;
   align-items: center;
   gap: 8px;
-  /* Space between icon and text */
 }
 
 .skills-list li::before {
   content: "";
   position: absolute;
-  top: 50%;
   left: -16px;
   width: 12px;
   height: 1px;
@@ -105,7 +86,7 @@
 
 .header {
   border-bottom: 2px solid var(--button-border-dark);
-  padding-bottom: 12px;
+  padding-bottom: 16px;
   margin-bottom: 16px;
   display: flex;
   gap: 16px;
@@ -121,7 +102,7 @@
   font-size: 24px;
   font-weight: bold;
   color: var(--windows-black);
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
 }
 
 .title {
@@ -133,12 +114,6 @@
   margin-bottom: 16px;
 }
 
-.section-title {
-  font-size: 18px;
-  color: var(--windows-black);
-  margin: 0 0 8px 0;
-}
-
 .section-text {
   line-height: 1.5;
   margin: 0;
@@ -146,14 +121,14 @@
 
 .education-box {
   border: 1px solid var(--button-border-dark);
-  padding: 12px;
+  padding: 14px;
   background-color: #f9f9f9;
   margin-bottom: 16px; /* Added margin between education boxes */
 }
 
 .education-degree {
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .education-details {
@@ -206,7 +181,7 @@
     border-right: none;
     border-top: 2px solid var(--button-border-dark);
     box-sizing: border-box;
-    height: 80vh;
+    height: 100vh;
   }
 
   .skills-section::before,
@@ -220,10 +195,6 @@
 
   .header {
     align-items: flex-start;
-  }
-
-  .header-group {
-    margin-bottom: 8px;
   }
 
   .placeholder {

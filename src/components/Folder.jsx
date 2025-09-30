@@ -4,7 +4,7 @@ import "../css/variables.css"
 import "../css/base.css"
 import "../css/components.css"
 import "../css/Icon.css";
-import folderIcon from '../assets/icons/Microsoft Windows 3 Applications.ico';
+import folderIcon from '../assets/icons/Microsoft Windows 3 Folder.ico';
 
 const Folder = ({ onDrop, ...props }) => {
   const handleDrop = (e) => {

@@ -2,7 +2,7 @@ import React, { useState, useCallback, memo } from "react";
 import Icon from "./Icon";
 import Folder from "./Folder";
 import Window from "./Window";
-import FolderWindow from "./FolderWindow";
+import Explorer from "./Explorer";
 import Taskbar from "./Taskbar";
 import MenuBar from "./MenuBar";
 import LoadingScreen from "./LoadingScreen";
@@ -16,10 +16,10 @@ import "../css/variables.css";
 import "../css/base.css";
 import "../css/components.css";
 import "../css/Desktop.css";
-import "../css/FolderWindow.css";
+import "../css/Explorer.css";
 import "../css/Taskbar.css";
 import "../css/MenuBar.css";
-import { desktopFolders, renderWindowContent } from "../config/programConfig";
+import { desktopItems, renderWindowContent } from "../config/programConfig";
 
 const Desktop = memo(() => {
   // Use custom hooks
@@ -40,7 +40,6 @@ const Desktop = memo(() => {
 
   // Local state
   const [selectedIcon, setSelectedIcon] = useState(null);
-  const [folders] = useState(desktopFolders);
   const [isTaskbarCollapsed, setIsTaskbarCollapsed] = useState(false);
 
   // Sound effects for taskbar collapse/expand
@@ -113,11 +112,11 @@ const Desktop = memo(() => {
   }, [isTaskbarCollapsed, playTaskbarSound]);
 
   const renderFolderContent = useCallback((folderId) => {
-    const folderData = folders[folderId];
+    const folderData = desktopItems.find(item => item.id === folderId && item.type === "folder");
     if (!folderData) return <div role="alert">Folder not found</div>;
 
     return (
-      <FolderWindow
+      <Explorer
         folderId={folderId}
         folderData={folderData}
         onIconDoubleClick={handleItemDoubleClick}
@@ -129,7 +128,7 @@ const Desktop = memo(() => {
         selectedItem={selectedIcon}
       />
     );
-  }, [folders, handleItemDoubleClick, handleItemPositionChange, selectedIcon]);
+  }, [desktopItems, handleItemDoubleClick, handleItemPositionChange, selectedIcon]);
 
   // Show loading screen
   if (isLoading) {

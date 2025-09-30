@@ -1,16 +1,10 @@
-// src/hooks/useDesktop.js
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { desktopIcons, desktopFolders } from "../config/programConfig";
+import { desktopItems } from "../config/programConfig";
 
 export const useDesktop = () => {
   // Create memoized desktop items
   const allDesktopItems = useMemo(() => {
-    return [...desktopIcons, ...Object.entries(desktopFolders).map(([folderId, folderData]) => ({
-      id: folderId,
-      label: folderData.label,
-      iconSrc: folderData.iconSrc,
-      type: "folder",
-    }))];
+    return desktopItems;
   }, []);
 
   // Initialize positions
@@ -26,8 +20,8 @@ export const useDesktop = () => {
     const TOP_PADDING = 20; // Exact padding from the top of the menu bar
     
     allDesktopItems.forEach((item) => {
-      // Place folders on the right, others on the left
-      if (item.type === "folder") {
+      // Place items based on positionRight flag
+      if (item.positionRight) {
         initialPositions[item.id] = {
           x: window.innerWidth - ICON_WIDTH - EDGE_PADDING, // Exact icon width + padding
           y: TOP_PADDING + rightIconIndex * ICON_SPACING, // Use rightIconIndex for vertical spacing
@@ -52,9 +46,9 @@ export const useDesktop = () => {
         const EDGE_PADDING = 24;
         const ICON_WIDTH = 80;
         
-        // Only update the positions of folder icons on the right side
+        // Update positions of right-aligned items
         allDesktopItems.forEach(item => {
-          if (item.type === "folder") {
+          if (item.positionRight) {
             newPositions[item.id] = {
               ...newPositions[item.id],
               x: window.innerWidth - ICON_WIDTH - EDGE_PADDING,
@@ -87,4 +81,4 @@ export const useDesktop = () => {
     itemPositions,
     handleItemPositionChange
   };
-}; 
+};

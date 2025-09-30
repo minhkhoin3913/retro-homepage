@@ -1,12 +1,11 @@
-// src/components/FolderWindow.jsx
 import Icon from './Icon';
 import Folder from './Folder';
 import "../css/variables.css"
 import "../css/base.css"
 import "../css/components.css"
-import '../css/FolderWindow.css';
+import '../css/Explorer.css';
 
-const FolderWindow = ({ 
+const Explorer = ({ 
   folderId, 
   folderData, 
   onIconDoubleClick, 
@@ -40,35 +39,30 @@ const FolderWindow = ({
         {folderData.contents.map(item => {
           if (item.type === 'folder') {
             return (
-              <div key={item.id} className="grid-item">
-                <Folder
-                  id={item.id}
-                  label={item.label}
-                  iconSrc={item.iconSrc}
-                  onDoubleClick={() => handleItemDoubleClick(item)}
-                  isSelected={selectedItem === item.id}
-                  onSelect={onFolderSelect}
-                  onDrop={handleDrop}
-                />
-              </div>
+              <Folder
+                key={item.id}
+                id={item.id}
+                label={item.label}
+                iconSrc={item.iconSrc}
+                onDoubleClick={() => handleItemDoubleClick(item)}
+                isSelected={selectedItem === item.id}
+                onSelect={onFolderSelect}
+                onDrop={handleDrop}
+              />
             );
           } else {
             return (
-              <div
+              <Icon
                 key={item.id}
-                className="grid-item"
+                id={item.id}
+                label={item.label}
+                iconSrc={item.iconSrc}
+                onDoubleClick={() => handleItemDoubleClick(item)}
+                isSelected={selectedItem === item.id}
+                onSelect={onIconSelect}
                 draggable
                 onDragStart={(e) => handleDragStart(e, item.id)}
-              >
-                <Icon
-                  id={item.id}
-                  label={item.label}
-                  iconSrc={item.iconSrc}
-                  onDoubleClick={() => handleItemDoubleClick(item)}
-                  isSelected={selectedItem === item.id}
-                  onSelect={onIconSelect}
-                />
-              </div>
+              />
             );
           }
         })}
@@ -77,4 +71,4 @@ const FolderWindow = ({
   );
 };
 
-export default FolderWindow;
+export default Explorer;

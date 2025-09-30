@@ -1,33 +1,30 @@
 .folder-window {
-  width: 410px;
+  width: 32em;
   display: flex;
 }
 
 /* Maximized folder window - use full width */
 .maximized .folder-window {
   width: 100%;
+  justify-content: center;
 }
 
 .folder-content-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 102px);
-  padding: 0 1px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 72px);
+  padding: 16px;
+  gap: 16px;
 }
 
 /* Maximized folder window - use more columns to fill the screen */
 .maximized .folder-content-grid {
   grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
   grid-auto-rows: 102px;
-}
-
-.grid-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  padding: 16px;
+  gap: 16px;
+  justify-items:center;
 }
 
 /* Scrollbar styling for the grid container */
@@ -61,6 +58,9 @@
 
 /* Remove absolute positioning from icons within grid */
 .folder-content-grid .windows-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: static;
 }
 

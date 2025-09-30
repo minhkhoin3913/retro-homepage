@@ -1,6 +1,5 @@
-// src/hooks/useWindowManager.js
 import { useState, useCallback } from 'react';
-import { desktopIcons, desktopFolders } from "../config/programConfig";
+import { desktopItems } from "../config/programConfig";
 
 export const useWindowManager = () => {
   const [minimizedWindows, setMinimizedWindows] = useState([]);
@@ -13,6 +12,7 @@ export const useWindowManager = () => {
       `${baseUrl}sounds/${soundType}.mp3`,
       `/sounds/${soundType}.mp3`,
       `./sounds/${soundType}.mp3`,
+      `${baseUrl}sounds/maximize.mp3`, // Fallback to maximize sound
     ];
 
     const audio = new Audio();
@@ -45,20 +45,26 @@ export const useWindowManager = () => {
   
   // Handle window operations
   const handleItemDoubleClick = useCallback((id, label, openWindows, openWindow, focusWindow) => {
-    const item = [...desktopIcons, ...Object.entries(desktopFolders).map(([folderId, folderData]) => ({
-      id: folderId,
-      label: folderData.label,
-      iconSrc: folderData.iconSrc,
-      type: "folder",
-    }))].find(item => item.id === id);
+    const item = desktopItems.find(item => item.id === id) || 
+                 desktopItems
+                   .flatMap(folder => folder.contents || [])
+                   .find(item => item.id === id);
     
-    const iconConfig = desktopIcons.find(icon => icon.id === id);
-    const folderItemConfig = Object.values(desktopFolders)
-      .flatMap(folder => folder.contents || [])
-      .find(item => item.id === id);
+    if (!item) {
+      console.warn(`Item with id ${id} not found`);
+      return;
+    }
 
-    const isMaximizable = iconConfig?.isMaximizable ?? folderItemConfig?.isMaximizable ?? true;
-    const iconSrc = iconConfig?.iconSrc ?? folderItemConfig?.iconSrc;
+    // Check if item has a link property
+    if (item.link) {
+      window.open(item.link, "_blank", "noopener,noreferrer");
+      // Play a sound for opening a link
+      playWindowSound('open');
+      return;
+    }
+
+    const isMaximizable = item.isMaximizable ?? true;
+    const iconSrc = item.iconSrc;
 
     const isWindowOpen = openWindows.some(win => win.id === id);
     const isWindowMinimized = minimizedWindows.some(win => win.id === id);
@@ -89,7 +95,7 @@ export const useWindowManager = () => {
       });
     }, 2000);
 
-    if (item?.type === "folder") {
+    if (item.type === "folder") {
       openWindow(id, label, "folder", id, isMaximizable, iconSrc);
     } else {
       openWindow(id, label, "program", undefined, isMaximizable, iconSrc);
@@ -97,26 +103,12 @@ export const useWindowManager = () => {
   }, [minimizedWindows, playWindowSound]);
 
   const handleMinimizeWindow = useCallback(async (windowId, windowData) => {
-    // Check if it's a desktop icon
-    const iconConfig = desktopIcons.find(icon => icon.id === windowId);
+    const item = desktopItems.find(item => item.id === windowId) || 
+                 desktopItems
+                   .flatMap(folder => folder.contents || [])
+                   .find(item => item.id === windowId);
     
-    // Check if it's a folder
-    const folderConfig = desktopFolders[windowId];
-    
-    // Check if it's a folder item (program inside a folder)
-    const folderItemConfig = Object.values(desktopFolders)
-      .flatMap(folder => folder.contents || [])
-      .find(item => item.id === windowId);
-    
-    // Get the appropriate icon
-    let iconSrc = null;
-    if (iconConfig) {
-      iconSrc = iconConfig.iconSrc;
-    } else if (folderConfig) {
-      iconSrc = folderConfig.iconSrc;
-    } else if (folderItemConfig) {
-      iconSrc = folderItemConfig.iconSrc;
-    }
+    const iconSrc = item?.iconSrc;
 
     setMinimizedWindows(prev => {
       if (prev.find(w => w.id === windowId)) return prev;
@@ -152,4 +144,4 @@ export const useWindowManager = () => {
     handleRestoreWindow,
     handleCloseWindow
   };
-}; 
+};

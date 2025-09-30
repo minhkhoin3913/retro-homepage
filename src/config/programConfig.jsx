@@ -5,9 +5,9 @@ import Welcome from "../utilities/Welcome/Welcome";
 import Message from "../utilities/Message/Message";
 
 // Import your icons
-import logoIcon from "../assets/icons/Microsoft Windows 3 Logo.ico";
-import cardIcon from "../assets/icons/Business Card.ico";
-import folderIcon from "../assets/icons/Microsoft Windows 3 Applications.ico";
+import logoIcon from "../assets/icons/Tree.ico";
+import cardIcon from "../assets/icons/Microsoft Windows 3 Cardfile.ico";
+import folderIcon from "../assets/icons/Microsoft Windows 3 Folder.ico";
 import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
 import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";
 import notebookIcon from "../assets/icons/Microsoft Windows 3 Binder.ico";
@@ -25,53 +25,105 @@ import dllSetupIcon from "../assets/icons/Certificate.ico";
 import briefcaseIcon from "../assets/icons/Microsoft Windows 3 Briefcase.ico";
 import computerIcon from "../assets/icons/Microsoft Windows 3 Computer.ico";
 import faxIcon from "../assets/icons/Microsoft Windows 3 Fax Machine.ico";
+import docIcon from "../assets/icons/Microsoft Windows 3 Documents.ico";
 
-// Desktop icons configuration
-export const desktopIcons = [
+// Unified desktop items configuration
+export const desktopItems = [
   {
     id: "about",
     label: "About Me",
     iconSrc: computerIcon,
+    type: "icon",
     isMaximizable: false,
+    positionRight: false,
   },
   {
     id: "certificates",
     label: "My Certificates",
     iconSrc: dllSetupIcon,
-    isMaximizable: false,
+    type: "folder",
+    positionRight: false,
+    contents: [
+      {
+        id: "network",
+        label: "Computer Communications",
+        iconSrc: docIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://www.coursera.org/account/accomplishments/specialization/EB5BPKJWRHKZ",
+      },
+      {
+        id: "pm",
+        label: "Project Management",
+        iconSrc: docIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://www.coursera.org/account/accomplishments/specialization/TL03HX7CKRQF",
+      },
+      {
+        id: "dev",
+        label: "Software Development",
+        iconSrc: docIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://www.coursera.org/account/accomplishments/specialization/RF6X2AN8M4CX",
+      },
+      {
+        id: "ux",
+        label: "UI/UX Design",
+        iconSrc: docIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://www.coursera.org/account/accomplishments/specialization/5VA9KE6TB7HW",
+      },
+      {
+        id: "web",
+        label: "Web Design",
+        iconSrc: docIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://www.coursera.org/account/accomplishments/specialization/KKQDLWDJGR84",
+      },
+    ],
   },
   {
     id: "projects",
     label: "My Projects",
     iconSrc: briefcaseIcon,
+    type: "icon",
     isMaximizable: false,
+    positionRight: false,
   },
   {
     id: "contact",
     label: "My Contact",
     iconSrc: cardIcon,
+    type: "icon",
     isMaximizable: false,
+    positionRight: false,
   },
   {
     id: "message",
     label: "Message Me",
     iconSrc: faxIcon,
+    type: "icon",
     isMaximizable: false,
+    positionRight: false,
   },
-    {
+  {
     id: "welcome",
     label: "Welcome",
     iconSrc: logoIcon,
+    type: "icon",
     isMaximizable: false,
-  }
-];
-
-// Desktop folders configuration
-export const desktopFolders = {
-  programs: {
+    positionRight: false,
+  },
+  {
     id: "programs",
     label: "Programs",
     iconSrc: folderIcon,
+    type: "folder",
+    positionRight: true,
     contents: [
       {
         id: "calculator",
@@ -145,68 +197,11 @@ export const desktopFolders = {
       },
     ],
   },
-  games: {
-    id: "games",
-    label: "Games",
-    iconSrc: folderIcon,
-    contents: [
-      {
-        id: "solitaire",
-        label: "Solitaire",
-        iconSrc: solitaireIcon,
-        type: "icon",
-        isMaximizable: true,
-      },
-      {
-        id: "minesweeper",
-        label: "Minesweeper",
-        iconSrc: minesweeperIcon,
-        type: "icon",
-        isMaximizable: true,
-      },
-      {
-        id: "pikachu",
-        label: "Pikachu",
-        iconSrc: pikachuIcon,
-        type: "icon",
-        isMaximizable: true,
-      },
-    ],
-  },
-};
+];
 
 // Window content renderer function
 export const renderWindowContent = (windowId, windowTitle) => {
   switch (windowId) {
-    // case "clock":
-    //   return <Clock />;
-    // case "camera":
-    //   return <Camera />;
-    // case "internet":
-    //   return <Internet />;
-    // case "video":
-    //   return <MediaPlayer />;
-    // case "calendar":
-    //   return <Calendar />;
-    // case "notebook":
-    //   return <Notebook />;
-    // case "pikachu":
-    //   return <Pikachu />;
-    // case "canvas":
-    //   return (
-    //     <div className="p-4">
-    //       <h2 className="text-xl font-bold">🎨 Canvas</h2>
-    //       <p>Welcome to Canvas - a drawing and painting application!</p>
-    //       <p>This is a placeholder for the Canvas program.</p>
-    //       <p>Features coming soon:</p>
-    //       <ul className="list-disc pl-4">
-    //         <li>Drawing tools</li>
-    //         <li>Color palette</li>
-    //         <li>Brush sizes</li>
-    //         <li>Save and load functionality</li>
-    //       </ul>
-    //     </div>
-    //   );
     case "about":
       return <About />;
     case "projects":

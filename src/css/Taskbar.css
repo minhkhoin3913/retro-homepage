@@ -44,8 +44,8 @@
 }
 
 .taskbar-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .taskbar-collapse-btn {
@@ -61,7 +61,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--button-font);
-  font-size: 30px;
+  font-size: 28px;
   color: var(--windows-black);
   margin-left: 12px;
 }
@@ -89,8 +89,8 @@
   }
 
   .taskbar-icon {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 
   .taskbar-collapse-btn {

@@ -2,6 +2,14 @@
   cursor: url('/src/assets/cursors/default_arrow.cur'), auto;
 }
 
+.App.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 #root {
   max-width: 100%;
   margin: 0;

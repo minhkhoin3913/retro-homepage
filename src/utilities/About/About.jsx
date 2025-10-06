@@ -3,6 +3,7 @@ import "./About.css";
 import folderIcon from "./Microsoft Windows 3 Folder.ico";
 import folderOpenIcon from "./Microsoft Windows 3 Folder Open Document.ico";
 import docIcon from "./Microsoft Windows 3 Documents.ico";
+import portraitImage from "./portrait.jpg";
 
 const About = () => {
   // State to manage open/closed folders
@@ -47,7 +48,7 @@ const About = () => {
                 </li>
                 <li>
                   <img src={docIcon} alt="Document" className="folder-icon" />{" "}
-                  JavaScript (ES6)
+                  JavaScript (ES6) / TypeScript
                 </li>
                 <li>
                   <img src={docIcon} alt="Document" className="folder-icon" />{" "}
@@ -182,9 +183,9 @@ const About = () => {
       <div className="main-content">
         <div className="header">
           <img
-            src={folderOpenIcon}
-            alt="Placeholder"
-            className="folder-icon placeholder"
+            src={portraitImage}
+            alt="Portrait"
+            className="portrait-image"
           />
           <div className="header-group">
             <h2 className="name">Nguyen Minh Khoi</h2>
@@ -218,12 +219,14 @@ const About = () => {
             <div className="education-concentration">
               <ul className="approach-list">
                 <li>
-                  Relevant Coursework: Web Development, Database Systems,
-                  Software Architecture and Agile Methodologies
+                  <strong>Relevant Coursework:</strong> Web Development,
+                  Database Systems, Software Architecture and Agile
+                  Methodologies
                 </li>
                 <li>
-                  Academic Projects: Developed a real-time chat application
-                  using Socket.IO and Firebase
+                  <strong>Academic Projects: </strong> Built a full-stack
+                  e-commerce app with React and Node.js, featuring authentication, product
+                  management, and real-time order tracking via Firebase.
                 </li>
               </ul>
             </div>

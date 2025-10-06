@@ -1,0 +1,8 @@
+.star-show-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative; /* Changed from absolute to relative to stay within window-content */
+}

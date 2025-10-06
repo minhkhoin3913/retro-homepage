@@ -2,10 +2,14 @@
   position: fixed;
   width: 100vw;
   height: calc(100vh - 40px); /* Subtract menu bar height */
-  /* overflow: hidden; */
   box-sizing: border-box;
   padding: 0;
-  top: 40px; /* Add top offset for menu bar */
+  top: 40px; /* Default offset for menu bar */
+}
+
+.desktop.fullscreen {
+  top: 0; /* No offset when full-screen app is open */
+  height: 100vh; /* Full height */
 }
 
 .desktop.loading {

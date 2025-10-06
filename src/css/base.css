@@ -1,5 +1,11 @@
 body {
-  background: linear-gradient(to bottom, #6d45b0, #f5a7ff);
+  background: linear-gradient(
+  to bottom,
+  #405797, /* Top */
+  #926FBE, /* Middle */
+  #E79AF2  /* Bottom */
+);
+
 }
 
 /* Global font settings */

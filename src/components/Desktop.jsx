@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useCallback, memo, useEffect } from "react";
 import Icon from "./Icon";
 import Folder from "./Folder";
 import Window from "./Window";
@@ -21,8 +21,7 @@ import "../css/Taskbar.css";
 import "../css/MenuBar.css";
 import { desktopItems, renderWindowContent } from "../config/programConfig";
 
-const Desktop = memo(() => {
-  // Use custom hooks
+const Desktop = memo(({ onFullScreenChange }) => {
   const { openWindows, openWindow, closeWindow, focusWindow } = useWindow();
   const { allDesktopItems, itemPositions, handleItemPositionChange } = useDesktop();
   const { isLoading, isDelaying, progress, menuBarVisible, skipLoading } = useLoadingScreen();
@@ -34,15 +33,12 @@ const Desktop = memo(() => {
     handleRestoreWindow: handleRestoreWindowBase,
     handleCloseWindow: handleCloseWindowBase
   } = useWindowManager();
-
-  // Use shutdown hook
   const { isShuttingDown, shutdownStage, startShutdown } = useShutdown();
 
-  // Local state
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isTaskbarCollapsed, setIsTaskbarCollapsed] = useState(false);
+  const [windowLoadingStates, setWindowLoadingStates] = useState({}); // Track loading state of each window
 
-  // Sound effects for taskbar collapse/expand
   const playTaskbarSound = useCallback(async (soundType) => {
     const baseUrl = import.meta.env.BASE_URL || '/';
     const audioSources = [
@@ -79,7 +75,6 @@ const Desktop = memo(() => {
     console.error(`All ${soundType} audio sources failed to play`);
   }, []);
 
-  // Create handlers with necessary dependencies
   const handleItemDoubleClick = useCallback((id, label) => {
     handleItemDoubleClickBase(id, label, openWindows, openWindow, focusWindow);
   }, [handleItemDoubleClickBase, openWindows, openWindow, focusWindow]);
@@ -90,6 +85,11 @@ const Desktop = memo(() => {
 
   const handleCloseWindow = useCallback((windowId) => {
     handleCloseWindowBase(windowId, closeWindow);
+    setWindowLoadingStates(prev => {
+      const newStates = { ...prev };
+      delete newStates[windowId];
+      return newStates;
+    });
   }, [handleCloseWindowBase, closeWindow]);
 
   const handleDesktopClick = useCallback((e) => {
@@ -105,8 +105,6 @@ const Desktop = memo(() => {
   const handleToggleTaskbarCollapse = useCallback(async () => {
     const newCollapsedState = !isTaskbarCollapsed;
     setIsTaskbarCollapsed(newCollapsedState);
-    
-    // Play appropriate sound based on the new state
     const soundType = newCollapsedState ? 'collapse' : 'expand';
     await playTaskbarSound(soundType);
   }, [isTaskbarCollapsed, playTaskbarSound]);
@@ -128,19 +126,34 @@ const Desktop = memo(() => {
         selectedItem={selectedIcon}
       />
     );
-  }, [desktopItems, handleItemDoubleClick, handleItemPositionChange, selectedIcon]);
+  }, [handleItemDoubleClick, handleItemPositionChange, selectedIcon]);
 
-  // Show loading screen
+  // Handle window loading state changes
+  const handleWindowLoadingChange = useCallback((windowId, isLoading) => {
+    setWindowLoadingStates(prev => ({
+      ...prev,
+      [windowId]: isLoading
+    }));
+  }, []);
+
+  // Notify parent of full-screen state
+  useEffect(() => {
+    const hasFullScreenWindow = openWindows.some(
+      win => win.isFullScreen && 
+             !minimizedWindows.some(mw => mw.id === win.id) && 
+             windowLoadingStates[win.id] === false // Only when fully loaded
+    );
+    onFullScreenChange?.(hasFullScreenWindow);
+  }, [openWindows, minimizedWindows, windowLoadingStates, onFullScreenChange]);
+
   if (isLoading) {
     return <LoadingScreen progress={progress} onSkip={skipLoading} />;
   }
 
-  // Show shutdown screen
   if (isShuttingDown && shutdownStage === 2) {
     return <ShutdownScreen onComplete={() => window.close()} />;
   }
 
-  // Show empty desktop during delay phase
   if (isDelaying) {
     return (
       <>
@@ -164,11 +177,17 @@ const Desktop = memo(() => {
     );
   }
 
+  const hasFullScreenWindow = openWindows.some(
+    win => win.isFullScreen && 
+           !minimizedWindows.some(mw => mw.id === win.id) && 
+           windowLoadingStates[win.id] === false
+  );
+
   return (
     <>
-      <MenuBar visible={menuBarVisible && shutdownStage === 0} onShutdown={handleShutdown} />
+      {!hasFullScreenWindow && <MenuBar visible={menuBarVisible && shutdownStage === 0} onShutdown={handleShutdown} />}
       <div
-        className={`desktop ${loadingWindows.size > 0 ? 'loading' : ''} ${shutdownStage === 1 ? 'shutting-down' : ''}`}
+        className={`desktop ${loadingWindows.size > 0 ? 'loading' : ''} ${shutdownStage === 1 ? 'shutting-down' : ''} ${hasFullScreenWindow ? 'fullscreen' : ''}`}
         onClick={handleDesktopClick}
         onDragOver={(e) => e.preventDefault()}
         role="main"
@@ -209,9 +228,12 @@ const Desktop = memo(() => {
               zIndex={win.zIndex}
               isMinimized={isMinimized}
               isMaximizable={win.isMaximizable}
+              isFullScreen={win.isFullScreen}
               onClose={handleCloseWindow}
               onMinimize={handleMinimizeWindow}
               onFocus={focusWindow}
+              onFullScreenChange={onFullScreenChange}
+              onLoadingChange={handleWindowLoadingChange} // New prop
               aria-label={`${win.title} window`}
             >
               {win.type === "folder"
@@ -221,13 +243,15 @@ const Desktop = memo(() => {
           );
         })}
 
-        <Taskbar
-          minimizedWindows={minimizedWindows}
-          onRestore={handleRestoreWindow}
-          isCollapsed={isTaskbarCollapsed}
-          onToggleCollapse={handleToggleTaskbarCollapse}
-          aria-label="System Taskbar"
-        />
+        {!hasFullScreenWindow && (
+          <Taskbar
+            minimizedWindows={minimizedWindows}
+            onRestore={handleRestoreWindow}
+            isCollapsed={isTaskbarCollapsed}
+            onToggleCollapse={handleToggleTaskbarCollapse}
+            aria-label="System Taskbar"
+          />
+        )}
       </div>
     </>
   );

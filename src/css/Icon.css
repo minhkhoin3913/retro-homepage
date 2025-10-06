@@ -18,10 +18,6 @@
   background-color: transparent;
 }
 
-.windows-icon:active {
-  opacity: 0.8;
-}
-
 .item-image {
   height: 48px;
 }
@@ -44,7 +40,6 @@
   font-family: var(--main-font);
   pointer-events: none;
   word-wrap: break-word;
-  transition: color 0.2s ease;
 }
 
 /* Touch-friendly improvements */

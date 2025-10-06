@@ -64,6 +64,7 @@ export const useWindowManager = () => {
     }
 
     const isMaximizable = item.isMaximizable ?? true;
+    const isFullScreen = item.isFullScreen ?? false; // Add isFullScreen
     const iconSrc = item.iconSrc;
 
     const isWindowOpen = openWindows.some(win => win.id === id);
@@ -95,11 +96,16 @@ export const useWindowManager = () => {
       });
     }, 2000);
 
-    if (item.type === "folder") {
-      openWindow(id, label, "folder", id, isMaximizable, iconSrc);
-    } else {
-      openWindow(id, label, "program", undefined, isMaximizable, iconSrc);
-    }
+    // Pass window data including isFullScreen
+    openWindow({
+      id,
+      title: label,
+      type: item.type,
+      folderId: item.type === "folder" ? id : undefined,
+      isMaximizable,
+      isFullScreen, // Include isFullScreen
+      iconSrc,
+    });
   }, [minimizedWindows, playWindowSound]);
 
   const handleMinimizeWindow = useCallback(async (windowId, windowData) => {

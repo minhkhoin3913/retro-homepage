@@ -1,4 +1,3 @@
-// src/hooks/useWindow.js
 import { useState, useCallback, useMemo } from 'react';
 
 export const useWindow = () => {
@@ -7,32 +6,33 @@ export const useWindow = () => {
   const [nextZIndex, setNextZIndex] = useState(1000);
 
   // Memoize window operations for better performance
-  const openWindow = useCallback((id, title, type = 'program', folderId = null, isMaximizable = true, iconSrc = null) => {
+  const openWindow = useCallback((windowData) => {
     setOpenWindows(prev => {
       // Check if window already exists
-      const existingWindow = prev.find(win => win.id === id);
-    if (existingWindow) {
+      const existingWindow = prev.find(win => win.id === windowData.id);
+      if (existingWindow) {
         // Just focus the existing window
-        focusWindow(id);
+        focusWindow(windowData.id);
         return prev;
-    }
+      }
 
-      // Create a new window with offset positioning based on existing windows
+      // Create a new window with offset positioning
       const offset = prev.length * 30;
-    const newWindow = {
-      id,
-      title,
-      type,
-      folderId,
-        isMaximizable,
-        iconSrc,
-      initialPosition: { x: 100 + offset, y: 100 + offset },
-      zIndex: nextZIndex,
-    };
+      const newWindow = {
+        id: windowData.id,
+        title: windowData.title,
+        type: windowData.type || 'program',
+        folderId: windowData.folderId || null,
+        isMaximizable: windowData.isMaximizable !== false,
+        isFullScreen: windowData.isFullScreen || false, // Add isFullScreen
+        iconSrc: windowData.iconSrc || null,
+        initialPosition: { x: 100 + offset, y: 100 + offset },
+        zIndex: nextZIndex,
+      };
 
       // Update the next z-index
       setNextZIndex(prevZ => prevZ + 1);
-    setFocusedWindow(id);
+      setFocusedWindow(windowData.id);
       
       return [...prev, newWindow];
     });
@@ -59,13 +59,13 @@ export const useWindow = () => {
   const focusWindow = useCallback((id) => {
     if (focusedWindow === id) return; // Already focused, no need to update
     
-      setFocusedWindow(id);
+    setFocusedWindow(id);
     setOpenWindows(prev => {
       return prev.map(win => 
-          win.id === id ? { ...win, zIndex: nextZIndex } : win
+        win.id === id ? { ...win, zIndex: nextZIndex } : win
       );
     });
-      setNextZIndex(prev => prev + 1);
+    setNextZIndex(prev => prev + 1);
   }, [focusedWindow, nextZIndex]);
 
   // Memoize the return value to prevent unnecessary re-renders

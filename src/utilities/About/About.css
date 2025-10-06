@@ -28,6 +28,13 @@
   height: 18px;
 }
 
+.portrait-image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .tree-connector {
   position: relative;
   margin-top: -4px;
@@ -74,7 +81,7 @@
   left: 7px;
   width: 1px;
   background-color: var(--windows-black);
-  height: calc(100% - 8px);
+  height: calc(100% - 8.3px);
   /* Adjust to end at the last li's midpoint */
 }
 
@@ -197,7 +204,8 @@
     align-items: flex-start;
   }
 
-  .placeholder {
-    margin-left: 0;
+  .portrait-image {
+    width: 48px;
+    height: 48px;
   }
 }

@@ -3,13 +3,12 @@ import Projects from "../utilities/Projects/Projects";
 import Contact from "../utilities/Contact/Contact";
 import Welcome from "../utilities/Welcome/Welcome";
 import Message from "../utilities/Message/Message";
+import StarShow from "../utilities/StarShow/StarShow";
 
 // Import your icons
 import logoIcon from "../assets/icons/Tree.ico";
 import cardIcon from "../assets/icons/Microsoft Windows 3 Cardfile.ico";
 import folderIcon from "../assets/icons/Microsoft Windows 3 Folder.ico";
-import solitaireIcon from "../assets/icons/Microsoft Windows 3 Solitaire.ico";
-import minesweeperIcon from "../assets/icons/Microsoft Windows 3 Minesweeper.ico";
 import notebookIcon from "../assets/icons/Microsoft Windows 3 Binder.ico";
 import calculatorIcon from "../assets/icons/Microsoft Windows 3 Calculator.ico";
 import calendarIcon from "../assets/icons/Microsoft Windows 3 Calendar.ico";
@@ -20,7 +19,6 @@ import newsIcon from "../assets/icons/Microsoft Windows 3 Newspaper.ico";
 import internetIcon from "../assets/icons/Microsoft Windows 3 International.ico";
 import cameraIcon from "../assets/icons/Microsoft Windows 3 Camera.ico";
 import paintIcon from "../assets/icons/Microsoft Windows 3 Paint Tools.ico";
-import pikachuIcon from "../assets/icons/Pikachu.ico";
 import dllSetupIcon from "../assets/icons/Certificate.ico";
 import briefcaseIcon from "../assets/icons/Microsoft Windows 3 Briefcase.ico";
 import computerIcon from "../assets/icons/Microsoft Windows 3 Computer.ico";
@@ -35,7 +33,6 @@ export const desktopItems = [
     iconSrc: computerIcon,
     type: "icon",
     isMaximizable: false,
-    positionRight: false,
   },
   {
     id: "certificates",
@@ -90,9 +87,18 @@ export const desktopItems = [
     id: "projects",
     label: "My Projects",
     iconSrc: briefcaseIcon,
-    type: "icon",
-    isMaximizable: false,
+    type: "folder",
     positionRight: false,
+    contents: [
+      {
+        id: "portfolio",
+        label: "Pane 97",
+        iconSrc: logoIcon,
+        type: "icon",
+        isMaximizable: false,
+        link: "https://minhkhoin3913.github.io/retro-homepage/",
+      },
+    ],
   },
   {
     id: "contact",
@@ -100,7 +106,6 @@ export const desktopItems = [
     iconSrc: cardIcon,
     type: "icon",
     isMaximizable: false,
-    positionRight: false,
   },
   {
     id: "message",
@@ -108,7 +113,6 @@ export const desktopItems = [
     iconSrc: faxIcon,
     type: "icon",
     isMaximizable: false,
-    positionRight: false,
   },
   {
     id: "welcome",
@@ -116,7 +120,6 @@ export const desktopItems = [
     iconSrc: logoIcon,
     type: "icon",
     isMaximizable: false,
-    positionRight: false,
   },
   {
     id: "programs",
@@ -152,6 +155,7 @@ export const desktopItems = [
         iconSrc: paintIcon,
         type: "icon",
         isMaximizable: true,
+        isFullScreen: true, // Enable full-screen for Canvas
       },
       {
         id: "clock",
@@ -197,6 +201,14 @@ export const desktopItems = [
       },
     ],
   },
+  {
+    id: "starshow",
+    label: "Star Show",
+    // iconSrc: logoIcon,
+    type: "icon",
+    positionRight: true,
+    isFullScreen: true,
+  },
 ];
 
 // Window content renderer function
@@ -212,6 +224,8 @@ export const renderWindowContent = (windowId, windowTitle) => {
       return <Welcome />;
     case "message":
       return <Message />;
+    case "starshow":
+      return <StarShow />;
     default:
       return (
         <div className="p-4">

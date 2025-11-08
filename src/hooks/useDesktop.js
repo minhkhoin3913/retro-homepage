@@ -14,10 +14,10 @@ export const useDesktop = () => {
     let rightIconIndex = 0;
     
     // Constants for positioning
-    const EDGE_PADDING = 24; // Consistent padding from edges
-    const ICON_SPACING = 98; // Vertical spacing between icons
+    const EDGE_PADDING = 20; // Consistent padding from edges
+    const ICON_SPACING = 96; // Vertical spacing between icons
     const ICON_WIDTH = 80; // Width of icon from CSS
-    const TOP_PADDING = 20; // Exact padding from the top of the menu bar
+    const TOP_PADDING = 16; // Exact padding from the top of the menu bar
     
     allDesktopItems.forEach((item) => {
       // Place items based on positionRight flag

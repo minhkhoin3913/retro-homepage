@@ -118,7 +118,7 @@ const LoadingScreen = ({ progress: initialProgress, onSkip }) => {
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
-    }, 500);
+    }, 250);
 
     let timeoutId;
     const displayLines = async () => {

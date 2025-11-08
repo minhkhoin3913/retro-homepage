@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "Fixedsys Excelsior 3.01";
-  src: url("/src/assets/fonts/FSEX300.ttf") format("truetype");
+  src: url("/src/assets/fonts/ModernDOS8x16.ttf") format("truetype");
 }
 
 :root {

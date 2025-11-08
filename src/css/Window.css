@@ -1,8 +1,8 @@
 .windows-window {
   background-color: #fcfcfc;
   border: 2px solid var(--windows-black);
-  outline: 3px outset #c0c4c8;
-  box-shadow: 0 0 0 5px var(--windows-black);
+  outline: 2px outset #c0c4c8;
+  box-shadow: 0 0 0 4px var(--windows-black);
   min-width: 320px;
   font-family: var(--main-font);
   
@@ -54,8 +54,8 @@
 }
 
 .control-button {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   font-weight: normal;
   font-family: var(--button-font);
   font-size: 26px;
@@ -110,8 +110,8 @@
   background-color: #fcfcfc;
   box-sizing: border-box;
   border: 2px solid var(--windows-black);
-  outline: 3px outset #c0c4c8;
-  box-shadow: 0 0 0 5px var(--windows-black);
+  outline: 2px outset #c0c4c8;
+  box-shadow: 0 0 0 4px var(--windows-black);
   width: 100vw !important;
   height: 100vh !important;
   top: 0 !important;
@@ -156,9 +156,9 @@
 /* Touch-friendly improvements */
 @media (max-width: 768px) { 
   .window-button.control-button {
-    min-width: 30px;
-    min-height: 30px;
-    font-size: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    font-size: 26px;
     display: flex;
     align-items: center;
     justify-content: center;

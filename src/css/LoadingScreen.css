@@ -15,8 +15,8 @@
 .loading-content {
   background-color: #fcfcfc;
   border: 2px solid var(--windows-black);
-  outline: 3px outset #c0c4c8;
-  box-shadow: 0 0 0 5px var(--windows-black);
+  outline: 2px outset #c0c4c8;
+  box-shadow: 0 0 0 4px var(--windows-black);
   width: 350px;
   height: 250px;
   box-sizing: border-box;
